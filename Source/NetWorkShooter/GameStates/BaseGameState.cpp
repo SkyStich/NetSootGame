@@ -4,6 +4,18 @@
 #include "BaseGameState.h"
 #include "Net/UnrealNetwork.h"
 
+ABaseGameState::ABaseGameState()
+{
+    PlayTime = FTimespan(0, 0, 30);
+}
+
+void ABaseGameState::BeginPlay()
+{
+    Super::BeginPlay();
+    
+    StartGameTimer();
+}
+
 void ABaseGameState::GetLifetimeReplicatedProps(TArray< FLifetimeProperty > & OutLifetimeProps) const
 {
     Super::GetLifetimeReplicatedProps(OutLifetimeProps);
@@ -14,7 +26,12 @@ void ABaseGameState::GetLifetimeReplicatedProps(TArray< FLifetimeProperty > & Ou
 void ABaseGameState::IncrementPlayTime()
 {
     FTimespan const TempSpan(0, 0, 1);
-    PlayTime += TempSpan;
+    PlayTime -= TempSpan;
+
+    if(PlayTime.IsZero())
+    {
+        MatchTimeIsOverEvent.Broadcast();
+    }
 }
 
 void ABaseGameState::StartGameTimer()
