@@ -20,11 +20,20 @@ public:
     
     virtual void GetLifetimeReplicatedProps(TArray< FLifetimeProperty > & OutLifetimeProps) const override;
 
-protected:
+    /** Increment and Decrement Number of kills for the whole match */
+    void IncrementNumberOfMurders() { NumberOfMurders++; }
+    void DecrementNumberOfMurders() { NumberOfMurders--; }
 
-    UPROPERTY(BlueprintReadOnly, Replicated, Category = State)
+    /** Increment of kills for the whole match */
+    void IncrementNumberOfDeaths() { NumberOfDeaths++; }
+
+private:
+
+    /** Number of kills for the whole match */
+    UPROPERTY(Replicated, Category = State)
     int32 NumberOfMurders;
-    
-    UPROPERTY(BlueprintReadOnly, Replicated, Category = State)
+
+    /** Number of deaths for the whole match */
+    UPROPERTY(Replicated, Category = State)
     int32 NumberOfDeaths;
 };

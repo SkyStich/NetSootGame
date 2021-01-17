@@ -29,6 +29,9 @@ public:
 	
 	ANetWorkShooterGameMode();
 
+	/** Change points, kills, deaths... For the killer and the murdered */
+	void UpDateDeathPoints(class ABasePlayerState* LoserState, class ABasePlayerState* InstigatorState);
+
 	/** Called when a player dies */
 	UFUNCTION()
 	virtual void CharacterDead(AController* LoserController, AController* DeathInstigator, AActor* KillingCauser);

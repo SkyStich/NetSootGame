@@ -40,7 +40,11 @@ void ANetWorkShooterGameMode::BeginPlay()
 void ANetWorkShooterGameMode::CharacterDead(AController* LoserController, AController* DeathInstigator, AActor* KillingCauser)
 {
 	PlayerDeadEvent.Broadcast(LoserController, DeathInstigator, KillingCauser);
-	
+
+	/** UpDate points, kills, deaths... For the killer and the murdered */
+	UpDateDeathPoints(LoserController->GetPlayerState<ABasePlayerState>(), DeathInstigator->GetPlayerState<ABasePlayerState>());
+
+	/** Spawn spectator for loser controller */
 	AMainSpectatorPawn* NewSpectatorPawn;
 	SpawnSpectator(LoserController, DeathInstigator, NewSpectatorPawn);
 }
@@ -67,11 +71,27 @@ void ANetWorkShooterGameMode::SpawnPlayer(AController* Controller)
 
 void ANetWorkShooterGameMode::StartGameMatch()  
 {
-	GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Green, TEXT("Match started"));
 	for(auto& ByArray : GameState->PlayerArray)
 	{
-		GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Green, TEXT("Match started loop"));
 		SpawnPlayer(Cast<AController>(ByArray->GetOwner()));
 	}
 	MatchStartedEvent.Broadcast();
+}
+
+void ANetWorkShooterGameMode::UpDateDeathPoints(ABasePlayerState* LoserState, ABasePlayerState* InstigatorState)
+{
+	if(LoserState != InstigatorState)
+	{
+		/** Add one death of loser controller */
+		LoserState->IncrementNumberOfDeaths();
+
+		/** Add one murber of the instigator controller */
+		InstigatorState->IncrementNumberOfMurders();
+	}
+	else
+	{
+		/** Add one death and reduce one of murder if we killed ourselves */
+		LoserState->DecrementNumberOfMurders();
+		LoserState->IncrementNumberOfDeaths();
+	}
 }
