@@ -21,7 +21,7 @@ ANetWorkShooterGameMode::ANetWorkShooterGameMode()
 
 	/** Inut start player and States */
 	bStartPlayersAsSpectators = true;
-	//GameStateClass = ABaseGameState::StaticClass();
+	GameStateClass = ABaseGameState::StaticClass();
 	PlayerStateClass = ABasePlayerState::StaticClass();
 }
 
