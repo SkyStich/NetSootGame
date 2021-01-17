@@ -21,8 +21,6 @@ class ANetWorkShooterGameMode : public AGameModeBase
 {
 	GENERATED_BODY()
 
-private:
-
 	void GetFreeSpawnPoints(TArray<APlayerStartBase*> & FreePoints);
 
 public:
@@ -69,6 +67,15 @@ protected:
 
 	/** Time before respawn the player */
 	float RespawnTime;
+
+private:
+
+	UPROPERTY(EditAnywhere)
+	FTimespan TimeLimitOfMatch;
+
+	/** If = 0, match have Not killLimit */
+	UPROPERTY(EditAnywhere)
+	int32 MatchWithKillLimit;
 };
 
 
