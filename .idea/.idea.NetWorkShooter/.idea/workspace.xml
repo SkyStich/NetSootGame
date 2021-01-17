@@ -4,17 +4,50 @@
     <projectFile>Intermediate/ProjectFiles/NetWorkShooter.vcxproj</projectFile>
     <projectFile>Intermediate/ProjectFiles/UE4.vcxproj</projectFile>
   </component>
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="4e895809-3b0e-414a-9fb7-267441527844" name="Default Changelist" comment="" />
+    <list default="true" id="4e895809-3b0e-414a-9fb7-267441527844" name="Default Changelist" comment="Added An update to the number of deaths and kills for the killer and the defeated">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.NetWorkShooter/.idea/contentModel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.NetWorkShooter/.idea/contentModel.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.NetWorkShooter/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.NetWorkShooter/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/ThirdPersonCPP/Blueprints/ThirdPersonCharacter.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/Blueprints/ThirdPersonCharacter.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/NetWorkShooter/GameStates/BaseGameState.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/NetWorkShooter/GameStates/BaseGameState.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/NetWorkShooter/GameStates/BaseGameState.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/NetWorkShooter/GameStates/BaseGameState.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/NetWorkShooter/NetWorkShooterGameMode.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/NetWorkShooter/NetWorkShooterGameMode.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/NetWorkShooter/NetWorkShooterGameMode.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/NetWorkShooter/NetWorkShooterGameMode.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/NetWorkShooter/PlayerState/BasePlayerState.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/NetWorkShooter/PlayerState/BasePlayerState.h" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="mock://D:/Unreal/NetWorkShooter/Source/NetWorkShooter/NetWorkShooterGameMode.h" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://D:/Unreal/NetWorkShooter/Source/NetWorkShooter/NetWorkShooterGameMode.cpp" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/NetWorkShooter/DataAssets/WeaponDataAssetBase.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/NetWorkShooter/Objects/WeaponObject/MainWeaponObject.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/NetWorkShooter/Components/WeaponManagerComponent.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="mock://D:/Unreal/NetWorkShooter/Source/NetWorkShooter/GameModes/EveryManForHimselfGameMode.cpp" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
@@ -43,20 +76,23 @@
         <option value="$PROJECT_DIR$/Source/NetWorkShooter/Controllers/PlayerControllers/MainPlayerController.cpp" />
         <option value="$PROJECT_DIR$/Source/NetWorkShooter/Components/HealthComponent.h" />
         <option value="$PROJECT_DIR$/Source/NetWorkShooter/NetWorkShooterCharacter.h" />
-        <option value="$PROJECT_DIR$/Source/NetWorkShooter/GameModes/EveryManForHimselfGameMode.h" />
-        <option value="$PROJECT_DIR$/Source/NetWorkShooter/GameModes/EveryManForHimselfGameMode.cpp" />
         <option value="$PROJECT_DIR$/Source/NetWorkShooter/PlayerStart/PlayerStartBase.h" />
-        <option value="$PROJECT_DIR$/Source/NetWorkShooter/NetWorkShooterGameMode.cpp" />
         <option value="$PROJECT_DIR$/Source/NetWorkShooter/PlayerStart/PlayerStartBase.cpp" />
         <option value="$PROJECT_DIR$/Source/NetWorkShooter/Components/HealthComponent.cpp" />
-        <option value="$PROJECT_DIR$/Source/NetWorkShooter/NetWorkShooterGameMode.h" />
         <option value="$PROJECT_DIR$/Source/NetWorkShooter/NetWorkShooterCharacter.cpp" />
-        <option value="$PROJECT_DIR$/Source/NetWorkShooter/PlayerState/BasePlayerState.h" />
         <option value="$PROJECT_DIR$/Source/NetWorkShooter/PlayerState/BasePlayerState.cpp" />
+        <option value="$PROJECT_DIR$/Source/NetWorkShooter/GameModes/EveryManForHimselfGameMode.h" />
+        <option value="$PROJECT_DIR$/Source/NetWorkShooter/GameModes/EveryManForHimselfGameMode.cpp" />
+        <option value="$PROJECT_DIR$/Source/NetWorkShooter/NetWorkShooterGameMode.h" />
+        <option value="$PROJECT_DIR$/Source/NetWorkShooter/NetWorkShooterGameMode.cpp" />
+        <option value="$PROJECT_DIR$/Source/NetWorkShooter/PlayerState/BasePlayerState.h" />
+        <option value="$PROJECT_DIR$/Source/NetWorkShooter/GameStates/BaseGameState.h" />
+        <option value="$PROJECT_DIR$/Source/NetWorkShooter/GameStates/BaseGameState.cpp" />
       </list>
     </option>
   </component>
   <component name="ProjectId" id="1mU45q9rLP6Qu9cx4YAzOsfUBVp" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -333,7 +369,38 @@
       <workItem from="1610739558515" duration="15581000" />
       <workItem from="1610796141671" duration="5308000" />
       <workItem from="1610815279795" duration="12606000" />
+      <workItem from="1610843280065" duration="8512000" />
+      <workItem from="1610880725973" duration="14432000" />
     </task>
+    <task id="LOCAL-00001" summary="init override function SpawnPlayer">
+      <created>1610844415255</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1610844415255</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Added a function to increment round time by one second">
+      <created>1610845811960</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1610845811960</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Implemented the start of the match and the spawn of player by timer">
+      <created>1610891958969</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1610891958969</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Added An update to the number of deaths and kills for the killer and the defeated">
+      <created>1610893978416</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1610893978416</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -341,8 +408,25 @@
   </component>
   <component name="UnityProjectConfiguration" hasMinimizedUI="false" />
   <component name="UnityUnitTestConfiguration" currentTestLauncher="NUnit" />
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
+    <MESSAGE value="init override function SpawnPlayer" />
+    <MESSAGE value="Added a function to increment round time by one second" />
+    <MESSAGE value="Implemented the start of the match and the spawn of player by timer" />
+    <MESSAGE value="Added An update to the number of deaths and kills for the killer and the defeated" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added An update to the number of deaths and kills for the killer and the defeated" />
   </component>
   <component name="WindowStateProjectService">
     <state x="137" y="19" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1609791402661">
@@ -353,30 +437,38 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="557" y="280" key="ANALYSIS_DLG_com.jetbrains.rider.actions.impl.cleanup.ChooseSilentCodeCleanupProfileDialog/0.0.1366.728@0.0.1366.728" timestamp="1610558555541" />
-    <state width="1323" height="179" key="GridCell.Tab.0.bottom" timestamp="1610829476561">
+    <state width="1323" height="179" key="GridCell.Tab.0.bottom" timestamp="1610900581720">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1323" height="179" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1610829476561" />
-    <state width="1323" height="179" key="GridCell.Tab.0.center" timestamp="1610829476561">
+    <state width="1323" height="179" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1610900581720" />
+    <state width="1323" height="179" key="GridCell.Tab.0.center" timestamp="1610900581720">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1323" height="179" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1610829476561" />
-    <state width="1323" height="179" key="GridCell.Tab.0.left" timestamp="1610829476560">
+    <state width="1323" height="179" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1610900581720" />
+    <state width="1323" height="179" key="GridCell.Tab.0.left" timestamp="1610900581720">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1323" height="179" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1610829476560" />
-    <state width="1323" height="179" key="GridCell.Tab.0.right" timestamp="1610829476561">
+    <state width="1323" height="179" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1610900581720" />
+    <state width="1323" height="179" key="GridCell.Tab.0.right" timestamp="1610900581720">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1323" height="179" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1610829476561" />
-    <state x="339" y="162" key="run.anything.popup" timestamp="1610643471398">
+    <state width="1323" height="179" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1610900581720" />
+    <state x="275" y="97" key="Vcs.Push.Dialog.v2" timestamp="1610844796628">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="339" y="162" key="run.anything.popup/0.0.1366.728@0.0.1366.728" timestamp="1610643471398" />
-    <state x="346" y="49" width="672" height="678" key="search.everywhere.popup" timestamp="1610406200285">
+    <state x="275" y="97" key="Vcs.Push.Dialog.v2/0.0.1366.728@0.0.1366.728" timestamp="1610844796628" />
+    <state x="500" y="278" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1610851927642">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="346" y="49" width="672" height="678" key="search.everywhere.popup/0.0.1366.728@0.0.1366.728" timestamp="1610406200285" />
+    <state x="500" y="278" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1366.728@0.0.1366.728" timestamp="1610851927642" />
+    <state x="339" y="162" key="run.anything.popup" timestamp="1610846936441">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="339" y="162" key="run.anything.popup/0.0.1366.728@0.0.1366.728" timestamp="1610846936441" />
+    <state x="346" y="49" width="672" height="678" key="search.everywhere.popup" timestamp="1610900635261">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="346" y="49" width="672" height="678" key="search.everywhere.popup/0.0.1366.728@0.0.1366.728" timestamp="1610900635261" />
     <state x="405" y="277" key="vcs.readOnlyHandler.ReadOnlyStatusDialog" timestamp="1610402472868">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
