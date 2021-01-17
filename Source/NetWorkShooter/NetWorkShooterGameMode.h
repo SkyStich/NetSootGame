@@ -13,6 +13,9 @@ class APlayerStartBase;
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_ThreeParams(FPlayerDeadEvent, AController*, LoserController, AController*, InstigatedBy, AActor*, KillingCauser);
 
+/** Bind when the match has started directly (All players are ready and can perform actions)*/
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FMatchStarted);
+
 UCLASS(minimalapi)
 class ANetWorkShooterGameMode : public AGameModeBase
 {
@@ -38,11 +41,18 @@ public:
 	UFUNCTION()
 	virtual void SpawnSpectator(AController* LoserController, AController* DeathInstigator , AMainSpectatorPawn* & NewSpectator) {  }
 
+	/** The function is called when the match has started directly (All players are ready and can perform actions) */
+	UFUNCTION()
+	void StartGameMatch();
+
 protected:
 
 	void BeginPlay() override;
 
 public:
+
+	UPROPERTY(BlueprintAssignable)
+	FMatchStarted MatchStartedEvent;
 
 	FPlayerDeadEvent PlayerDeadEvent;
 

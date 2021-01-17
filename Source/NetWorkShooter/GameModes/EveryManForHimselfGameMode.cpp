@@ -6,6 +6,11 @@
 #include "../Spectators/MoveSpectatorToKiller.h"
 #include "NetWorkShooter/PlayerStart/PlayerStartBase.h"
 
+void AEveryManForHimselfGameMode::BeginPlay()
+{
+    Super::BeginPlay();
+}
+
 void AEveryManForHimselfGameMode::CharacterDead(AController* LoserController, AController* InstigatedBy, AActor* KillingCauser)
 {
     Super::CharacterDead(LoserController, InstigatedBy, KillingCauser);

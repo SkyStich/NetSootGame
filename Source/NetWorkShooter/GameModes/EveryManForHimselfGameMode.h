@@ -11,7 +11,10 @@ class NETWORKSHOOTER_API AEveryManForHimselfGameMode : public ANetWorkShooterGam
 {
 	GENERATED_BODY()
 
+protected:
 
+		virtual void BeginPlay() override;
+	
 public:
 
 	virtual void CharacterDead(AController* LoserController, AController* InstigatedBy, AActor* KillingCauser) override;
