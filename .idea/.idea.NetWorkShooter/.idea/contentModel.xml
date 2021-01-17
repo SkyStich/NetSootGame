@@ -48469,6 +48469,7 @@
       <e p="UE4Game.Target.cs" t="Include" />
     </e>
     <e p="D:\Unreal\NetWorkShooter" t="IncludeFlat">
+      <e p=".gitignore" t="Include" />
       <e p="Config" t="Include">
         <e p="DefaultEditor.ini" t="Include" />
         <e p="DefaultEditorPerProjectUserSettings.ini" t="Include" />
@@ -48486,6 +48487,7 @@
       <e p="NetWorkShooter.sln" t="IncludeFlat" />
       <e p="NetWorkShooter.uproject" t="Include" />
       <e p="packages" t="ExcludeRecursive" />
+      <e p="README.md" t="Include" />
       <e p="Source" t="Include">
         <e p="NetWorkShooter" t="Include">
           <e p="Actors" t="Include">
@@ -48515,6 +48517,8 @@
           <e p="GameStates" t="Include">
             <e p="BaseGameState.cpp" t="Include" />
             <e p="BaseGameState.h" t="Include" />
+            <e p="EveryManForHimselfGameState.cpp" t="Include" />
+            <e p="EveryManForHimselfGameState.h" t="Include" />
           </e>
           <e p="Interfaces" t="Include">
             <e p="Interaction.cpp" t="Include" />
