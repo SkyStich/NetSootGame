@@ -24,9 +24,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4e895809-3b0e-414a-9fb7-267441527844" name="Default Changelist" comment="Added An update to the number of deaths and kills for the killer and the defeated">
+      <change afterPath="$PROJECT_DIR$/Source/NetWorkShooter/GameStates/EveryManForHimselfGameState.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Source/NetWorkShooter/GameStates/EveryManForHimselfGameState.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.NetWorkShooter/.idea/contentModel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.NetWorkShooter/.idea/contentModel.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.NetWorkShooter/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.NetWorkShooter/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/ThirdPersonCPP/Blueprints/ThirdPersonCharacter.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/Blueprints/ThirdPersonCharacter.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/NetWorkShooter/GameModes/EveryManForHimselfGameMode.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/NetWorkShooter/GameModes/EveryManForHimselfGameMode.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/NetWorkShooter/GameModes/EveryManForHimselfGameMode.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/NetWorkShooter/GameModes/EveryManForHimselfGameMode.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/NetWorkShooter/GameStates/BaseGameState.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/NetWorkShooter/GameStates/BaseGameState.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/NetWorkShooter/GameStates/BaseGameState.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/NetWorkShooter/GameStates/BaseGameState.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/NetWorkShooter/NetWorkShooterGameMode.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/NetWorkShooter/NetWorkShooterGameMode.cpp" afterDir="false" />
@@ -42,12 +45,9 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="mock://D:/Unreal/NetWorkShooter/Source/NetWorkShooter/NetWorkShooterGameMode.h" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://D:/Unreal/NetWorkShooter/Source/NetWorkShooter/NetWorkShooterGameMode.cpp" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/NetWorkShooter/DataAssets/WeaponDataAssetBase.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/NetWorkShooter/Objects/WeaponObject/MainWeaponObject.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/NetWorkShooter/Components/WeaponManagerComponent.h" root0="FORCE_HIGHLIGHTING" />
-    <setting file="mock://D:/Unreal/NetWorkShooter/Source/NetWorkShooter/GameModes/EveryManForHimselfGameMode.cpp" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
@@ -82,12 +82,14 @@
         <option value="$PROJECT_DIR$/Source/NetWorkShooter/NetWorkShooterCharacter.cpp" />
         <option value="$PROJECT_DIR$/Source/NetWorkShooter/PlayerState/BasePlayerState.cpp" />
         <option value="$PROJECT_DIR$/Source/NetWorkShooter/GameModes/EveryManForHimselfGameMode.h" />
+        <option value="$PROJECT_DIR$/Source/NetWorkShooter/PlayerState/BasePlayerState.h" />
         <option value="$PROJECT_DIR$/Source/NetWorkShooter/GameModes/EveryManForHimselfGameMode.cpp" />
         <option value="$PROJECT_DIR$/Source/NetWorkShooter/NetWorkShooterGameMode.h" />
         <option value="$PROJECT_DIR$/Source/NetWorkShooter/NetWorkShooterGameMode.cpp" />
-        <option value="$PROJECT_DIR$/Source/NetWorkShooter/PlayerState/BasePlayerState.h" />
         <option value="$PROJECT_DIR$/Source/NetWorkShooter/GameStates/BaseGameState.h" />
         <option value="$PROJECT_DIR$/Source/NetWorkShooter/GameStates/BaseGameState.cpp" />
+        <option value="$PROJECT_DIR$/Source/NetWorkShooter/GameStates/EveryManForHimselfGameState.h" />
+        <option value="$PROJECT_DIR$/Source/NetWorkShooter/GameStates/EveryManForHimselfGameState.cpp" />
       </list>
     </option>
   </component>
@@ -370,7 +372,8 @@
       <workItem from="1610796141671" duration="5308000" />
       <workItem from="1610815279795" duration="12606000" />
       <workItem from="1610843280065" duration="8512000" />
-      <workItem from="1610880725973" duration="14432000" />
+      <workItem from="1610880725973" duration="26009000" />
+      <workItem from="1610921657155" duration="5303000" />
     </task>
     <task id="LOCAL-00001" summary="init override function SpawnPlayer">
       <created>1610844415255</created>
@@ -437,22 +440,22 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="557" y="280" key="ANALYSIS_DLG_com.jetbrains.rider.actions.impl.cleanup.ChooseSilentCodeCleanupProfileDialog/0.0.1366.728@0.0.1366.728" timestamp="1610558555541" />
-    <state width="1323" height="179" key="GridCell.Tab.0.bottom" timestamp="1610900581720">
+    <state width="1323" height="179" key="GridCell.Tab.0.bottom" timestamp="1610917122346">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1323" height="179" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1610900581720" />
-    <state width="1323" height="179" key="GridCell.Tab.0.center" timestamp="1610900581720">
+    <state width="1323" height="179" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1610917122345" />
+    <state width="1323" height="179" key="GridCell.Tab.0.center" timestamp="1610917122344">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1323" height="179" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1610900581720" />
-    <state width="1323" height="179" key="GridCell.Tab.0.left" timestamp="1610900581720">
+    <state width="1323" height="179" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1610917122344" />
+    <state width="1323" height="179" key="GridCell.Tab.0.left" timestamp="1610917122315">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1323" height="179" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1610900581720" />
-    <state width="1323" height="179" key="GridCell.Tab.0.right" timestamp="1610900581720">
+    <state width="1323" height="179" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1610917122315" />
+    <state width="1323" height="179" key="GridCell.Tab.0.right" timestamp="1610917122345">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1323" height="179" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1610900581720" />
+    <state width="1323" height="179" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1610917122345" />
     <state x="275" y="97" key="Vcs.Push.Dialog.v2" timestamp="1610844796628">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
@@ -461,10 +464,10 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="500" y="278" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1366.728@0.0.1366.728" timestamp="1610851927642" />
-    <state x="339" y="162" key="run.anything.popup" timestamp="1610846936441">
+    <state x="339" y="162" key="run.anything.popup" timestamp="1610922640270">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="339" y="162" key="run.anything.popup/0.0.1366.728@0.0.1366.728" timestamp="1610846936441" />
+    <state x="339" y="162" key="run.anything.popup/0.0.1366.728@0.0.1366.728" timestamp="1610922640270" />
     <state x="346" y="49" width="672" height="678" key="search.everywhere.popup" timestamp="1610900635261">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
