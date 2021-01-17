@@ -30,10 +30,10 @@ public:
 private:
 
     /** Number of kills for the whole match */
-    UPROPERTY(Replicated, Category = State)
+    UPROPERTY(Replicated)
     int32 NumberOfMurders;
 
     /** Number of deaths for the whole match */
-    UPROPERTY(Replicated, Category = State)
+    UPROPERTY(Replicated)
     int32 NumberOfDeaths;
 };
