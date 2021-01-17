@@ -6,11 +6,10 @@
 #include "GameFramework/GameState.h"
 #include "BaseGameState.generated.h"
 
-/**
- * 
- */
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FMatchTimeIsOver);
+
 UCLASS()
-class NETWORKSHOOTER_API ABaseGameState : public AGameState
+class NETWORKSHOOTER_API ABaseGameState : public AGameStateBase
 {
 	GENERATED_BODY()
 
@@ -20,6 +19,8 @@ class NETWORKSHOOTER_API ABaseGameState : public AGameState
     
 public:
 
+    ABaseGameState();
+
     /** Start time for increment One second in PlayTime */
     UFUNCTION()
     void StartGameTimer();
@@ -28,11 +29,18 @@ public:
     
 protected:
 
+    virtual void BeginPlay() override;
+
     /** Game duration */
-    UPROPERTY(Replicated, BlueprintReadOnly, Category = "GameState|PlayTime")
+    UPROPERTY(Replicated, EditAnywhere, BlueprintReadOnly, Category = "GameState|PlayTime")
     FTimespan PlayTime;
 
 private:
 
     FTimerHandle TimeTickHandle;
+
+public:
+
+    UPROPERTY(BlueprintAssignable)
+    FMatchTimeIsOver MatchTimeIsOverEvent;
 };
