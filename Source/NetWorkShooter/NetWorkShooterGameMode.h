@@ -16,19 +16,20 @@ DECLARE_DYNAMIC_MULTICAST_DELEGATE_ThreeParams(FPlayerDeadEvent, AController*, L
 /** Bind when the match has started directly (All players are ready and can perform actions)*/
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FMatchStarted);
 
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FMatchEnded, FString, StopReason);
+
 UCLASS(minimalapi)
 class ANetWorkShooterGameMode : public AGameModeBase
 {
 	GENERATED_BODY()
 
 	void GetFreeSpawnPoints(TArray<APlayerStartBase*> & FreePoints);
-
 public:
 	
 	ANetWorkShooterGameMode();
 
 	/** Change points, kills, deaths... For the killer and the murdered */
-	void UpDateDeathPoints(class ABasePlayerState* LoserState, class ABasePlayerState* InstigatorState);
+	virtual void UpDateDeathPoints(class ABasePlayerState* LoserState, class ABasePlayerState* InstigatorState);
 
 	/** Called when a player dies */
 	UFUNCTION()
@@ -44,26 +45,28 @@ public:
 
 	/** The function is called when the match has started directly (All players are ready and can perform actions) */
 	UFUNCTION()
-	void StartGameMatch();
+	virtual void StartGameMatch();
 
 protected:
 
-	void BeginPlay() override;
+	virtual void BeginPlay() override;
+	virtual void MatchTimeEnded();
 
+	/** Called when  match be stop*/
+	virtual void StopGameMatch();
 public:
 
-	UPROPERTY(BlueprintAssignable)
 	FMatchStarted MatchStartedEvent;
+	FMatchEnded OnMatchStopEvent;
 
+	UPROPERTY(BlueprintAssignable)
 	FPlayerDeadEvent PlayerDeadEvent;
-
+	
 protected:
 
+	/** All points where can be spawn the player  */
 	UPROPERTY()
 	TArray<AActor*> AllStartPoints;
-
-	/** Can auto respawn player's */
-	bool bAutoRespawn;
 
 	/** Time before respawn the player */
 	float RespawnTime;
@@ -71,11 +74,7 @@ protected:
 private:
 
 	UPROPERTY(EditAnywhere)
-	FTimespan TimeLimitOfMatch;
-
-	/** If = 0, match have Not killLimit */
-	UPROPERTY(EditAnywhere)
-	int32 MatchWithKillLimit;
+	FTimespan MaxMatchTime;
 };
 
 
