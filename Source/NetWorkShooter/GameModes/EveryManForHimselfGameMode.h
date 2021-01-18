@@ -11,13 +11,16 @@ class NETWORKSHOOTER_API AEveryManForHimselfGameMode : public ANetWorkShooterGam
 {
 	GENERATED_BODY()
 
-protected:
-
-		virtual void BeginPlay() override;
-	
 public:
 
+	AEveryManForHimselfGameMode();
+	
 	virtual void CharacterDead(AController* LoserController, AController* InstigatedBy, AActor* KillingCauser) override;
 	virtual void SpawnPlayer(AController* Controller) override;
 	virtual void SpawnSpectator(AController* LoserController, AController* DeathInstigator , AMainSpectatorPawn* & NewSpectator) override;
+
+protected:
+
+	virtual void BeginPlay() override;
+
 };
