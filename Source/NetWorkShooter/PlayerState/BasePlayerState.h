@@ -27,6 +27,8 @@ public:
     /** Increment of kills for the whole match */
     void IncrementNumberOfDeaths() { NumberOfDeaths++; }
 
+    int32 GetNumberOfMurders() const { return  NumberOfMurders; }
+
 private:
 
     /** Number of kills for the whole match */
