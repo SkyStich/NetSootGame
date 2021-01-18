@@ -4,9 +4,12 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/GameState.h"
+#include "../NetWorkShooterGameMode.h"
 #include "BaseGameState.generated.h"
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FMatchTimeIsOver);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FMatchEnd, FString, Reason);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FMatchStart);
 
 UCLASS()
 class NETWORKSHOOTER_API ABaseGameState : public AGameStateBase
@@ -16,6 +19,14 @@ class NETWORKSHOOTER_API ABaseGameState : public AGameStateBase
     /** Add to PlayTime One Second*/
     UFUNCTION()
     void IncrementPlayTime();
+
+    UFUNCTION(NetMulticast, Reliable)
+    void MulticastMatchEnd(const FString& Reason);
+    void MulticastMatchEnd_Implementation(const FString& Reason);
+    
+    UFUNCTION(NetMulticast, Reliable)
+    void MulticastMatchStart();
+    void MulticastMatchStart_Implementation();
     
 public:
 
@@ -26,6 +37,8 @@ public:
     void StartGameTimer();
 
     virtual void GetLifetimeReplicatedProps(TArray< FLifetimeProperty > & OutLifetimeProps) const override;
+    virtual void MatchStart();
+    virtual void MatchEnd(FString Reason);
     
 protected:
 
@@ -35,12 +48,21 @@ protected:
     UPROPERTY(Replicated, EditAnywhere, BlueprintReadOnly, Category = "GameState|PlayTime")
     FTimespan PlayTime;
 
+    ANetWorkShooterGameMode* MainGameMode;
+
 private:
 
+    /** Current game time */
     FTimerHandle TimeTickHandle;
 
 public:
 
     UPROPERTY(BlueprintAssignable)
-    FMatchTimeIsOver MatchTimeIsOverEvent;
+    FMatchTimeIsOver OnMatchTimeIsOverEvent;
+
+    UPROPERTY(BlueprintAssignable)
+    FMatchEnd OnMatchEndedEvent;
+
+    UPROPERTY(BlueprintAssignable)
+    FMatchStarted OnMatchStartedEvent;
 };
