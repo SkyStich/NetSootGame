@@ -4,7 +4,14 @@
 #include "Engine/World.h"
 #include "Kismet/GameplayStatics.h"
 #include "../Spectators/MoveSpectatorToKiller.h"
-#include "NetWorkShooter/PlayerStart/PlayerStartBase.h"
+#include "../PlayerState/BasePlayerState.h"
+#include "NetWorkShooter/GameStates/EveryManForHimselfGameState.h"
+
+AEveryManForHimselfGameMode::AEveryManForHimselfGameMode()
+{
+    PlayerStateClass = ABasePlayerState::StaticClass();
+    GameStateClass = AEveryManForHimselfGameState::StaticClass();
+}
 
 void AEveryManForHimselfGameMode::BeginPlay()
 {
