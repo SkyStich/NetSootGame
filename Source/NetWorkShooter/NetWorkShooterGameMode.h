@@ -29,6 +29,7 @@ public:
 	ANetWorkShooterGameMode();
 
 	/** Change points, kills, deaths... For the killer and the murdered */
+	UFUNCTION()
 	virtual void UpDateDeathPoints(class ABasePlayerState* LoserState, class ABasePlayerState* InstigatorState);
 
 	/** Called when a player dies */
@@ -50,9 +51,12 @@ public:
 protected:
 
 	virtual void BeginPlay() override;
+
+	UFUNCTION()
 	virtual void MatchTimeEnded();
 
 	/** Called when  match be stop*/
+	UFUNCTION()
 	virtual void StopGameMatch();
 public:
 

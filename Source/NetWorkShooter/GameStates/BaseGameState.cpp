@@ -6,7 +6,7 @@
 
 ABaseGameState::ABaseGameState()
 {
-    PlayTime = FTimespan(0, 0, 30);
+  
 }
 
 void ABaseGameState::BeginPlay()
@@ -15,9 +15,9 @@ void ABaseGameState::BeginPlay()
 
     if(GetLocalRole() == ROLE_Authority)
     {
-        MainGameMode = Cast<ANetWorkShooterGameMode>(AuthorityGameMode);
-        MainGameMode->OnMatchStopEvent.AddDynamic(this, &ABaseGameState::MatchEnd);
-        MainGameMode->MatchStartedEvent.AddDynamic(this, &ABaseGameState::MatchStart);
+       // auto const MainGameMode = Cast<ANetWorkShooterGameMode>(AuthorityGameMode);
+       // MainGameMode->OnMatchStopEvent.AddDynamic(this, &ABaseGameState::MatchEnd);
+       // MainGameMode->MatchStartedEvent.AddDynamic(this, &ABaseGameState::MatchStart);
     }
 }
 
@@ -30,7 +30,7 @@ void ABaseGameState::GetLifetimeReplicatedProps(TArray< FLifetimeProperty > & Ou
 
 void ABaseGameState::MatchStart()
 {
-    StartGameTimer();
+    PlayTime = FTimespan(0, 0, 30);
     MulticastMatchStart();
 }
 
@@ -52,9 +52,10 @@ void ABaseGameState::MulticastMatchStart_Implementation()
 
 void ABaseGameState::IncrementPlayTime()
 {
-    PlayTime -= FTimespan(0, 0, 1);
+    static FTimespan const DecrementTineFTimespan(0, 0, 1);
+    PlayTime -= DecrementTineFTimespan; 
 
-    if(PlayTime.IsZero())
+    if(PlayTime == FTimespan(0, 0, 0))
     {
         OnMatchTimeIsOverEvent.Broadcast();
     }

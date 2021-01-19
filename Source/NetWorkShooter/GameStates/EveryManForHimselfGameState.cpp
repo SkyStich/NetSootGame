@@ -12,3 +12,12 @@ void AEveryManForHimselfGameState::GetLifetimeReplicatedProps(TArray< FLifetimeP
 {
     Super::GetLifetimeReplicatedProps(OutLifetimeProps);
 }
+
+void AEveryManForHimselfGameState::MatchStart()
+{
+    if(GetLocalRole() == ROLE_Authority)
+    {
+        StartGameTimer();
+    }
+    Super::MatchStart();
+}

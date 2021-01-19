@@ -19,6 +19,7 @@ public:
 	AEveryManForHimselfGameState();
 
 	virtual void GetLifetimeReplicatedProps(TArray< FLifetimeProperty > & OutLifetimeProps) const override;
+	virtual void MatchStart() override;
 
 protected:
 

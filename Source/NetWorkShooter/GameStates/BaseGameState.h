@@ -37,7 +37,11 @@ public:
     void StartGameTimer();
 
     virtual void GetLifetimeReplicatedProps(TArray< FLifetimeProperty > & OutLifetimeProps) const override;
+
+    UFUNCTION()
     virtual void MatchStart();
+
+    UFUNCTION()
     virtual void MatchEnd(FString Reason);
     
 protected:
@@ -47,8 +51,6 @@ protected:
     /** Game duration */
     UPROPERTY(Replicated, EditAnywhere, BlueprintReadOnly, Category = "GameState|PlayTime")
     FTimespan PlayTime;
-
-    ANetWorkShooterGameMode* MainGameMode;
 
 private:
 

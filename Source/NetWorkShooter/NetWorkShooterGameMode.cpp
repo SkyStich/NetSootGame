@@ -32,7 +32,7 @@ void ANetWorkShooterGameMode::BeginPlay()
 
 	/** Start match */
 	FTimerHandle StartHandle;
-	GetWorld()->GetTimerManager().SetTimer(StartHandle, this, ANetWorkShooterGameMode::StartGameMatch, 1.f, false);
+	GetWorld()->GetTimerManager().SetTimer(StartHandle, this, &ANetWorkShooterGameMode::StartGameMatch, 3.f, false);
 
 	/** Bind on end match if time exit */
 	GetGameState<ABaseGameState>()->OnMatchTimeIsOverEvent.AddDynamic(this, &ANetWorkShooterGameMode::MatchTimeEnded);
