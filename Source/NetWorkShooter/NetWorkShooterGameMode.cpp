@@ -92,7 +92,7 @@ void ANetWorkShooterGameMode::StopGameMatch()
 	/** Get all  player state and block input him controllers*/
 	for(auto& ByArray : GameState->PlayerArray)
 	{
-		GetOwner()->InputComponent->bBlockInput = true;
+	//	GetOwner()->InputComponent->bBlockInput = true;
 	}
 }
 

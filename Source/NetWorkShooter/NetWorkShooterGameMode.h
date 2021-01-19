@@ -74,11 +74,6 @@ protected:
 
 	/** Time before respawn the player */
 	float RespawnTime;
-
-private:
-
-	UPROPERTY(EditAnywhere)
-	FTimespan MaxMatchTime;
 };
 
 

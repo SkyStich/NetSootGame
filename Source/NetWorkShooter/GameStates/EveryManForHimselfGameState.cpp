@@ -5,7 +5,10 @@
 
 AEveryManForHimselfGameState::AEveryManForHimselfGameState()
 {
-   
+    if(GetLocalRole() == ROLE_Authority)
+    {
+        MatchDurationTime = FTimespan(0, 2, 0);
+    }
 }
 
 void AEveryManForHimselfGameState::GetLifetimeReplicatedProps(TArray< FLifetimeProperty > & OutLifetimeProps) const
