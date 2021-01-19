@@ -6,9 +6,8 @@
 #include "GameFramework/PlayerState.h"
 #include "BasePlayerState.generated.h"
 
-/**
- * 
- */
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FUpdateStateKDA);
+
 UCLASS()
 class NETWORKSHOOTER_API ABasePlayerState : public APlayerState
 {
@@ -21,13 +20,17 @@ public:
     virtual void GetLifetimeReplicatedProps(TArray< FLifetimeProperty > & OutLifetimeProps) const override;
 
     /** Increment and Decrement Number of kills for the whole match */
-    void IncrementNumberOfMurders() { NumberOfMurders++; }
-    void DecrementNumberOfMurders() { NumberOfMurders--; }
-
+    void IncrementNumberOfMurders();
+    void DecrementNumberOfMurders();
+    
     /** Increment of kills for the whole match */
-    void IncrementNumberOfDeaths() { NumberOfDeaths++; }
-
+    void IncrementNumberOfDeaths();
+    
+    UFUNCTION(BlueprintPure)
     int32 GetNumberOfMurders() const { return  NumberOfMurders; }
+    
+     UFUNCTION(BlueprintPure)
+     int32 GetNumberOfDeaths() const { return  NumberOfDeaths; }
 
 private:
 
@@ -38,4 +41,9 @@ private:
     /** Number of deaths for the whole match */
     UPROPERTY(Replicated)
     int32 NumberOfDeaths;
+
+public:
+
+    UPROPERTY(BlueprintAssignable)
+    FUpdateStateKDA OnUpdateStateKDAEvent;
 };
