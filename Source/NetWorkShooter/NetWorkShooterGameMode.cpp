@@ -103,7 +103,7 @@ void ANetWorkShooterGameMode::UpDateDeathPoints(ABasePlayerState* LoserState, AB
 		/** Add one death of loser controller */
 		LoserState->IncrementNumberOfDeaths();
 
-		/** Add one murber of the instigator controller */
+		/** Add one murber of the instigator controller */ 
 		InstigatorState->IncrementNumberOfMurders();
 	}
 	else
