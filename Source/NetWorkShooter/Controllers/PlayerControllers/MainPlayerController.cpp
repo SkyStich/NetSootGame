@@ -30,6 +30,8 @@ void AMainPlayerController::SetupInputComponent()
     }
 
     InputComponent->BindAction("PlayerRespawn", IE_Released, this, &AMainPlayerController::RespawnKeyReleased);
+    InputComponent->BindAction("TabMenu", IE_Pressed, this, &AMainPlayerController::ToggleTabMenu);
+    InputComponent->BindAction("TabMenu", IE_Released, this, &AMainPlayerController::HideTabMenu);
 }
 
 void AMainPlayerController::LauchRespawnTimer(float const TimeBeforeRespawn)

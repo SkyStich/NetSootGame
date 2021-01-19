@@ -31,6 +31,12 @@ public:
 protected:
 
 	virtual void SetupInputComponent() override;
+	
+	UFUNCTION(BlueprintImplementableEvent)
+	void ToggleTabMenu();
+
+	UFUNCTION(BlueprintImplementableEvent)
+	void HideTabMenu();
 
 private:
 
