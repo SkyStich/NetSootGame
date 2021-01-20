@@ -24,12 +24,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4e895809-3b0e-414a-9fb7-267441527844" name="Default Changelist" comment="Fixed a bug with starting the timer and a but when at the start of the game either one player or zero was compared(remainder in the base spectator field)">
-      <change afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/UI/TabMenu/Design/W_PlayerState.uasset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.NetWorkShooter/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.NetWorkShooter/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/ThirdPersonCPP/Blueprints/ThirdPersonCharacter.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/Blueprints/ThirdPersonCharacter.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/ThirdPersonCPP/UI/TabMenu/Design/W_TabMenu.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/UI/TabMenu/Design/W_TabMenu.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/NetWorkShooter/PlayerState/BasePlayerState.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/NetWorkShooter/PlayerState/BasePlayerState.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/NetWorkShooter/PlayerState/BasePlayerState.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/NetWorkShooter/PlayerState/BasePlayerState.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/ThirdPersonCPP/Maps/ThirdPersonExampleMap.umap" beforeDir="false" afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/Maps/ThirdPersonExampleMap.umap" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/NetWorkShooter/Controllers/PlayerControllers/MainPlayerController.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/NetWorkShooter/Controllers/PlayerControllers/MainPlayerController.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/NetWorkShooter/Controllers/PlayerControllers/MainPlayerController.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/NetWorkShooter/Controllers/PlayerControllers/MainPlayerController.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/NetWorkShooter/GameStates/BaseGameState.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/NetWorkShooter/GameStates/BaseGameState.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/NetWorkShooter/GameStates/BaseGameState.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/NetWorkShooter/GameStates/BaseGameState.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/NetWorkShooter/GameStates/EveryManForHimselfGameState.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/NetWorkShooter/GameStates/EveryManForHimselfGameState.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/NetWorkShooter/GameStates/EveryManForHimselfGameState.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/NetWorkShooter/GameStates/EveryManForHimselfGameState.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/NetWorkShooter/NetWorkShooterGameMode.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/NetWorkShooter/NetWorkShooterGameMode.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/NetWorkShooter/NetWorkShooterGameMode.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/NetWorkShooter/NetWorkShooterGameMode.h" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -75,16 +79,16 @@
         <option value="$PROJECT_DIR$/Source/NetWorkShooter/NetWorkShooterCharacter.cpp" />
         <option value="$PROJECT_DIR$/Source/NetWorkShooter/GameModes/EveryManForHimselfGameMode.h" />
         <option value="$PROJECT_DIR$/Source/NetWorkShooter/GameModes/EveryManForHimselfGameMode.cpp" />
-        <option value="$PROJECT_DIR$/Source/NetWorkShooter/GameStates/BaseGameState.cpp" />
-        <option value="$PROJECT_DIR$/Source/NetWorkShooter/GameStates/EveryManForHimselfGameState.h" />
-        <option value="$PROJECT_DIR$/Source/NetWorkShooter/GameStates/EveryManForHimselfGameState.cpp" />
-        <option value="$PROJECT_DIR$/Source/NetWorkShooter/NetWorkShooterGameMode.h" />
-        <option value="$PROJECT_DIR$/Source/NetWorkShooter/GameStates/BaseGameState.h" />
-        <option value="$PROJECT_DIR$/Source/NetWorkShooter/NetWorkShooterGameMode.cpp" />
-        <option value="$PROJECT_DIR$/Source/NetWorkShooter/Controllers/PlayerControllers/MainPlayerController.h" />
-        <option value="$PROJECT_DIR$/Source/NetWorkShooter/Controllers/PlayerControllers/MainPlayerController.cpp" />
         <option value="$PROJECT_DIR$/Source/NetWorkShooter/PlayerState/BasePlayerState.cpp" />
         <option value="$PROJECT_DIR$/Source/NetWorkShooter/PlayerState/BasePlayerState.h" />
+        <option value="$PROJECT_DIR$/Source/NetWorkShooter/Controllers/PlayerControllers/MainPlayerController.h" />
+        <option value="$PROJECT_DIR$/Source/NetWorkShooter/GameStates/BaseGameState.h" />
+        <option value="$PROJECT_DIR$/Source/NetWorkShooter/GameStates/EveryManForHimselfGameState.h" />
+        <option value="$PROJECT_DIR$/Source/NetWorkShooter/NetWorkShooterGameMode.h" />
+        <option value="$PROJECT_DIR$/Source/NetWorkShooter/Controllers/PlayerControllers/MainPlayerController.cpp" />
+        <option value="$PROJECT_DIR$/Source/NetWorkShooter/GameStates/EveryManForHimselfGameState.cpp" />
+        <option value="$PROJECT_DIR$/Source/NetWorkShooter/NetWorkShooterGameMode.cpp" />
+        <option value="$PROJECT_DIR$/Source/NetWorkShooter/GameStates/BaseGameState.cpp" />
       </list>
     </option>
   </component>
@@ -372,6 +376,8 @@
       <workItem from="1610992596412" duration="19273000" />
       <workItem from="1611053683656" duration="11071000" />
       <workItem from="1611073671902" duration="12136000" />
+      <workItem from="1611138759800" duration="801000" />
+      <workItem from="1611157249525" duration="9905000" />
     </task>
     <task id="LOCAL-00001" summary="init override function SpawnPlayer">
       <created>1610844415255</created>
@@ -446,22 +452,22 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="557" y="280" key="ANALYSIS_DLG_com.jetbrains.rider.actions.impl.cleanup.ChooseSilentCodeCleanupProfileDialog/0.0.1366.728@0.0.1366.728" timestamp="1610558555541" />
-    <state width="1323" height="179" key="GridCell.Tab.0.bottom" timestamp="1611095627720">
+    <state width="1323" height="179" key="GridCell.Tab.0.bottom" timestamp="1611171220587">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1323" height="179" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1611095627720" />
-    <state width="1323" height="179" key="GridCell.Tab.0.center" timestamp="1611095627689">
+    <state width="1323" height="179" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1611171220587" />
+    <state width="1323" height="179" key="GridCell.Tab.0.center" timestamp="1611171220586">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1323" height="179" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1611095627689" />
-    <state width="1323" height="179" key="GridCell.Tab.0.left" timestamp="1611095627688">
+    <state width="1323" height="179" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1611171220586" />
+    <state width="1323" height="179" key="GridCell.Tab.0.left" timestamp="1611171220586">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1323" height="179" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1611095627688" />
-    <state width="1323" height="179" key="GridCell.Tab.0.right" timestamp="1611095627704">
+    <state width="1323" height="179" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1611171220586" />
+    <state width="1323" height="179" key="GridCell.Tab.0.right" timestamp="1611171220587">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1323" height="179" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1611095627704" />
+    <state width="1323" height="179" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1611171220587" />
     <state x="275" y="97" key="Vcs.Push.Dialog.v2" timestamp="1610844796628">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
@@ -474,10 +480,10 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="339" y="162" key="run.anything.popup/0.0.1366.728@0.0.1366.728" timestamp="1611060711437" />
-    <state x="346" y="49" width="672" height="678" key="search.everywhere.popup" timestamp="1610900635261">
+    <state x="346" y="49" width="672" height="678" key="search.everywhere.popup" timestamp="1611164606441">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="346" y="49" width="672" height="678" key="search.everywhere.popup/0.0.1366.728@0.0.1366.728" timestamp="1610900635261" />
+    <state x="346" y="49" width="672" height="678" key="search.everywhere.popup/0.0.1366.728@0.0.1366.728" timestamp="1611164606441" />
     <state x="405" y="277" key="vcs.readOnlyHandler.ReadOnlyStatusDialog" timestamp="1610402472868">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
