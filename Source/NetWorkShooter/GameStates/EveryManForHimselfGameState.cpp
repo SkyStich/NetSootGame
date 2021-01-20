@@ -5,10 +5,8 @@
 
 AEveryManForHimselfGameState::AEveryManForHimselfGameState()
 {
-    if(GetLocalRole() == ROLE_Authority)
-    {
-        MatchDurationTime = FTimespan(0, 2, 0);
-    }
+    MatchDurationTime = FTimespan(0, 2, 0);
+    MatchWithKillLimit = 5;
 }
 
 void AEveryManForHimselfGameState::GetLifetimeReplicatedProps(TArray< FLifetimeProperty > & OutLifetimeProps) const
@@ -23,4 +21,22 @@ void AEveryManForHimselfGameState::MatchStart()
         StartGameTimer();
     }
     Super::MatchStart();
+}
+
+void AEveryManForHimselfGameState::UpdateTheKillCounter(AController* LoserController, AController* DeathInstigator, AActor* KillingCauser)
+{
+    Super::UpdateTheKillCounter(LoserController, DeathInstigator, KillingCauser);
+    
+    if(GetLocalRole() == ROLE_Authority)
+    {
+        if(LoserController != DeathInstigator)
+        {
+            CurrentKillInMatch++;
+
+            if(CurrentKillInMatch >= MatchWithKillLimit)
+            {
+                OnExcessDeathsEvent.Broadcast();
+            }
+        }
+    }
 }

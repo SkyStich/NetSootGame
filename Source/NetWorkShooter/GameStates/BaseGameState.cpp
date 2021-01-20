@@ -18,6 +18,7 @@ void ABaseGameState::BeginPlay()
         auto const MainGameMode = Cast<ANetWorkShooterGameMode>(AuthorityGameMode);
         MainGameMode->OnMatchStopEvent.AddDynamic(this, &ABaseGameState::MatchEnd);
         MainGameMode->MatchStartedEvent.AddDynamic(this, &ABaseGameState::MatchStart);
+        MainGameMode->PlayerDeadEvent.AddDynamic(this, &ABaseGameState::UpdateTheKillCounter);
     }
 }
 
@@ -42,6 +43,7 @@ void ABaseGameState::MatchEnd(FString Reason)
 
 void ABaseGameState::MulticastMatchEnd_Implementation(const FString& Reason)
 {
+    GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Purple, Reason);
     OnMatchEndedEvent.Broadcast(Reason);
 }
 
@@ -68,3 +70,4 @@ void ABaseGameState::StartGameTimer()
         GetWorld()->GetTimerManager().SetTimer(TimeTickHandle, this, &ABaseGameState::IncrementPlayTime, 1, true);
     }
 }
+

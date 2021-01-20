@@ -55,6 +55,9 @@ protected:
 	UFUNCTION()
 	virtual void MatchTimeEnded();
 
+	UFUNCTION()
+	virtual void MatchExcessDeathsEnded();
+
 	/** Called when  match be stop*/
 	UFUNCTION()
 	virtual void StopGameMatch();

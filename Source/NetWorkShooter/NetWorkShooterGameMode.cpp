@@ -35,13 +35,15 @@ void ANetWorkShooterGameMode::BeginPlay()
 	GetWorld()->GetTimerManager().SetTimer(StartHandle, this, &ANetWorkShooterGameMode::StartGameMatch, 3.f, false);
 
 	/** Bind on end match if time exit */
-	GetGameState<ABaseGameState>()->OnMatchTimeIsOverEvent.AddDynamic(this, &ANetWorkShooterGameMode::MatchTimeEnded);
+	ABaseGameState* BaseGameState = GetGameState<ABaseGameState>();
+	BaseGameState->OnMatchTimeIsOverEvent.AddDynamic(this, &ANetWorkShooterGameMode::MatchTimeEnded);
+	BaseGameState->OnExcessDeathsEvent.AddDynamic(this, &ANetWorkShooterGameMode::MatchExcessDeathsEnded);
 }
 
 void ANetWorkShooterGameMode::CharacterDead(AController* LoserController, AController* DeathInstigator, AActor* KillingCauser)
 {
 	PlayerDeadEvent.Broadcast(LoserController, DeathInstigator, KillingCauser);
-
+	
 	/** UpDate points, kills, deaths... For the killer and the murdered */
 	UpDateDeathPoints(LoserController->GetPlayerState<ABasePlayerState>(), DeathInstigator->GetPlayerState<ABasePlayerState>());
 
@@ -118,4 +120,10 @@ void ANetWorkShooterGameMode::MatchTimeEnded()
 {
 	StopGameMatch();
 	OnMatchStopEvent.Broadcast("Time exit");
+}
+
+void ANetWorkShooterGameMode::MatchExcessDeathsEnded()
+{
+	StopGameMatch();
+	OnMatchStopEvent.Broadcast("Excess deaths");
 }

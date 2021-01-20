@@ -11,12 +11,15 @@ class NETWORKSHOOTER_API AMainPlayerController : public APlayerController
 {
 	GENERATED_BODY()
 
-	UFUNCTION(Server, Reliable)
+	UFUNCTION(Server, Unreliable)
 	void ServerPlayerRespawn();
 	void ServerPlayerRespawn_Implementation();
 
 	UFUNCTION()
 	void RespawnKeyReleased();
+
+	UFUNCTION()
+	void FinishCooldownTimer();
 	
 public:
 
@@ -26,11 +29,12 @@ public:
 	void SpawnPlayer();
 
 	UFUNCTION()
-	void LauchRespawnTimer(float const TimeBeforeRespawn);
+	void LaunchRespawnTimer(float const TimeBeforeRespawn);
 
 protected:
 
 	virtual void SetupInputComponent() override;
+	virtual void BeginPlay() override;
 	
 	UFUNCTION(BlueprintImplementableEvent)
 	void ToggleTabMenu();

@@ -4,12 +4,27 @@
 #include "MainPlayerController.h"
 #include "NetWorkShooter/Spectators/MainSpectatorPawn.h"
 #include "NetWorkShooter/NetWorkShooterGameMode.h"
-#include "NetWorkShooter/NetWorkShooterGameMode.h"
+#include "GameFramework/GameState.h"
 #include "Kismet/GameplayStatics.h"
 
 AMainPlayerController::AMainPlayerController()
 {
     bReplicates = true;
+}
+
+void AMainPlayerController::BeginPlay()
+{
+    Super::BeginPlay();
+   // if(GetLocalRole() == ROLE_Authority)
+    //{
+       // OnNewPawn.AddLambda([&](APawn* NewPawn)-> void
+        //{
+          //  if(NewPawn->GetClass() == AMainSpectatorPawn::StaticClass())
+            //{
+                
+            //}
+       // });
+  //  }
 }
 
 void AMainPlayerController::SpawnPlayer()
@@ -34,12 +49,17 @@ void AMainPlayerController::SetupInputComponent()
     InputComponent->BindAction("TabMenu", IE_Released, this, &AMainPlayerController::HideTabMenu);
 }
 
-void AMainPlayerController::LauchRespawnTimer(float const TimeBeforeRespawn)
+void AMainPlayerController::LaunchRespawnTimer(float const TimeBeforeRespawn)
 {
     if(GetLocalRole() == ROLE_Authority)
     {
-        
+//        GetWorld()->GetTimerManager().SetTimer()
     }
+}
+
+void AMainPlayerController::FinishCooldownTimer()
+{
+    
 }
 
 void AMainPlayerController::ServerPlayerRespawn_Implementation()

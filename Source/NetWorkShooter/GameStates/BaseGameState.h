@@ -10,6 +10,7 @@
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FMatchTimeIsOver);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FMatchEnd, FString, Reason);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FMatchStart);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FExcessDeaths);
 
 UCLASS(Abstract)
 class NETWORKSHOOTER_API ABaseGameState : public AGameStateBase
@@ -35,6 +36,9 @@ public:
     /** Start time for increment One second in PlayTime */
     UFUNCTION()
     void StartGameTimer();
+
+    UFUNCTION()
+    virtual void UpdateTheKillCounter(AController* LoserController, AController* DeathInstigator, AActor* KillingCauser) {  }
 
     virtual void GetLifetimeReplicatedProps(TArray< FLifetimeProperty > & OutLifetimeProps) const override;
 
@@ -72,4 +76,7 @@ public:
 
     UPROPERTY(BlueprintAssignable)
     FMatchStarted OnMatchStartedEvent;
+
+    UPROPERTY(BlueprintAssignable)
+    FExcessDeaths OnExcessDeathsEvent;
 };
