@@ -15,16 +15,7 @@ AMainPlayerController::AMainPlayerController()
 void AMainPlayerController::BeginPlay()
 {
     Super::BeginPlay();
-   // if(GetLocalRole() == ROLE_Authority)
-    //{
-       // OnNewPawn.AddLambda([&](APawn* NewPawn)-> void
-        //{
-          //  if(NewPawn->GetClass() == AMainSpectatorPawn::StaticClass())
-            //{
-                
-            //}
-       // });
-  //  }
+
 }
 
 void AMainPlayerController::SpawnPlayer()
