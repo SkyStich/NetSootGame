@@ -85,10 +85,10 @@
         <option value="$PROJECT_DIR$/Source/NetWorkShooter/GameStates/BaseGameState.h" />
         <option value="$PROJECT_DIR$/Source/NetWorkShooter/GameStates/EveryManForHimselfGameState.h" />
         <option value="$PROJECT_DIR$/Source/NetWorkShooter/NetWorkShooterGameMode.h" />
-        <option value="$PROJECT_DIR$/Source/NetWorkShooter/Controllers/PlayerControllers/MainPlayerController.cpp" />
         <option value="$PROJECT_DIR$/Source/NetWorkShooter/GameStates/EveryManForHimselfGameState.cpp" />
         <option value="$PROJECT_DIR$/Source/NetWorkShooter/NetWorkShooterGameMode.cpp" />
         <option value="$PROJECT_DIR$/Source/NetWorkShooter/GameStates/BaseGameState.cpp" />
+        <option value="$PROJECT_DIR$/Source/NetWorkShooter/Controllers/PlayerControllers/MainPlayerController.cpp" />
       </list>
     </option>
   </component>
@@ -377,7 +377,7 @@
       <workItem from="1611053683656" duration="11071000" />
       <workItem from="1611073671902" duration="12136000" />
       <workItem from="1611138759800" duration="801000" />
-      <workItem from="1611157249525" duration="9905000" />
+      <workItem from="1611157249525" duration="10511000" />
     </task>
     <task id="LOCAL-00001" summary="init override function SpawnPlayer">
       <created>1610844415255</created>
@@ -452,22 +452,22 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="557" y="280" key="ANALYSIS_DLG_com.jetbrains.rider.actions.impl.cleanup.ChooseSilentCodeCleanupProfileDialog/0.0.1366.728@0.0.1366.728" timestamp="1610558555541" />
-    <state width="1323" height="179" key="GridCell.Tab.0.bottom" timestamp="1611171220587">
+    <state width="1323" height="179" key="GridCell.Tab.0.bottom" timestamp="1611172439974">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1323" height="179" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1611171220587" />
-    <state width="1323" height="179" key="GridCell.Tab.0.center" timestamp="1611171220586">
+    <state width="1323" height="179" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1611172439974" />
+    <state width="1323" height="179" key="GridCell.Tab.0.center" timestamp="1611172439973">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1323" height="179" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1611171220586" />
-    <state width="1323" height="179" key="GridCell.Tab.0.left" timestamp="1611171220586">
+    <state width="1323" height="179" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1611172439973" />
+    <state width="1323" height="179" key="GridCell.Tab.0.left" timestamp="1611172439972">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1323" height="179" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1611171220586" />
-    <state width="1323" height="179" key="GridCell.Tab.0.right" timestamp="1611171220587">
+    <state width="1323" height="179" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1611172439972" />
+    <state width="1323" height="179" key="GridCell.Tab.0.right" timestamp="1611172439974">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1323" height="179" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1611171220587" />
+    <state width="1323" height="179" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1611172439974" />
     <state x="275" y="97" key="Vcs.Push.Dialog.v2" timestamp="1610844796628">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
