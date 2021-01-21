@@ -19,6 +19,8 @@ ANetWorkShooterGameMode::ANetWorkShooterGameMode()
 		DefaultPawnClass = PlayerPawnBPClass.Class;
 	}
 
+	RespawnTime = 5.f;
+	
 	/** Inut start player and States */
 	bStartPlayersAsSpectators = true;
 }
@@ -50,6 +52,16 @@ void ANetWorkShooterGameMode::CharacterDead(AController* LoserController, AContr
 	/** Spawn spectator for loser controller */
 	AMainSpectatorPawn* NewSpectatorPawn;
 	SpawnSpectator(LoserController, DeathInstigator, NewSpectatorPawn);
+
+	if(bCanAutoRespawn)
+	{
+		auto const MainPlayerController = Cast<AMainPlayerController>(LoserController);
+
+		if(MainPlayerController)
+		{
+			MainPlayerController->LaunchRespawnTimer(RespawnTime, this);
+		}
+	}
 }
 
 void ANetWorkShooterGameMode::GetFreeSpawnPoints(TArray<APlayerStartBase*> & FreePoints)
@@ -67,17 +79,17 @@ void ANetWorkShooterGameMode::GetFreeSpawnPoints(TArray<APlayerStartBase*> & Fre
 }
 
 void ANetWorkShooterGameMode::SpawnPlayer(AController* Controller)
-{
-	/** Local arrey save all free point where can be spawn the player */
-	TArray<APlayerStartBase*>FreePoints;
-
-	/** Get Free spawn points */
-	GetFreeSpawnPoints(FreePoints);
-
-	/** Get random one point where will be spawn player */
-	ANetWorkShooterCharacter* SpawnCharacter;
-	FreePoints[UKismetMathLibrary::RandomIntegerInRange(0, FreePoints.Num() - 1)]->SpawnCharacter(Controller, SpawnCharacter);	
-}
+ {
+ 	/** Local arrey save all free point where can be spawn the player */
+ 	TArray<APlayerStartBase*>FreePoints;
+ 
+ 	/** Get Free spawn points */
+ 	GetFreeSpawnPoints(FreePoints);
+ 
+ 	/** Get random one point where will be spawn player */
+ 	ANetWorkShooterCharacter* SpawnCharacter;
+ 	FreePoints[UKismetMathLibrary::RandomIntegerInRange(0, FreePoints.Num() - 1)]->SpawnCharacter(Controller, SpawnCharacter);	
+ }
 
 void ANetWorkShooterGameMode::StartGameMatch()  
 {

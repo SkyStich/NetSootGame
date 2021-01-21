@@ -16,6 +16,7 @@ AEveryManForHimselfGameMode::AEveryManForHimselfGameMode()
 void AEveryManForHimselfGameMode::BeginPlay()
 {
     Super::BeginPlay();
+    
 }
 
 void AEveryManForHimselfGameMode::CharacterDead(AController* LoserController, AController* InstigatedBy, AActor* KillingCauser)

@@ -15,7 +15,6 @@ AMainPlayerController::AMainPlayerController()
 void AMainPlayerController::BeginPlay()
 {
     Super::BeginPlay();
-
 }
 
 void AMainPlayerController::SpawnPlayer()
@@ -35,39 +34,23 @@ void AMainPlayerController::SetupInputComponent()
         InputComponent->RegisterComponent();
     }
 
-    InputComponent->BindAction("PlayerRespawn", IE_Released, this, &AMainPlayerController::RespawnKeyReleased);
+ //   InputComponent->BindAction("PlayerRespawn", IE_Released, this, &AMainPlayerController::RespawnKeyReleased);
     InputComponent->BindAction("TabMenu", IE_Pressed, this, &AMainPlayerController::ToggleTabMenu);
     InputComponent->BindAction("TabMenu", IE_Released, this, &AMainPlayerController::HideTabMenu);
 }
 
-void AMainPlayerController::LaunchRespawnTimer(float const TimeBeforeRespawn)
+void AMainPlayerController::LaunchRespawnTimer(float const TimeToRespawn, class ANetWorkShooterGameMode* MainGameMode)
 {
-    if(GetLocalRole() == ROLE_Authority)
-    {
-//        GetWorld()->GetTimerManager().SetTimer()
-    }
-}
-
-void AMainPlayerController::FinishCooldownTimer()
-{
-    
+    FTimerDelegate RespawnDelegateTimer;
+    RespawnDelegateTimer.BindUFunction(this, "ServerPlayerRespawn");
+    GetWorld()->GetTimerManager().SetTimer(RespawnTimer, RespawnDelegateTimer, MainGameMode->GetRespawnTime(), false);   
 }
 
 void AMainPlayerController::ServerPlayerRespawn_Implementation()
 {
-    auto const GameMode = Cast<ANetWorkShooterGameMode>(UGameplayStatics::GetGameMode(GetWorld()));
-    if(GameMode)
-    {
-        auto TempPawn = GetPawn();
-        GameMode->SpawnPlayer(this);
-        TempPawn->Destroy();
-    }
-}
-
-void AMainPlayerController::RespawnKeyReleased()
-{
-    if(Cast<AMainSpectatorPawn>(GetPawn()))
-    {
-        ServerPlayerRespawn();
-    }
+    auto const MainGameMode = Cast<ANetWorkShooterGameMode>(UGameplayStatics::GetGameMode(GetWorld()));
+    
+    auto const TempPawn = GetPawn();
+    MainGameMode->SpawnPlayer(this);
+    TempPawn->Destroy();
 }

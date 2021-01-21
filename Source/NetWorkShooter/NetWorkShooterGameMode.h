@@ -18,15 +18,22 @@ DECLARE_DYNAMIC_MULTICAST_DELEGATE(FMatchStarted);
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FMatchEnded, FString, StopReason);
 
-UCLASS(minimalapi)
+UCLASS(minimalapi, Abstract)
 class ANetWorkShooterGameMode : public AGameModeBase
 {
 	GENERATED_BODY()
 
 	void GetFreeSpawnPoints(TArray<APlayerStartBase*> & FreePoints);
+	
 public:
 	
 	ANetWorkShooterGameMode();
+	
+	UFUNCTION(BlueprintPure, Category = "GameMode|Getting")
+	bool GetCanAutoRespawn() const { return bCanAutoRespawn; }
+	
+	UFUNCTION(BlueprintPure, Category = "GameMode|Getting")
+	float GetRespawnTime() const { return RespawnTime; }
 
 	/** Change points, kills, deaths... For the killer and the murdered */
 	UFUNCTION()
@@ -47,7 +54,7 @@ public:
 	/** The function is called when the match has started directly (All players are ready and can perform actions) */
 	UFUNCTION()
 	virtual void StartGameMatch();
-
+	
 protected:
 
 	virtual void BeginPlay() override;
@@ -68,14 +75,17 @@ public:
 
 	UPROPERTY(BlueprintAssignable)
 	FPlayerDeadEvent PlayerDeadEvent;
-	
 protected:
 
 	/** All points where can be spawn the player  */
 	UPROPERTY()
 	TArray<AActor*> AllStartPoints;
 
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	bool bCanAutoRespawn;
+
 	/** Time before respawn the player */
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	float RespawnTime;
 };
 

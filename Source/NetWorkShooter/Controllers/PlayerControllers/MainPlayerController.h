@@ -14,12 +14,6 @@ class NETWORKSHOOTER_API AMainPlayerController : public APlayerController
 	UFUNCTION(Server, Unreliable)
 	void ServerPlayerRespawn();
 	void ServerPlayerRespawn_Implementation();
-
-	UFUNCTION()
-	void RespawnKeyReleased();
-
-	UFUNCTION()
-	void FinishCooldownTimer();
 	
 public:
 
@@ -29,7 +23,7 @@ public:
 	void SpawnPlayer();
 
 	UFUNCTION()
-	void LaunchRespawnTimer(float const TimeBeforeRespawn);
+	void LaunchRespawnTimer(float const TimeToRespawn, class ANetWorkShooterGameMode* MainGameMode);
 
 protected:
 
