@@ -23,6 +23,17 @@ public:
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
+	UFUNCTION(BlueprintPure, Category = "HealthComponent")
+	float GetMaxHealth() const { return MaxHealth;}
+
+	UFUNCTION(BlueprintPure, Category = "HealthComponent")
+	float GetCurrentHealth() const { return CurrentHealth; }
+
+	UFUNCTION(BlueprintPure, Category = "HealthComponent")
+	float GetCurrentArmor() const { return CurrentArmor; }
+
+	UFUNCTION(BlueprintPure, Category = "HealthComponent")
+	float GetMaxArmor() const { return MaxArmor; }
 protected:
 
 	UFUNCTION()

@@ -20,10 +20,14 @@ public:
     virtual void GetLifetimeReplicatedProps(TArray< FLifetimeProperty > & OutLifetimeProps) const override;
 
     /** Increment and Decrement Number of kills for the whole match */
+    UFUNCTION()
     void IncrementNumberOfMurders();
+
+    UFUNCTION()
     void DecrementNumberOfMurders();
     
     /** Increment of kills for the whole match */
+    UFUNCTION()
     void IncrementNumberOfDeaths();
     
     UFUNCTION(BlueprintPure)
