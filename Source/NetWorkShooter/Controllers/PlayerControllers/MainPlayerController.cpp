@@ -6,6 +6,7 @@
 #include "NetWorkShooter/NetWorkShooterGameMode.h"
 #include "GameFramework/GameState.h"
 #include "Kismet/GameplayStatics.h"
+#include "NetWorkShooter/HUD/BaseHUD/BaseHUD.h"
 
 AMainPlayerController::AMainPlayerController()
 {
@@ -52,4 +53,20 @@ void AMainPlayerController::ServerPlayerRespawn_Implementation()
     auto const TempPawn = GetPawn();
     MainGameMode->SpawnPlayer(this);
     TempPawn->Destroy();
+}
+
+void AMainPlayerController::ToggleTabMenu()
+{
+    if(GetLocalRole() != ROLE_Authority)
+    {
+        GetHUD<ABaseHUD>()->ShowTabMenu();
+    }
+}
+
+void AMainPlayerController::HideTabMenu()
+{
+    if(GetLocalRole() != ROLE_Authority)
+    {
+        GetHUD<ABaseHUD>()->HiddenTabMenu();
+    }
 }

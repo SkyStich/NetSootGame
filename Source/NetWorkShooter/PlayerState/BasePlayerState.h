@@ -13,6 +13,8 @@ class NETWORKSHOOTER_API ABasePlayerState : public APlayerState
 {
 	GENERATED_BODY()
 
+    UFUNCTION()
+    void OnRep_KDA() { OnUpdateStateKDAEvent.Broadcast(); }
 public:
 
     ABasePlayerState();
@@ -39,11 +41,11 @@ public:
 private:
 
     /** Number of kills for the whole match */
-    UPROPERTY(Replicated)
+    UPROPERTY(ReplicatedUsing = OnRep_KDA)
     int32 NumberOfMurders;
 
     /** Number of deaths for the whole match */
-    UPROPERTY(Replicated)
+    UPROPERTY(ReplicatedUsing = OnRep_KDA)
     int32 NumberOfDeaths;
 
 public:

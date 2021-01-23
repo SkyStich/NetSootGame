@@ -30,10 +30,10 @@ protected:
 	virtual void SetupInputComponent() override;
 	virtual void BeginPlay() override;
 	
-	UFUNCTION(BlueprintImplementableEvent)
+	UFUNCTION()
 	void ToggleTabMenu();
 
-	UFUNCTION(BlueprintImplementableEvent)
+	UFUNCTION()
 	void HideTabMenu();
 
 private:

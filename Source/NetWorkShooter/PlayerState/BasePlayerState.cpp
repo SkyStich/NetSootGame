@@ -20,17 +20,14 @@ void ABasePlayerState::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& Out
 void ABasePlayerState::IncrementNumberOfMurders()
 {
     NumberOfMurders++;
-    OnUpdateStateKDAEvent.Broadcast();
 }
 
 void ABasePlayerState::DecrementNumberOfMurders()
 {
     NumberOfMurders--;
-    OnUpdateStateKDAEvent.Broadcast();
 }
 
 void ABasePlayerState::IncrementNumberOfDeaths()
 {
     NumberOfDeaths++;
-    OnUpdateStateKDAEvent.Broadcast();
 }

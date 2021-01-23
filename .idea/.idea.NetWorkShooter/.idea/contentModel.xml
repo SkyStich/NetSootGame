@@ -48520,6 +48520,12 @@
             <e p="EveryManForHimselfGameState.cpp" t="Include" />
             <e p="EveryManForHimselfGameState.h" t="Include" />
           </e>
+          <e p="HUD" t="Include">
+            <e p="BaseHUD" t="Include">
+              <e p="BaseHUD.cpp" t="Include" />
+              <e p="BaseHUD.h" t="Include" />
+            </e>
+          </e>
           <e p="Interfaces" t="Include">
             <e p="Interaction.cpp" t="Include" />
             <e p="Interaction.h" t="Include" />
