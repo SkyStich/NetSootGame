@@ -19,15 +19,10 @@ private:
 	UFUNCTION()
 	void OnRep_CurrentWeaponMesh();
 
-	UFUNCTION(Server, Unreliable)
-	void ServerStartUseWeapon();
-	void ServerStartUseWeapon_Implementation();
+	void UseWeaponPressed();
+	void UseWeaponReleased();
 
 	UFUNCTION(Server, Unreliable)
-	void ServerStopUseWeapon();
-	void ServerStopUseWeapon_Implementation();
-
-	UFUNCTION(Server, Reliable)
 	void ServerReloading();
 	void ServerReloading_Implementation();
 
@@ -35,7 +30,7 @@ private:
 	void ReloadPressed();
 
 	UFUNCTION()
-	void OnRep_CharacterDead();
+	void CharacterDead();
 	
 public:
 	
@@ -89,8 +84,5 @@ private:
 
 	UPROPERTY(ReplicatedUsing = OnRep_CurrentWeaponMesh)
 	USkeletalMesh* CurrentWeaponMesh;
-
-	//UPROPERTY(ReplicatedUsing = OnRep_CharacterDead)
-//	bool bCharacterDead;
 };
 

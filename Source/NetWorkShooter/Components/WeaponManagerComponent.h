@@ -9,13 +9,29 @@
 
 class ANetWorkShooterCharacter;
 class UMainWeaponObject;
+
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FCurrentWeaponChanged, UMainWeaponObject*, NewCurrentWeapon);
+
 /** The manager who is responsible for the player's weapon */
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class NETWORKSHOOTER_API UWeaponManagerComponent : public UActorComponent
 {
 	GENERATED_BODY()
 
-public:	
+	UFUNCTION()
+	void OnRep_CurrentWeapon();
+
+public:
+
+	/** Server func */
+	UFUNCTION(Server, Unreliable)
+	void ServerStartUseWeapon();
+	void ServerStartUseWeapon_Implementation();
+
+	UFUNCTION(Server, Unreliable)
+	void ServerStopUseWeapon();
+	void ServerStopUseWeapon_Implementation();
+	
 	// Sets default values for this component's properties
 	UWeaponManagerComponent();
 
@@ -67,7 +83,7 @@ private:
 	TMap<TEnumAsByte<EEquipmentSlot>, UMainWeaponObject*> Weapons;
 
 	/** The weapon that the player is currently using */
-	UPROPERTY(Replicated)
+	UPROPERTY(ReplicatedUsing = OnRep_CurrentWeapon)
 	UMainWeaponObject* CurrentWeapon;
 
 	UPROPERTY()
@@ -76,4 +92,9 @@ private:
 	/** Weapon data asset */
 	UPROPERTY()
 	UWeaponDataAssetBase* WeaponDataAssetBase;
+
+public:
+
+	UPROPERTY(BlueprintAssignable)
+	FCurrentWeaponChanged OnCurrentWeaponChangedEvent;
 };

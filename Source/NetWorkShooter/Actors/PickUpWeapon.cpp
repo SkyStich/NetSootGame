@@ -31,7 +31,6 @@ APickUpWeapon::APickUpWeapon()
 	CapsuleCollision->SetCollisionResponseToChannel(ECC_Visibility, ECR_Block);
 	CapsuleCollision->SetCapsuleSize(14.f, 43.f);
 	CapsuleCollision->SetRelativeLocation(FVector(10.f,  0.f,  0.f));
-//	CapsuleCollision->SetRelativeRotation(FRotator(90.f, 0.f, 0.f));
 	CapsuleCollision->SetHiddenInGame(false);
 	CapsuleCollision->SetupAttachment(SkeletalMesh);
 }

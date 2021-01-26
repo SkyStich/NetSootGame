@@ -80,6 +80,6 @@ protected:
 
 private:
 
-    UPROPERTY()
+    UPROPERTY(Replicated)
     FName WeaponName;
 };

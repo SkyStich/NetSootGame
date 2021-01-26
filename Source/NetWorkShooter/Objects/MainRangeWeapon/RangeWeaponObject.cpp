@@ -48,9 +48,6 @@ bool URangeWeaponObject::UseWeapon()
             UGameplayStatics::ApplyPointDamage(OutHit.GetActor(), WeaponData->BaseDamage, UnitVector, OutHit,
                 CharacterOwner->GetController(), CharacterOwner, UDamageType::StaticClass());
         }
-        
-        FString DebugMessage = FString::Printf(TEXT("CurrentInClip: %d | CurrentInStorage: %d"), CurrentAmmoInClip, CurrentAmmoInStorage);
-        GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Blue, DebugMessage);
     }
     return true;
 }

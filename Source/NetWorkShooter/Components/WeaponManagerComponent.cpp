@@ -2,8 +2,6 @@
 
 
 #include "WeaponManagerComponent.h"
-
-#include "ToolContextInterfaces.h"
 #include "UObject/ConstructorHelpers.h"
 #include "NetWorkShooter/NetWorkShooterCharacter.h"
 #include "Engine/ActorChannel.h"
@@ -26,6 +24,12 @@ UWeaponManagerComponent::UWeaponManagerComponent()
 	}
 }
 
+void UWeaponManagerComponent::OnRep_CurrentWeapon()
+{
+	GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Green, TEXT("OnRep_CurrentWeapon"));
+	OnCurrentWeaponChangedEvent.Broadcast(CurrentWeapon);
+}
+
 // Called when the game starts
 void UWeaponManagerComponent::BeginPlay()
 {
@@ -35,7 +39,16 @@ void UWeaponManagerComponent::BeginPlay()
 	{
 		CharacterOwner = Cast<ANetWorkShooterCharacter>(GetOwner());
 	}
-	
+}
+
+void UWeaponManagerComponent::ServerStartUseWeapon_Implementation()
+{
+	CurrentWeapon->UseWeapon();
+}
+
+void UWeaponManagerComponent::ServerStopUseWeapon_Implementation()
+{
+	CurrentWeapon->StopUseWeapon();
 }
 
 void UWeaponManagerComponent::GetLifetimeReplicatedProps(TArray< FLifetimeProperty > & OutLifetimeProps) const
@@ -44,7 +57,6 @@ void UWeaponManagerComponent::GetLifetimeReplicatedProps(TArray< FLifetimeProper
 
 	/** Replicated with using condition */
 	DOREPLIFETIME_CONDITION(UWeaponManagerComponent, CurrentWeapon, COND_OwnerOnly);
-	//DOREPLIFETIME_CONDITION(UWeaponManagerComponent, CharacterOwner, COND_OwnerOnly);
 	
 	/** Replicated without using condition */
 	DOREPLIFETIME(UWeaponManagerComponent, Weapons);
@@ -104,15 +116,8 @@ void UWeaponManagerComponent::SelectWeapon(TEnumAsByte<EEquipmentSlot> const New
 		auto const TempNewWeapon = Weapons.Find(NewActiveSlot);
 		if(TempNewWeapon)
 		{
-			if(GetOwnerRole() == ROLE_Authority)
-			{
-				CurrentWeapon->StopUseWeapon();
-				SetCurrentWeapon(*TempNewWeapon);
-			}
-			else
-			{
-				//Play anim...
-			}
+			CurrentWeapon->StopUseWeapon();
+			SetCurrentWeapon(*TempNewWeapon);
 		}
 	}
 }
@@ -129,7 +134,6 @@ void UWeaponManagerComponent::AddWeapon(UMainWeaponObject* WeaponToAdd)
 
 void UWeaponManagerComponent::RemoveWeapon(TEnumAsByte<EEquipmentSlot> const SlotForRemove)
 {
-	
 	if(SlotForRemove != EEquipmentSlot::Melee && SlotForRemove != EEquipmentSlot::SecondWeapon)
 	{
 		Weapons.Remove(SlotForRemove);	
@@ -154,7 +158,6 @@ void UWeaponManagerComponent::DropWeaponToWorld(UMainWeaponObject* WeaponToDrop)
 			{
 				SpawnWeapon->SetOwnerObject(WeaponToDrop);
 				SpawnWeapon->WeaponMesh = WeaponDataAssetBase->GetWeaponMesh(WeaponToDrop->GetWeaponName());
-				
 			}
 		}	
 	}

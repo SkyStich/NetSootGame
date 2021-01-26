@@ -11,7 +11,7 @@ class NETWORKSHOOTER_API URangeWeaponObject : public UMainWeaponObject
 {
 	GENERATED_BODY()
 
-	UFUNCTION(NetMulticast, Reliable)
+	UFUNCTION(NetMulticast, Unreliable)
 	void GetTraceInfoDebugger(FVector Start, FVector End, FVector Center);
 	void GetTraceInfoDebugger_Implementation(FVector Start, FVector End, FVector Center);
 
@@ -20,10 +20,15 @@ public:
 	URangeWeaponObject();
 
 	UFUNCTION(BlueprintPure, Category = "Weapon|Getting")
-	bool GetIsReloading() const { return bReloading; }
+	FORCEINLINE bool GetIsReloading() const { return bReloading; }
+	
+	UFUNCTION(BlueprintPure, Category = "Weapon|Getting")
+	FORCEINLINE int32 GetCurrentAmmoInStorage() const { return CurrentAmmoInStorage; }
+	
+	UFUNCTION(BlueprintPure, Category = "Weapon|Getting")
+	FORCEINLINE int32 GetCurrentAmmoInWeapon() const { return CurrentAmmoInClip; }
 
 	virtual bool UseWeapon() override;
-	virtual void StopRateDelay() override;
 	virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
 
 	void ReloadStart();
@@ -33,7 +38,8 @@ protected:
 
 	virtual bool IsAbleToUseWeapon() override;
 	virtual void BeginPlay() override;
-
+	virtual void StopRateDelay() override;
+	
 	UFUNCTION()
 	FHitResult GetTraceInfo();
 

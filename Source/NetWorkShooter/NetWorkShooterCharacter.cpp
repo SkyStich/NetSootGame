@@ -41,7 +41,7 @@ void ANetWorkShooterCharacter::BeginPlay()
 {
 	Super::BeginPlay();
 
-	HealthComponent->HealthEndedEvent.AddDynamic(this, &ANetWorkShooterCharacter::OnRep_CharacterDead);
+	HealthComponent->HealthEndedEvent.AddDynamic(this, &ANetWorkShooterCharacter::CharacterDead);
 }
 
 void ANetWorkShooterCharacter::GetLifetimeReplicatedProps(TArray< FLifetimeProperty > & OutLifetimeProps) const
@@ -49,7 +49,6 @@ void ANetWorkShooterCharacter::GetLifetimeReplicatedProps(TArray< FLifetimePrope
 	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
 
 	DOREPLIFETIME(ANetWorkShooterCharacter, CurrentWeaponMesh);
-	//DOREPLIFETIME(ANetWorkShooterCharacter, bCharacterDead);
 }
 
 void ANetWorkShooterCharacter::SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent)
@@ -61,8 +60,8 @@ void ANetWorkShooterCharacter::SetupPlayerInputComponent(class UInputComponent* 
 	PlayerInputComponent->BindAction("Jump", IE_Released, this, &ACharacter::StopJumping);
 
 	/** bind on use weapon event */
-	PlayerInputComponent->BindAction("UseWeapon", IE_Pressed , this, &ANetWorkShooterCharacter::ServerStartUseWeapon);
-	PlayerInputComponent->BindAction("UseWeapon", IE_Released , this, &ANetWorkShooterCharacter::ServerStopUseWeapon);
+	PlayerInputComponent->BindAction("UseWeapon", IE_Pressed , this, &ANetWorkShooterCharacter::UseWeaponPressed);
+	PlayerInputComponent->BindAction("UseWeapon", IE_Released , this, &ANetWorkShooterCharacter::UseWeaponReleased);
 
 	/** Bind on reload range weapon */
 	PlayerInputComponent->BindAction("Reload", IE_Pressed , this, &ANetWorkShooterCharacter::ReloadPressed);
@@ -124,14 +123,14 @@ void ANetWorkShooterCharacter::OnRep_CurrentWeaponMesh()
 	WeaponSkeletalMeshComponent->SetSkeletalMesh(CurrentWeaponMesh);
 }
 
-void ANetWorkShooterCharacter::ServerStartUseWeapon_Implementation()
+void ANetWorkShooterCharacter::UseWeaponPressed()
 {
-	WeaponManagerComponent->GetCurrentWeapon()->UseWeapon();
+	WeaponManagerComponent->ServerStartUseWeapon();
 }
 
-void ANetWorkShooterCharacter::ServerStopUseWeapon_Implementation()
+void ANetWorkShooterCharacter::UseWeaponReleased()
 {
-	WeaponManagerComponent->GetCurrentWeapon()->StopUseWeapon();
+	WeaponManagerComponent->ServerStopUseWeapon();
 }
 
 void ANetWorkShooterCharacter::ReloadPressed()
@@ -147,7 +146,7 @@ void ANetWorkShooterCharacter::ServerReloading_Implementation()
 	Cast<URangeWeaponObject>(WeaponManagerComponent->GetCurrentWeapon())->ReloadStart();
 }
 
-void ANetWorkShooterCharacter::OnRep_CharacterDead()
+void ANetWorkShooterCharacter::CharacterDead()
 {
 	GetCharacterMovement()->DisableMovement();
 	GetCapsuleComponent()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
@@ -156,6 +155,7 @@ void ANetWorkShooterCharacter::OnRep_CharacterDead()
 	if(GetLocalRole() == ROLE_Authority)
 	{
 		GetCapsuleComponent()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+		
 		/** Create Timer delegate and bind on lambda. Lambda create work for destroy player */
 		FTimerDelegate TimerCallBack;
 

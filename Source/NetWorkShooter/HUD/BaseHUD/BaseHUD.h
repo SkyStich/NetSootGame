@@ -14,6 +14,8 @@ class NETWORKSHOOTER_API ABaseHUD : public AHUD
 	GENERATED_BODY()
 protected:
 
+    virtual void DrawHUD() override;
+
     UFUNCTION()
     void MatchStarted();
     
