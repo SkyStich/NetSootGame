@@ -23,17 +23,7 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4e895809-3b0e-414a-9fb7-267441527844" name="Default Changelist" comment="Fixed a bug with starting the timer and a but when at the start of the game either one player or zero was compared(remainder in the base spectator field)">
-      <change afterPath="$PROJECT_DIR$/Source/NetWorkShooter/HUD/EveryManForHimselfHUD.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Source/NetWorkShooter/HUD/EveryManForHimselfHUD.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.NetWorkShooter/.idea/contentModel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.NetWorkShooter/.idea/contentModel.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.NetWorkShooter/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.NetWorkShooter/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/ThirdPersonCPP/Blueprints/GameModes/BP_EveryManForHimselfGameMode.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/Blueprints/GameModes/BP_EveryManForHimselfGameMode.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/NetWorkShooter/Controllers/PlayerControllers/CommandPlayerController.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/NetWorkShooter/Controllers/PlayerControllers/CommandPlayerController.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/NetWorkShooter/Controllers/PlayerControllers/CommandPlayerController.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/NetWorkShooter/Controllers/PlayerControllers/CommandPlayerController.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/NetWorkShooter/HUD/BaseHUD/BaseHUD.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/NetWorkShooter/HUD/BaseHUD/BaseHUD.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/NetWorkShooter/HUD/BaseHUD/BaseHUD.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/NetWorkShooter/HUD/BaseHUD/BaseHUD.h" afterDir="false" />
-    </list>
+    <list default="true" id="4e895809-3b0e-414a-9fb7-267441527844" name="Default Changelist" comment="Change system command" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -46,6 +36,7 @@
     <setting file="file://$PROJECT_DIR$/Source/NetWorkShooter/Objects/WeaponObject/MainWeaponObject.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/NetWorkShooter/DataAssets/WeaponDataAssetBase.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/NetWorkShooter/Components/WeaponManagerComponent.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="mock://D:/Unreal/NetWorkShooter/Source/NetWorkShooter/HUD/BaseHUD/BaseHUD.h" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="IdeDocumentHistory">
     <changedPaths>
@@ -65,9 +56,9 @@
       <option value="$PROJECT_DIR$/Source/NetWorkShooter/HUD/BaseHUD/BaseHUD.h" />
       <option value="$PROJECT_DIR$/Source/NetWorkShooter/HUD/EveryManForHimselfHUD.cpp" />
       <option value="$PROJECT_DIR$/Source/NetWorkShooter/PlayerState/BasePlayerState.h" />
-      <option value="$PROJECT_DIR$/Source/NetWorkShooter/PlayerState/CommandPlayerState.h" />
       <option value="$PROJECT_DIR$/Source/NetWorkShooter/Controllers/PlayerControllers/CommandPlayerController.cpp" />
       <option value="$PROJECT_DIR$/Source/NetWorkShooter/Controllers/PlayerControllers/CommandPlayerController.h" />
+      <option value="$PROJECT_DIR$/Source/NetWorkShooter/PlayerState/CommandPlayerState.h" />
       <option value="$PROJECT_DIR$/Source/NetWorkShooter/PlayerState/CommandPlayerState.cpp" />
     </changedPaths>
   </component>
@@ -387,7 +378,7 @@
       <workItem from="1611826741521" duration="16005000" />
       <workItem from="1611863398843" duration="5098000" />
       <workItem from="1611870838381" duration="1492000" />
-      <workItem from="1611872594205" duration="1104000" />
+      <workItem from="1611872594205" duration="1322000" />
     </task>
     <task id="LOCAL-00001" summary="init override function SpawnPlayer">
       <created>1610844415255</created>
@@ -424,7 +415,14 @@
       <option name="project" value="LOCAL" />
       <updated>1611056095914</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Change system command">
+      <created>1611873862434</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1611873862434</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -461,6 +459,7 @@
     <MESSAGE value="Implemented the start of the match and the spawn of player by timer" />
     <MESSAGE value="Added An update to the number of deaths and kills for the killer and the defeated" />
     <MESSAGE value="Fixed a bug with starting the timer and a but when at the start of the game either one player or zero was compared(remainder in the base spectator field)" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fixed a bug with starting the timer and a but when at the start of the game either one player or zero was compared(remainder in the base spectator field)" />
+    <MESSAGE value="Change system command" />
+    <option name="LAST_COMMIT_MESSAGE" value="Change system command" />
   </component>
 </project>
