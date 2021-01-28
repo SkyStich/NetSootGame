@@ -29,6 +29,8 @@ void AMainPlayerController::SpawnPlayer()
 
 void AMainPlayerController::SetupInputComponent()
 {
+    Super::SetupInputComponent();
+    
     if(InputComponent == NULL)
     {
         InputComponent = NewObject<UInputComponent>(this, TEXT("InputComponent"));

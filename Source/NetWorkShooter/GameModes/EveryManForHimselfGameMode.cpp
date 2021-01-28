@@ -19,22 +19,12 @@ void AEveryManForHimselfGameMode::BeginPlay()
     
 }
 
-void AEveryManForHimselfGameMode::CharacterDead(AController* LoserController, AController* InstigatedBy, AActor* KillingCauser)
-{
-    Super::CharacterDead(LoserController, InstigatedBy, KillingCauser);
-}
-
-void AEveryManForHimselfGameMode::SpawnPlayer(AController* Controller)
-{
-    Super::SpawnPlayer(Controller);
-}
-
 void AEveryManForHimselfGameMode::SpawnSpectator(AController* LoserController, AController* DeathInstigator , AMainSpectatorPawn* & NewSpectator)
 {
     Super::SpawnSpectator(LoserController, DeathInstigator, NewSpectator);
 
     /** If the controller of another player is responsible for the death of the player and we did not die from out own hand
-     (from the explosion of our own grenade) */
+    (from the explosion of our own grenade) */
     bool const bOurKillerExists = DeathInstigator && LoserController != DeathInstigator;
 
     /** If we have a killler we follow him, otherwise we follow the place of death */
@@ -55,11 +45,7 @@ void AEveryManForHimselfGameMode::SpawnSpectator(AController* LoserController, A
         /** If we have a killler we follow him */
         if(bOurKillerExists)
         {
-            auto const SpectatorToKiller = Cast<AMoveSpectatorToKiller>(NewSpectator);
-            if(SpectatorToKiller)
-            {
-                SpectatorToKiller->AttachToActor(DeathInstigator->GetPawn(), FAttachmentTransformRules::SnapToTargetNotIncludingScale);
-            }
+            NewSpectator->AttachToActor(DeathInstigator->GetPawn(), FAttachmentTransformRules::SnapToTargetNotIncludingScale);
         }
-    }      
+    }     
 }

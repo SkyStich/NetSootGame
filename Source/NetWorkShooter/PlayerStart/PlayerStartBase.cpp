@@ -16,16 +16,19 @@ void APlayerStartBase::BeginPlay()
     {
         GetCapsuleComponent()->OnComponentEndOverlap.AddDynamic(this, &APlayerStartBase::PlayerLeaveSpawnPoint);
         GetCapsuleComponent()->OnComponentBeginOverlap.AddDynamic(this, &APlayerStartBase::CharacterEnterInSpawnPoint);
+        bCharacterInside = true;
     }
 }
 
 void APlayerStartBase::CharacterEnterInSpawnPoint(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool FromSweep, const FHitResult& SweepResult)
 {
+    if(OtherActor->GetClass() == ANetWorkShooterCharacter::StaticClass())
     bCharacterInside = false;  
 }
 
 void APlayerStartBase::PlayerLeaveSpawnPoint(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComponent, int32 OtherBodyIndex)
 {
+    if(OtherActor->GetClass() == ANetWorkShooterCharacter::StaticClass())
     bCharacterInside = true;
 }
 
@@ -43,5 +46,4 @@ void APlayerStartBase::SpawnCharacter(AController* Controller, ANetWorkShooterCh
         SpawnedCharacter = SpawnCharacter;
         PlayerSpawnedEvent.Broadcast(SpawnCharacter);
     }
- 
 }

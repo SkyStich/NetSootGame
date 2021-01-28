@@ -19,7 +19,6 @@ public:
 	AEveryManForHimselfGameState();
 
 	virtual void GetLifetimeReplicatedProps(TArray< FLifetimeProperty > & OutLifetimeProps) const override;
-	virtual void MatchStart() override;
 	virtual void UpdateTheKillCounter(AController* LoserController, AController* DeathInstigator, AActor* KillingCauser) override;
 
 	UFUNCTION(BlueprintPure, Category = "GameMode|EveryManForHimself")

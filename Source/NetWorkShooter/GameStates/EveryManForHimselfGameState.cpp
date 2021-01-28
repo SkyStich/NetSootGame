@@ -12,15 +12,8 @@ AEveryManForHimselfGameState::AEveryManForHimselfGameState()
 void AEveryManForHimselfGameState::GetLifetimeReplicatedProps(TArray< FLifetimeProperty > & OutLifetimeProps) const
 {
     Super::GetLifetimeReplicatedProps(OutLifetimeProps);
-}
 
-void AEveryManForHimselfGameState::MatchStart()
-{
-    if(GetLocalRole() == ROLE_Authority)
-    {
-        StartGameTimer();
-    }
-    Super::MatchStart();
+    DOREPLIFETIME(AEveryManForHimselfGameState, CurrentKillInMatch);
 }
 
 void AEveryManForHimselfGameState::UpdateTheKillCounter(AController* LoserController, AController* DeathInstigator, AActor* KillingCauser)

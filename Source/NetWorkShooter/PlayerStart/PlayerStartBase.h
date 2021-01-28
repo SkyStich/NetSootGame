@@ -5,6 +5,9 @@
 #include "CoreMinimal.h"
 #include "GameFramework/PlayerStart.h"
 #include "NetWorkShooter/NetWorkShooterCharacter.h"
+#include "NetWorkShooter/NetWorkShooterGameMode.h"
+#include "NetWorkShooter/GameModes/CommandGameMode.h"
+
 #include "PlayerStartBase.generated.h"
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FPlayerSpawned, ANetWorkShooterCharacter*, SpawnedPlayer);
@@ -18,8 +21,10 @@ class NETWORKSHOOTER_API APlayerStartBase : public APlayerStart
 	void CharacterEnterInSpawnPoint(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool FromSweep, const FHitResult& SweepResult);
 
 public:
-	void SpawnCharacter(AController* Controller, ANetWorkShooterCharacter* & SpawnedCharacter);
 
+	void SpawnCharacter(AController* Controller, ANetWorkShooterCharacter* & SpawnedCharacter);
+	TEnumAsByte<ETeamList> GetTeam() const { return Team; }
+	
 protected:
 
 	virtual void BeginPlay() override;
@@ -31,5 +36,9 @@ public:
 
 	UPROPERTY(BlueprintAssignable)
 	FPlayerSpawned PlayerSpawnedEvent;
-	
+
+private:
+
+	UPROPERTY(EditAnywhere)
+	TEnumAsByte<ETeamList>Team;
 };

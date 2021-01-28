@@ -64,18 +64,21 @@ void ANetWorkShooterGameMode::CharacterDead(AController* LoserController, AContr
 	}
 }
 
-void ANetWorkShooterGameMode::GetFreeSpawnPoints(TArray<APlayerStartBase*> & FreePoints)
+void ANetWorkShooterGameMode::GetFreeSpawnPoints(TArray<APlayerStartBase*> & FreePoints, AController* SpawnController)
 {
+	TArray<APlayerStartBase*> TempArray;
+	
 	/** Get all free points for spawn player in naw time  */
-	for(auto& ByArray : AllStartPoints)
+	for(auto ByArray : AllStartPoints)
 	{
 		auto const TempPoint = Cast<APlayerStartBase>(ByArray);
-		if(!TempPoint->bCharacterInside)
+		if(PointSelectionConditions(SpawnController, TempPoint))
 		{
 			/** Add free point */
-			FreePoints.Add(TempPoint);
+			TempArray.Add(TempPoint);
 		}
 	}
+	FreePoints = TempArray;
 }
 
 void ANetWorkShooterGameMode::SpawnPlayer(AController* Controller)
@@ -84,12 +87,20 @@ void ANetWorkShooterGameMode::SpawnPlayer(AController* Controller)
  	TArray<APlayerStartBase*>FreePoints;
  
  	/** Get Free spawn points */
- 	GetFreeSpawnPoints(FreePoints);
+ 	GetFreeSpawnPoints(FreePoints, Controller);
  
  	/** Get random one point where will be spawn player */
  	ANetWorkShooterCharacter* SpawnCharacter;
- 	FreePoints[UKismetMathLibrary::RandomIntegerInRange(0, FreePoints.Num() - 1)]->SpawnCharacter(Controller, SpawnCharacter);	
+
+	int32 Index = UKismetMathLibrary::RandomIntegerInRange(0, FreePoints.Num() - 1);
+	if(FreePoints.IsValidIndex(Index))
+ 	FreePoints[Index]->SpawnCharacter(Controller, SpawnCharacter);	
  }
+
+bool ANetWorkShooterGameMode::PointSelectionConditions(AController* SpawnController, APlayerStartBase* PointToCheck)
+{
+	return PointToCheck->bCharacterInside;
+}
 
 void ANetWorkShooterGameMode::StartGameMatch()  
 {

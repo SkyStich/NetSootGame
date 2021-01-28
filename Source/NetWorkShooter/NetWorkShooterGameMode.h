@@ -22,8 +22,6 @@ UCLASS(minimalapi, Abstract)
 class ANetWorkShooterGameMode : public AGameModeBase
 {
 	GENERATED_BODY()
-
-	void GetFreeSpawnPoints(TArray<APlayerStartBase*> & FreePoints);
 	
 public:
 	
@@ -59,6 +57,12 @@ protected:
 
 	virtual void BeginPlay() override;
 
+	/** Return an array of points for the player to spawn with conditions from the function */
+	void GetFreeSpawnPoints(TArray<APlayerStartBase*> & FreePoints, AController* SpawnController);
+	
+	/** Function responsible for the conditions for selecting spawn points */
+	virtual bool PointSelectionConditions(AController* SpawnController, APlayerStartBase* PointToCheck);
+
 	UFUNCTION()
 	virtual void MatchTimeEnded();
 
@@ -68,6 +72,7 @@ protected:
 	/** Called when  match be stop*/
 	UFUNCTION()
 	virtual void StopGameMatch();
+
 public:
 
 	FMatchStarted MatchStartedEvent;

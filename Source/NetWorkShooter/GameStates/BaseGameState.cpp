@@ -33,6 +33,7 @@ void ABaseGameState::MatchStart()
 {
     CurrentPlayTime = MatchDurationTime;
     MulticastMatchStart();
+    StartGameTimer();
 }
 
 void ABaseGameState::MatchEnd(FString Reason)
