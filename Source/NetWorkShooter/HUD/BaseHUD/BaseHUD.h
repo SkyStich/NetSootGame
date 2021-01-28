@@ -8,7 +8,7 @@
 
 class UUserWidget;
 
-UCLASS(Blueprintable)
+UCLASS(Abstract)
 class NETWORKSHOOTER_API ABaseHUD : public AHUD
 {
 	GENERATED_BODY()
@@ -40,7 +40,7 @@ public:
     UFUNCTION(BlueprintCallable, Category = "HUD")
     void HiddenMainWidget() const;
 
-private:
+protected:
 
     TSubclassOf<UUserWidget> TabMenuWidgetClass;
     TSubclassOf<UUserWidget> MainWidgetClass;

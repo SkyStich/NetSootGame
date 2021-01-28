@@ -48531,6 +48531,8 @@
               <e p="BaseHUD.cpp" t="Include" />
               <e p="BaseHUD.h" t="Include" />
             </e>
+            <e p="EveryManForHimselfHUD.cpp" t="Include" />
+            <e p="EveryManForHimselfHUD.h" t="Include" />
           </e>
           <e p="Interfaces" t="Include">
             <e p="Interaction.cpp" t="Include" />
@@ -48560,6 +48562,8 @@
           <e p="PlayerState" t="Include">
             <e p="BasePlayerState.cpp" t="Include" />
             <e p="BasePlayerState.h" t="Include" />
+            <e p="CommandOlayerState.cpp" t="Include" />
+            <e p="CommandOlayerState.h" t="Include" />
           </e>
           <e p="SingletonClass" t="Include">
             <e p="GameSingletonClass.cpp" t="Include" />

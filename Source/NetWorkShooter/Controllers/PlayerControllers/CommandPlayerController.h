@@ -14,19 +14,10 @@ class NETWORKSHOOTER_API ACommandPlayerController : public AMainPlayerController
 
 public:
 	ACommandPlayerController();
-
-	UFUNCTION(BlueprintPure, Category = "CommandController|Getting")
-	TEnumAsByte<ETeamList> GetTeam() const { return Team; }
 	
 	virtual void GetLifetimeReplicatedProps(TArray< FLifetimeProperty > & OutLifetimeProps) const override;
 
 protected:
 
 	virtual void BeginPlay() override;
-
-private:
-
-	UPROPERTY(Replicated)
-	TEnumAsByte<ETeamList> Team;
-	
 };

@@ -10,14 +10,7 @@
 
 ABaseHUD::ABaseHUD()
 {
-    ConstructorHelpers::FClassFinder<UUserWidget>TabMenuClassFinder(TEXT("/Game/ThirdPersonCPP/UI/TabMenu/Design/W_TabMenu"));
-    ConstructorHelpers::FClassFinder<UUserWidget>MainWidgetClassFinder(TEXT("/Game/ThirdPersonCPP/UI/HUD/W_HUD_MainWidget"));
-    
-    if(TabMenuClassFinder.Succeeded() && MainWidgetClassFinder.Succeeded())
-    {
-         TabMenuWidgetClass = TabMenuClassFinder.Class;
-         MainWidgetClass = MainWidgetClassFinder.Class;
-    }
+
 }
 
 void ABaseHUD::BeginPlay()
