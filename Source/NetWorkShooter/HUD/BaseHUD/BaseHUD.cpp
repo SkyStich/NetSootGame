@@ -39,8 +39,8 @@ void ABaseHUD::DrawHUD()
         int32 const Seconds = State->GetCurrentPlayTime().GetSeconds();
     
         /** Format text */
-        FString Min("A");
-        FString Sec("A");
+        FString Min("");
+        FString Sec("");
         Minutes < 10 ? Min = "0" + FString::FromInt(Minutes) : Min = FString::FromInt(Minutes);
         Seconds < 10 ? Sec = "0" + FString::FromInt(Seconds) : Sec = FString::FromInt(Seconds);
 

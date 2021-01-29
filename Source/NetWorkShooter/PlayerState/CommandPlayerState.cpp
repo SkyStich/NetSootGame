@@ -15,7 +15,7 @@ void ACommandPlayerState::GetLifetimeReplicatedProps(TArray< FLifetimeProperty >
 void ACommandPlayerState::BeginPlay()
 {
 	if(GetLocalRole() == ROLE_Authority)
-    {
-        UKismetMathLibrary::RandomBool() ? Team = ETeamList::TeamA : Team = ETeamList::TeamB;
-    }
+	{
+		UKismetMathLibrary::RandomBool() ? Team = ETeamList::TeamA : Team = ETeamList::TeamB;
+	}
 }

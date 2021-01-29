@@ -8,8 +8,8 @@
 #include "CommandPlayerState.generated.h"
 
 /**
- * 
- */
+* 
+*/
 UCLASS()
 class NETWORKSHOOTER_API ACommandPlayerState : public ABasePlayerState
 {
@@ -22,7 +22,7 @@ protected:
 public:
 
 	UFUNCTION(BlueprintPure, Category = "CommandController|Getting")
-	TEnumAsByte<ETeamList> GetTeam() const { return Team; }
+    TEnumAsByte<ETeamList> GetTeam() const { return Team; }
 
 	virtual void GetLifetimeReplicatedProps(TArray< FLifetimeProperty > & OutLifetimeProps) const override;
 	

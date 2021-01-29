@@ -3,7 +3,7 @@
 
 #include "CommandGameMode.h"
 #include "Kismet/GameplayStatics.h"
-#include "Kismet/KismetMathLibrary.h"
+#include "NetWorkShooter/PlayerState/CommandPlayerState.h"
 #include "NetWorkShooter/Controllers/PlayerControllers/CommandPlayerController.h"
 #include "NetWorkShooter/GameStates/BaseGameState.h"
 #include "NetWorkShooter/Spectators/MoveSpectatorToKiller.h"
@@ -21,10 +21,10 @@ void ACommandGameMode::BeginPlay()
 
 bool ACommandGameMode::PointSelectionConditions(AController* SpawnController, APlayerStartBase* PointToCheck)
 {
-    auto const CommandController = Cast<ACommandPlayerController>(SpawnController);
-    if(!CommandController) return false;
+    auto const CommandPlayerState = Cast<ACommandPlayerState>(SpawnController->PlayerState);
+    if(!CommandPlayerState) return false;
     
-    return Super::PointSelectionConditions(SpawnController, PointToCheck) && PointToCheck->GetTeam() == CommandController->GetTeam();
+    return Super::PointSelectionConditions(SpawnController, PointToCheck) && CommandPlayerState->GetTeam() == PointToCheck->GetTeam();
 }
 
 void ACommandGameMode::SpawnSpectator(AController* LoserController, AController* DeathInstigator, AMainSpectatorPawn*& NewSpectator)
