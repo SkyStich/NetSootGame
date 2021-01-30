@@ -24,15 +24,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4e895809-3b0e-414a-9fb7-267441527844" name="Default Changelist" comment="Change system command">
-      <change afterPath="$PROJECT_DIR$/Source/NetWorkShooter/HUD/CommandHUD.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Source/NetWorkShooter/HUD/CommandHUD.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.NetWorkShooter/.idea/contentModel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.NetWorkShooter/.idea/contentModel.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/UI/TabMenu/Design/W_CommandTabMenu.uasset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.NetWorkShooter/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.NetWorkShooter/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/ThirdPersonCPP/Blueprints/GameModes/BP_CommandGameMode.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/Blueprints/GameModes/BP_CommandGameMode.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/NetWorkShooter/GameModes/CommandGameMode.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/NetWorkShooter/GameModes/CommandGameMode.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/NetWorkShooter/HUD/BaseHUD/BaseHUD.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/NetWorkShooter/HUD/BaseHUD/BaseHUD.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/NetWorkShooter/PlayerState/CommandPlayerState.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/NetWorkShooter/PlayerState/CommandPlayerState.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/NetWorkShooter/PlayerState/CommandPlayerState.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/NetWorkShooter/PlayerState/CommandPlayerState.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/ThirdPersonCPP/UI/TabMenu/Design/W_PlayerState.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/UI/TabMenu/Design/W_PlayerState.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/ThirdPersonCPP/UI/TabMenu/Design/W_TabMenu.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/UI/TabMenu/Design/W_TabMenu.uasset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -391,7 +386,8 @@
       <workItem from="1611870838381" duration="1492000" />
       <workItem from="1611872594205" duration="1322000" />
       <workItem from="1611908947759" duration="2725000" />
-      <workItem from="1611918567378" duration="5770000" />
+      <workItem from="1611918567378" duration="6333000" />
+      <workItem from="1611946096379" duration="95000" />
     </task>
     <task id="LOCAL-00001" summary="init override function SpawnPlayer">
       <created>1610844415255</created>
