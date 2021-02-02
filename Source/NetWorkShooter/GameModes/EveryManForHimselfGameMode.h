@@ -16,7 +16,16 @@ public:
 	
 	virtual void SpawnSpectator(AController* LoserController, AController* DeathInstigator , AMainSpectatorPawn* & NewSpectator) override;
 
+	/** is responsible for scoring the points made for the entire time of the match */
+	virtual bool UpDateDeathPoints(AController* LoserController, AController* InstigatorController) override;
+
 protected:
 
 	virtual void BeginPlay() override;
+
+private:
+
+	/** If = 0, match have Not killLimit */
+	UPROPERTY(EditAnywhere)
+	int32 MatchWithKillLimit;
 };

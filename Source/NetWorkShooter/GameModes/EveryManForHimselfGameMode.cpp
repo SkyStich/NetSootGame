@@ -11,12 +11,30 @@ AEveryManForHimselfGameMode::AEveryManForHimselfGameMode()
 {
     PlayerStateClass = ABasePlayerState::StaticClass();
     GameStateClass = AEveryManForHimselfGameState::StaticClass();
+
+    MatchWithKillLimit = 5;
 }
 
 void AEveryManForHimselfGameMode::BeginPlay()
 {
     Super::BeginPlay();
     
+}
+
+bool AEveryManForHimselfGameMode::UpDateDeathPoints(AController* LoserController, AController* InstigatorController)
+{
+    if(Super::UpDateDeathPoints(LoserController, InstigatorController))
+    {
+        auto const TempGameState = Cast<AEveryManForHimselfGameState>(GameState);
+        TempGameState->IncrementCurrentKillInMatch();
+  
+        if(TempGameState->GetCurrentKillInMatch() >= MatchWithKillLimit)
+        {
+            StopGameMatch("MaxKill");
+        }
+        return true;
+    }
+    return false;
 }
 
 void AEveryManForHimselfGameMode::SpawnSpectator(AController* LoserController, AController* DeathInstigator , AMainSpectatorPawn* & NewSpectator)

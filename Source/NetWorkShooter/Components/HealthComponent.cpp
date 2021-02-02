@@ -64,9 +64,9 @@ void UHealthComponent::OnRep_IsDead()
 }
 
 void UHealthComponent::OnPlayerTakeAnyDamage(AActor* DamageActor, float BaseDamage, const UDamageType* DamageType, AController* InstigatorController, AActor* DamageCauser)
-{ 
+{
 	float const NewDamage = (1 - (CurrentArmor / (MaxArmor * 1.2f))) * BaseDamage;
-	GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Red, FString::Printf(TEXT("BaseDamage: %f   NewDamage: %f"), BaseDamage, NewDamage));
+
 	CurrentHealth -= NewDamage;
 	CurrentArmor = UKismetMathLibrary::Max(CurrentArmor - BaseDamage, 0);
 	

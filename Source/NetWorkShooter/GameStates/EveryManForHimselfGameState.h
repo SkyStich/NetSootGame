@@ -19,17 +19,11 @@ public:
 	AEveryManForHimselfGameState();
 
 	virtual void GetLifetimeReplicatedProps(TArray< FLifetimeProperty > & OutLifetimeProps) const override;
-	virtual void UpdateTheKillCounter(AController* LoserController, AController* DeathInstigator, AActor* KillingCauser) override;
+
+	void IncrementCurrentKillInMatch() { CurrentKillInMatch++; }
 
 	UFUNCTION(BlueprintPure, Category = "GameMode|EveryManForHimself")
 	int32 GetCurrentKillInMatch() const { return CurrentKillInMatch; }
-
-protected:
-
-	/** If = 0, match have Not killLimit */
-	UPROPERTY(EditAnywhere)
-	int32 MatchWithKillLimit;
-
 private:
 	
 	UPROPERTY(Replicated)

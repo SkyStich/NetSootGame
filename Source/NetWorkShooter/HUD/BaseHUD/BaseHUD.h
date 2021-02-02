@@ -29,16 +29,16 @@ public:
     virtual void BeginPlay() override;
 
     UFUNCTION(BlueprintCallable, Category = "HUD")
-    void ShowTabMenu() const;
+    void ShowTabMenu();
 
     UFUNCTION(BlueprintCallable, Category = "HUD")
-    void HiddenTabMenu() const;
+    void HiddenTabMenu();
 
     UFUNCTION(BlueprintCallable, Category = "HUD")
-    void ShowMainWidget() const;
+    void ShowMainWidget();
 
     UFUNCTION(BlueprintCallable, Category = "HUD")
-    void HiddenMainWidget() const;
+    void HiddenMainWidget();
 
 protected:
 

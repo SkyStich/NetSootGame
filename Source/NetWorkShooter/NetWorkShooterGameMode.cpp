@@ -35,19 +35,20 @@ void ANetWorkShooterGameMode::BeginPlay()
 	/** Start match */
 	FTimerHandle StartHandle;
 	GetWorld()->GetTimerManager().SetTimer(StartHandle, this, &ANetWorkShooterGameMode::StartGameMatch, 3.f, false);
-
-	/** Bind on end match if time exit */
-	ABaseGameState* BaseGameState = GetGameState<ABaseGameState>();
-	BaseGameState->OnMatchTimeIsOverEvent.AddDynamic(this, &ANetWorkShooterGameMode::MatchTimeEnded);
-	BaseGameState->OnExcessDeathsEvent.AddDynamic(this, &ANetWorkShooterGameMode::MatchExcessDeathsEnded);
 }
 
 void ANetWorkShooterGameMode::CharacterDead(AController* LoserController, AController* DeathInstigator, AActor* KillingCauser)
 {
+	if(!LoserController)
+	{
+		UE_LOG(LogTemp, Error, TEXT("Loser controller not valid: "), *LoserController->GetName());
+		return;
+	}
+
 	PlayerDeadEvent.Broadcast(LoserController, DeathInstigator, KillingCauser);
 	
 	/** UpDate points, kills, deaths... For the killer and the murdered */
-	UpDateDeathPoints(LoserController->GetPlayerState<ABasePlayerState>(), DeathInstigator->GetPlayerState<ABasePlayerState>());
+	UpDateDeathPoints(LoserController, DeathInstigator);
 
 	/** Spawn spectator for loser controller */
 	AMainSpectatorPawn* NewSpectatorPawn;
@@ -65,20 +66,20 @@ void ANetWorkShooterGameMode::CharacterDead(AController* LoserController, AContr
 }
 
 void ANetWorkShooterGameMode::GetFreeSpawnPoints(TArray<APlayerStartBase*> & FreePoints, AController* SpawnController)
-{
-	TArray<APlayerStartBase*> TempArray;
-	
+{	
 	/** Get all free points for spawn player in naw time  */
 	for(auto ByArray : AllStartPoints)
 	{
 		auto const TempPoint = Cast<APlayerStartBase>(ByArray);
-		if(PointSelectionConditions(SpawnController, TempPoint))
+		if(TempPoint)
 		{
-			/** Add free point */
-			TempArray.Add(TempPoint);
-		}
+			if(PointSelectionConditions(SpawnController, TempPoint))
+			{
+				/** Add free point */
+				FreePoints.Add(TempPoint);
+			}
+		}	
 	}
-	FreePoints = TempArray;
 }
 
 void ANetWorkShooterGameMode::SpawnPlayer(AController* Controller)
@@ -92,7 +93,7 @@ void ANetWorkShooterGameMode::SpawnPlayer(AController* Controller)
  	/** Get random one point where will be spawn player */
  	ANetWorkShooterCharacter* SpawnCharacter;
 
-	int32 Index = UKismetMathLibrary::RandomIntegerInRange(0, FreePoints.Num() - 1);
+	int32 const Index = UKismetMathLibrary::RandomIntegerInRange(0, FreePoints.Num() - 1);
 	if(FreePoints.IsValidIndex(Index))
  	FreePoints[Index]->SpawnCharacter(Controller, SpawnCharacter);	
  }
@@ -109,20 +110,53 @@ void ANetWorkShooterGameMode::StartGameMatch()
 	{
 		SpawnPlayer(Cast<AController>(ByArray->GetOwner()));
 	}
+	StartGameTimer();
 	MatchStartedEvent.Broadcast();
 }
 
-void ANetWorkShooterGameMode::StopGameMatch()
-{
-	/** Get all  player state and block input him controllers*/
-	for(auto& ByArray : GameState->PlayerArray)
+void ANetWorkShooterGameMode::StartGameTimer()
+{	
+	TimerDelegate.BindLambda([&]() -> void
 	{
-	//	GetOwner()->InputComponent->bBlockInput = true;
-	}
+		auto const BaseState = Cast<ABaseGameState>(GameState);
+		if(BaseState)
+		{
+			BaseState->IncrementPlayTime();
+			if(BaseState->GetCurrentPlayTime().IsZero())
+			{
+				StopGameMatch("GameEnded");
+			}
+		}
+	});
+	
+	GetWorld()->GetTimerManager().SetTimer(TimeTickHandle, TimerDelegate, 1, true);
 }
 
-void ANetWorkShooterGameMode::UpDateDeathPoints(ABasePlayerState* LoserState, ABasePlayerState* InstigatorState)
+void ANetWorkShooterGameMode::StopGameMatch(FString StopReason)
 {
+	/** Get all  player state and block input him controllers*/
+
+	GetWorld()->GetTimerManager().ClearTimer(TimeTickHandle);
+	OnMatchStopEvent.Broadcast(StopReason);
+}
+
+bool ANetWorkShooterGameMode::UpDateDeathPoints(AController* LoserController, AController* InstigatorController)
+{
+	auto const LoserState = Cast<ABasePlayerState>(LoserController->PlayerState);
+	
+	/** if instigator controller is empty, then the player is to blame for his death (but did not kill himself personally), for example, crashed */	
+	if(!InstigatorController)
+	{
+		/** Add one death and reduce one of murder if we killed ourselves */
+		LoserState->IncrementNumberOfDeaths();
+		
+		/** LosetCharacter kill self */
+		return false;
+	}
+
+	auto const InstigatorState = Cast<ABasePlayerState>(InstigatorController->PlayerState);
+
+	/** if the player has a killer */
 	if(LoserState != InstigatorState)
 	{
 		/** Add one death of loser controller */
@@ -130,23 +164,16 @@ void ANetWorkShooterGameMode::UpDateDeathPoints(ABasePlayerState* LoserState, AB
 
 		/** Add one murber of the instigator controller */ 
 		InstigatorState->IncrementNumberOfMurders();
+		return true;
 	}
-	else
-	{
-		/** Add one death and reduce one of murder if we killed ourselves */
-		LoserState->DecrementNumberOfMurders();
-		LoserState->IncrementNumberOfDeaths();
-	}
-}
+	
+	/**
+	 *if the player killed himself (exploded on his own grenade)
+	 *Add one death and reduce one of murder if we killed ourselves
+	 **/
+	LoserState->DecrementNumberOfMurders();
+	LoserState->IncrementNumberOfDeaths();
 
-void ANetWorkShooterGameMode::MatchTimeEnded()
-{
-	StopGameMatch();
-	OnMatchStopEvent.Broadcast("Time exit");
-}
-
-void ANetWorkShooterGameMode::MatchExcessDeathsEnded()
-{
-	StopGameMatch();
-	OnMatchStopEvent.Broadcast("Excess deaths");
+	/** LosetCharacter kill self */
+	return false;
 }

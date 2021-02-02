@@ -15,7 +15,7 @@ AMainPlayerController::AMainPlayerController()
 
 void AMainPlayerController::BeginPlay()
 {
-    Super::BeginPlay();
+    Super::BeginPlay(); 
 }
 
 void AMainPlayerController::SpawnPlayer()
@@ -31,7 +31,7 @@ void AMainPlayerController::SetupInputComponent()
 {
     Super::SetupInputComponent();
     
-    if(InputComponent == NULL)
+    if(InputComponent == nullptr)
     {
         InputComponent = NewObject<UInputComponent>(this, TEXT("InputComponent"));
         InputComponent->RegisterComponent();
@@ -49,11 +49,11 @@ void AMainPlayerController::LaunchRespawnTimer(float const TimeToRespawn, class 
 }
 
 void AMainPlayerController::ServerPlayerRespawn_Implementation()
-{
-    auto const MainGameMode = Cast<ANetWorkShooterGameMode>(UGameplayStatics::GetGameMode(GetWorld()));
-    
+{  
     auto const TempPawn = GetPawn();
-    MainGameMode->SpawnPlayer(this);
+    
+    SpawnPlayer();
+    
     TempPawn->Destroy();
 }
 
@@ -61,7 +61,11 @@ void AMainPlayerController::ToggleTabMenu()
 {
     if(GetLocalRole() != ROLE_Authority)
     {
-        GetHUD<ABaseHUD>()->ShowTabMenu();
+        auto const HUD = GetHUD<ABaseHUD>();
+        if(HUD)
+        {
+            HUD->ShowTabMenu();
+        }
     }
 }
 
@@ -69,6 +73,11 @@ void AMainPlayerController::HideTabMenu()
 {
     if(GetLocalRole() != ROLE_Authority)
     {
-        GetHUD<ABaseHUD>()->HiddenTabMenu();
+        auto const HUD = GetHUD<ABaseHUD>();
+        if(HUD)
+        {
+            HUD->HiddenTabMenu();
+        }
     }
 }
+

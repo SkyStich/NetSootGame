@@ -5,8 +5,9 @@
 #include "NetWorkShooter/GameStates/BaseGameState.h"
 #include "Blueprint/UserWidget.h"
 #include "Kismet/GameplayStatics.h"
+#include "NetWorkShooter/Spectators/MainSpectatorPawn.h"
+#include "NetWorkShooter/NetWorkShooterCharacter.h"
 #include "Engine/Font.h"
-#include "UObject/ConstructorHelpers.h"
 
 ABaseHUD::ABaseHUD()
 {
@@ -17,7 +18,7 @@ void ABaseHUD::BeginPlay()
 {
     Super::BeginPlay();
     
-    Cast<ABaseGameState>(UGameplayStatics::GetGameState(GetWorld()))->OnMatchStartedEvent.AddDynamic(this, &ABaseHUD::MatchStarted);
+    Cast<ABaseGameState>(UGameplayStatics::GetGameState(GetWorld()))->OnMatchStartedEvent.AddDynamic(this, &ABaseHUD::ABaseHUD::MatchStarted);
 }
 
 void ABaseHUD::DrawHUD()
@@ -39,8 +40,8 @@ void ABaseHUD::DrawHUD()
         int32 const Seconds = State->GetCurrentPlayTime().GetSeconds();
     
         /** Format text */
-        FString Min("");
-        FString Sec("");
+        FString Min;
+        FString Sec;
         Minutes < 10 ? Min = "0" + FString::FromInt(Minutes) : Min = FString::FromInt(Minutes);
         Seconds < 10 ? Sec = "0" + FString::FromInt(Seconds) : Sec = FString::FromInt(Seconds);
 
@@ -53,6 +54,7 @@ void ABaseHUD::MatchStarted()
 {
     CreateTabMenu();
     CreateMainWidget();
+    ShowMainWidget();
 }
 
 void ABaseHUD::CreateTabMenu()
@@ -63,30 +65,41 @@ void ABaseHUD::CreateTabMenu()
 void ABaseHUD::CreateMainWidget()
 {
     MainWidget = CreateWidget(GetOwningPlayerController(), MainWidgetClass, "MainWidget");
-    MainWidget->AddToViewport();
 }
 
-void ABaseHUD::ShowTabMenu() const
+void ABaseHUD::ShowTabMenu() 
 {
-    if(TabMenuWidget && !TabMenuWidget->IsPendingKill())
+    if(TabMenuWidget)
+    {
         TabMenuWidget->AddToViewport();
+    }
+    else
+    {
+        CreateTabMenu();
+        TabMenuWidget->AddToViewport();
+    } 
 }
 
-void ABaseHUD::HiddenTabMenu() const
+void ABaseHUD::HiddenTabMenu() 
 {
-    if(TabMenuWidget && !TabMenuWidget->IsPendingKill())
-        TabMenuWidget->RemoveFromParent();
+    TabMenuWidget ? TabMenuWidget->RemoveFromParent() : CreateTabMenu();
 }
 
-void ABaseHUD::ShowMainWidget() const
+void ABaseHUD::ShowMainWidget() 
 {
-    if(MainWidget && !MainWidget->IsPendingKill())
-        MainWidget->SetVisibility(ESlateVisibility::Visible);
+    if(MainWidget)
+    {
+        MainWidget->AddToViewport();
+    }
+    else
+    {
+        CreateMainWidget();
+        MainWidget->AddToViewport();
+    }
 }
 
-void ABaseHUD::HiddenMainWidget() const
+void ABaseHUD::HiddenMainWidget() 
 {
-    if(MainWidget && !MainWidget->IsPendingKill())
-        MainWidget->SetVisibility(ESlateVisibility::Collapsed);
+    MainWidget ? MainWidget->RemoveFromParent() : CreateMainWidget();
 }
 

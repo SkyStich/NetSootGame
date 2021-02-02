@@ -4,22 +4,17 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/GameState.h"
-#include "../NetWorkShooterGameMode.h"
 #include "BaseGameState.generated.h"
 
-DECLARE_DYNAMIC_MULTICAST_DELEGATE(FMatchTimeIsOver);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FMatchEnd, FString, Reason);
-DECLARE_MULTICAST_DELEGATE(FMatchStart);
-DECLARE_DYNAMIC_MULTICAST_DELEGATE(FExcessDeaths);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FMatchStart);
+
+class ANetWorkShooterGameMode;
 
 UCLASS(Abstract)
 class NETWORKSHOOTER_API ABaseGameState : public AGameStateBase
 {
 	GENERATED_BODY()
-
-    /** Add to PlayTime One Second*/
-    UFUNCTION()
-    void IncrementPlayTime();
 
     UFUNCTION(NetMulticast, Reliable)
     void MulticastMatchEnd(const FString& Reason);
@@ -33,12 +28,8 @@ public:
 
     ABaseGameState();
 
-    /** Start time for increment One second in PlayTime */
-    UFUNCTION()
-    void StartGameTimer();
-
-    UFUNCTION()
-    virtual void UpdateTheKillCounter(AController* LoserController, AController* DeathInstigator, AActor* KillingCauser) {  }
+    /** Add to PlayTime One Second*/
+    void IncrementPlayTime();
 
     virtual void GetLifetimeReplicatedProps(TArray< FLifetimeProperty > & OutLifetimeProps) const override;
 
@@ -54,14 +45,8 @@ public:
 protected:
 
     virtual void BeginPlay() override;
-
-    /** Game duration */
-    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "GameState|PlayTime")
-    FTimespan MatchDurationTime;
+    
 private:
-
-    /** Current game Handle */
-    FTimerHandle TimeTickHandle;
 
     UPROPERTY(Replicated)
     FTimespan CurrentPlayTime;
@@ -69,14 +54,14 @@ private:
 public:
 
     UPROPERTY(BlueprintAssignable)
-    FMatchTimeIsOver OnMatchTimeIsOverEvent;
-
-    UPROPERTY(BlueprintAssignable)
     FMatchEnd OnMatchEndedEvent;
 
     UPROPERTY(BlueprintAssignable)
-    FMatchStarted OnMatchStartedEvent;
+    FMatchStart OnMatchStartedEvent;
 
-    UPROPERTY(BlueprintAssignable)
-    FExcessDeaths OnExcessDeathsEvent;
+protected:
+
+    /** Game duration */
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "GameState|PlayTime")
+    FTimespan MatchDurationTime;
 };

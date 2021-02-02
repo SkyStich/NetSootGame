@@ -23,10 +23,19 @@ public:
 
    ACommandGameMode();
 
-   virtual void SpawnSpectator(AController* LoserController, AController* DeathInstigator, AMainSpectatorPawn*& NewSpectator) override;
-   
+    virtual void SpawnSpectator(AController* LoserController, AController* DeathInstigator, AMainSpectatorPawn*& NewSpectator) override;
+
+	/** Is responsible for awarding points to certain trams */
+    virtual bool UpDateDeathPoints(AController* LoserController, AController* InstigatorController) override;
+	
 protected:
 
     virtual void BeginPlay() override;
 	virtual bool PointSelectionConditions(AController* SpawnController, APlayerStartBase* PointToCheck) override;
+
+private:
+
+	/** Be responsible for the maximum number of kills. */
+	UPROPERTY(EditAnywhere, Category = "CommandState|Kills")
+	int32 MaximumCountOfKillsPerMatch;
 };

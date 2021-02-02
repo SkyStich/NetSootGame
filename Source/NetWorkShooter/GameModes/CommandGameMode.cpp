@@ -6,6 +6,7 @@
 #include "NetWorkShooter/PlayerState/CommandPlayerState.h"
 #include "NetWorkShooter/Controllers/PlayerControllers/CommandPlayerController.h"
 #include "NetWorkShooter/GameStates/BaseGameState.h"
+#include "NetWorkShooter/GameStates/CommandGameState.h"
 #include "NetWorkShooter/Spectators/MoveSpectatorToKiller.h"
 #include "NetWorkShooter/PlayerStart/PlayerStartBase.h"
 
@@ -56,6 +57,37 @@ void ACommandGameMode::SpawnSpectator(AController* LoserController, AController*
             NewSpectator->AttachToActor(DeathInstigator->GetPawn(), FAttachmentTransformRules::SnapToTargetNotIncludingScale);
         }
     }     
+}
+
+bool ACommandGameMode::UpDateDeathPoints(AController* LoserController, AController* InstigatorController)
+{    
+    if(InstigatorController)
+    {
+        auto const CommandInstigatorState = InstigatorController->GetPlayerState<ACommandPlayerState>();
+        auto const CommandLoserState = LoserController->GetPlayerState<ACommandPlayerState>();
+        
+        if(CommandInstigatorState->GetTeam() != CommandLoserState->GetTeam())
+        {
+            if(Super::UpDateDeathPoints(LoserController, InstigatorController))
+            {
+                auto const CommandState = GetGameState<ACommandGameState>();
+                CommandState->ChangeTeamPoints(CommandInstigatorState->GetTeam(), 1);
+            
+                if(CommandState->GetPointByTeam(CommandInstigatorState->GetTeam()) >= MaximumCountOfKillsPerMatch)
+                {
+                    StopGameMatch("Max kill.");
+                }
+                return true;
+            }
+        }
+        else
+        {
+            CommandLoserState->IncrementNumberOfDeaths();
+            CommandInstigatorState->DecrementNumberOfMurders();
+            return false;
+        }
+    }
+    return Super::UpDateDeathPoints(LoserController, InstigatorController);
 }
 
 

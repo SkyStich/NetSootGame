@@ -22,6 +22,8 @@ UCLASS(minimalapi, Abstract)
 class ANetWorkShooterGameMode : public AGameModeBase
 {
 	GENERATED_BODY()
+
+	void StartGameTimer();
 	
 public:
 	
@@ -33,9 +35,10 @@ public:
 	UFUNCTION(BlueprintPure, Category = "GameMode|Getting")
 	float GetRespawnTime() const { return RespawnTime; }
 
-	/** Change points, kills, deaths... For the killer and the murdered */
+	/** Is responsible for calculating death and killing points */
+	/** Return false if InstigatorController is empty */
 	UFUNCTION()
-	virtual void UpDateDeathPoints(class ABasePlayerState* LoserState, class ABasePlayerState* InstigatorState);
+	virtual bool UpDateDeathPoints(AController* LoserController, AController* InstigatorController);
 
 	/** Called when a player dies */
 	UFUNCTION()
@@ -52,6 +55,10 @@ public:
 	/** The function is called when the match has started directly (All players are ready and can perform actions) */
 	UFUNCTION()
 	virtual void StartGameMatch();
+
+	/** Called when  match be stop*/
+	UFUNCTION()
+    virtual void StopGameMatch(FString StopReason);
 	
 protected:
 
@@ -62,17 +69,6 @@ protected:
 	
 	/** Function responsible for the conditions for selecting spawn points */
 	virtual bool PointSelectionConditions(AController* SpawnController, APlayerStartBase* PointToCheck);
-
-	UFUNCTION()
-	virtual void MatchTimeEnded();
-
-	UFUNCTION()
-	virtual void MatchExcessDeathsEnded();
-
-	/** Called when  match be stop*/
-	UFUNCTION()
-	virtual void StopGameMatch();
-
 public:
 
 	FMatchStarted MatchStartedEvent;
@@ -92,6 +88,12 @@ protected:
 	/** Time before respawn the player */
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	float RespawnTime;
+
+private:
+
+	/** Current game Handle */
+	FTimerHandle TimeTickHandle;
+	FTimerDelegate TimerDelegate;
 };
 
 
