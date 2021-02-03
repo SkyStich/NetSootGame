@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/HUD.h"
+#include "NetWorkShooter/GameStates/BaseGameState.h"
 #include "BaseHUD.generated.h"
 
 class UUserWidget;
@@ -12,19 +13,20 @@ UCLASS(Abstract)
 class NETWORKSHOOTER_API ABaseHUD : public AHUD
 {
 	GENERATED_BODY()
+
+    ABaseGameState* GetBaseGameState();
+    
 protected:
 
     virtual void DrawHUD() override;
 
     UFUNCTION()
-    void MatchStarted();
+    void MatchStarted(TEnumAsByte<EMatchState> NewMatchState);
     
     void CreateTabMenu();
     void CreateMainWidget();
     
 public:
-
-    ABaseHUD();
   
     virtual void BeginPlay() override;
 

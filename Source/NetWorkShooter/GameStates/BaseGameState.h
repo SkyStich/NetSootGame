@@ -6,8 +6,19 @@
 #include "GameFramework/GameState.h"
 #include "BaseGameState.generated.h"
 
+UENUM(BlueprintType)
+enum EMatchState
+{
+    PreStart,
+    Game,
+    MatchEnd
+};
+
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FMatchEnd, FString, Reason);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FMatchStart);
+
+/** Using for sync load user widget after character initialization */
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FMatchStateChanged, TEnumAsByte<EMatchState>, NewMatchState);
 
 class ANetWorkShooterGameMode;
 
@@ -23,6 +34,11 @@ class NETWORKSHOOTER_API ABaseGameState : public AGameStateBase
     UFUNCTION(NetMulticast, Reliable)
     void MulticastMatchStart();
     void MulticastMatchStart_Implementation();
+
+    void GameStartTime();
+
+    UFUNCTION()
+    void OnRep_MatchState();
     
 public:
 
@@ -42,6 +58,9 @@ public:
     UFUNCTION(BlueprintPure)
     FTimespan GetCurrentPlayTime() const { return CurrentPlayTime; }  
     
+    UFUNCTION(BlueprintPure)
+    TEnumAsByte<EMatchState> GetMatchState() const { return MatchState; }
+    
 protected:
 
     virtual void BeginPlay() override;
@@ -51,6 +70,8 @@ private:
     UPROPERTY(Replicated)
     FTimespan CurrentPlayTime;
 
+    FTimerHandle GameStartTimer;
+
 public:
 
     UPROPERTY(BlueprintAssignable)
@@ -59,7 +80,15 @@ public:
     UPROPERTY(BlueprintAssignable)
     FMatchStart OnMatchStartedEvent;
 
+    FMatchStateChanged OnMatchStateChangedEvent;
+
 protected:
+
+    UPROPERTY(ReplicatedUsing = OnRep_MatchState)
+    TEnumAsByte<EMatchState> MatchState;
+
+    UPROPERTY(Replicated)
+    int32 TimeBeforeStartOfMatch;
 
     /** Game duration */
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "GameState|PlayTime")

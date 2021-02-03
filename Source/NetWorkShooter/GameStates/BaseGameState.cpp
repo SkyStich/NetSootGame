@@ -8,7 +8,9 @@
 
 ABaseGameState::ABaseGameState()
 {
+    TimeBeforeStartOfMatch = 5;
     MatchDurationTime = FTimespan(0, 2, 0);
+    MatchState = EMatchState::PreStart;
 }
 
 void ABaseGameState::BeginPlay()
@@ -19,7 +21,25 @@ void ABaseGameState::BeginPlay()
     {
         auto const MainGameMode = Cast<ANetWorkShooterGameMode>(AuthorityGameMode);
         MainGameMode->OnMatchStopEvent.AddDynamic(this, &ABaseGameState::MatchEnd);
-        MainGameMode->MatchStartedEvent.AddDynamic(this, &ABaseGameState::MatchStart);
+
+        GetWorld()->GetTimerManager().SetTimer(GameStartTimer, this, &ABaseGameState::GameStartTime, 1.f, true);
+    }
+}
+
+void ABaseGameState::GameStartTime()
+{
+    if(GetLocalRole() == ROLE_Authority)
+    {
+        if(MatchState == EMatchState::PreStart)
+        {
+            TimeBeforeStartOfMatch--;
+            if(TimeBeforeStartOfMatch <= 0)
+            {                
+                Cast<ANetWorkShooterGameMode>(AuthorityGameMode)->StartGameMatch();
+                MatchStart();
+                GetWorld()->GetTimerManager().ClearTimer(GameStartTimer);
+            }
+        }
     }
 }
 
@@ -28,17 +48,30 @@ void ABaseGameState::GetLifetimeReplicatedProps(TArray< FLifetimeProperty > & Ou
     Super::GetLifetimeReplicatedProps(OutLifetimeProps);
 
     DOREPLIFETIME(ABaseGameState, CurrentPlayTime);
+    DOREPLIFETIME(ABaseGameState, MatchState);
+    DOREPLIFETIME(ABaseGameState, TimeBeforeStartOfMatch);
 }
 
 void ABaseGameState::MatchStart()
 {
     CurrentPlayTime = MatchDurationTime;
+
     MulticastMatchStart();
+    
+    MatchState = EMatchState::Game;
+}
+
+void ABaseGameState::OnRep_MatchState()
+{
+    OnMatchStateChangedEvent.Broadcast(MatchState);
 }
 
 void ABaseGameState::MatchEnd(FString Reason)
 {
     MulticastMatchEnd(Reason);
+
+    TimeBeforeStartOfMatch = 5;
+    MatchState = EMatchState::MatchEnd;
 }
 
 void ABaseGameState::MulticastMatchEnd_Implementation(const FString& Reason)

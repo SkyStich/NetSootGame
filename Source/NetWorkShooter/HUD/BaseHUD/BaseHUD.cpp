@@ -2,30 +2,30 @@
 
 
 #include "BaseHUD.h"
-#include "NetWorkShooter/GameStates/BaseGameState.h"
 #include "Blueprint/UserWidget.h"
 #include "Kismet/GameplayStatics.h"
+#include "Engine/World.h"
 #include "NetWorkShooter/Spectators/MainSpectatorPawn.h"
 #include "NetWorkShooter/NetWorkShooterCharacter.h"
 #include "Engine/Font.h"
-
-ABaseHUD::ABaseHUD()
-{
-
-}
 
 void ABaseHUD::BeginPlay()
 {
     Super::BeginPlay();
     
-    Cast<ABaseGameState>(UGameplayStatics::GetGameState(GetWorld()))->OnMatchStartedEvent.AddDynamic(this, &ABaseHUD::ABaseHUD::MatchStarted);
+    GetBaseGameState()->OnMatchStateChangedEvent.AddDynamic(this, &ABaseHUD::MatchStarted);
+}
+
+ABaseGameState* ABaseHUD::GetBaseGameState()
+{
+    return Cast<ABaseGameState>(UGameplayStatics::GetGameState(GetWorld()));
 }
 
 void ABaseHUD::DrawHUD()
 {
     Super::DrawHUD();
 
-    auto const State = Cast<ABaseGameState>(UGameplayStatics::GetGameState(GetWorld()));
+    auto const State = GetBaseGameState();
     if(State && !State->IsPendingKill())
     {
         int32 ScreenX, ScreenY;
@@ -50,11 +50,14 @@ void ABaseHUD::DrawHUD()
     }
 }
 
-void ABaseHUD::MatchStarted()
+void ABaseHUD::MatchStarted(TEnumAsByte<EMatchState> NewMatchState)
 {
-    CreateTabMenu();
-    CreateMainWidget();
-    ShowMainWidget();
+    if(NewMatchState == EMatchState::Game)
+    {
+        CreateTabMenu();
+        CreateMainWidget();
+        ShowMainWidget(); 
+    }
 }
 
 void ABaseHUD::CreateTabMenu()
@@ -69,37 +72,49 @@ void ABaseHUD::CreateMainWidget()
 
 void ABaseHUD::ShowTabMenu() 
 {
-    if(TabMenuWidget)
+    if(GetBaseGameState()->GetMatchState() == EMatchState::Game)
     {
-        TabMenuWidget->AddToViewport();
+        if(TabMenuWidget)
+        {
+            TabMenuWidget->AddToViewport();
+        }
+        else
+        {
+            CreateTabMenu();
+            TabMenuWidget->AddToViewport();
+        } 
     }
-    else
-    {
-        CreateTabMenu();
-        TabMenuWidget->AddToViewport();
-    } 
 }
 
 void ABaseHUD::HiddenTabMenu() 
 {
-    TabMenuWidget ? TabMenuWidget->RemoveFromParent() : CreateTabMenu();
+    if(GetBaseGameState()->GetMatchState() == EMatchState::Game)
+    {
+        TabMenuWidget ? TabMenuWidget->RemoveFromParent() : CreateTabMenu();
+    }
 }
 
 void ABaseHUD::ShowMainWidget() 
 {
-    if(MainWidget)
+    if(GetBaseGameState()->GetMatchState() == EMatchState::Game)
     {
-        MainWidget->AddToViewport();
-    }
-    else
-    {
-        CreateMainWidget();
-        MainWidget->AddToViewport();
+        if(MainWidget)
+        {
+            MainWidget->AddToViewport();
+        }
+        else
+        {
+            CreateMainWidget();
+            MainWidget->AddToViewport();
+        }
     }
 }
 
 void ABaseHUD::HiddenMainWidget() 
 {
-    MainWidget ? MainWidget->RemoveFromParent() : CreateMainWidget();
+    if(GetBaseGameState()->GetMatchState() == EMatchState::Game)
+    {
+        MainWidget ? MainWidget->RemoveFromParent() : CreateMainWidget();
+    }
 }
 

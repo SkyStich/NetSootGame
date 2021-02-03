@@ -31,20 +31,10 @@ void ANetWorkShooterGameMode::BeginPlay()
 
 	/** Add all points where can be spawned the playert */
 	UGameplayStatics::GetAllActorsOfClass(GetWorld(), APlayerStartBase::StaticClass(),AllStartPoints);
-
-	/** Start match */
-	FTimerHandle StartHandle;
-	GetWorld()->GetTimerManager().SetTimer(StartHandle, this, &ANetWorkShooterGameMode::StartGameMatch, 3.f, false);
 }
 
 void ANetWorkShooterGameMode::CharacterDead(AController* LoserController, AController* DeathInstigator, AActor* KillingCauser)
-{
-	if(!LoserController)
-	{
-		UE_LOG(LogTemp, Error, TEXT("Loser controller not valid: "), *LoserController->GetName());
-		return;
-	}
-
+{	
 	PlayerDeadEvent.Broadcast(LoserController, DeathInstigator, KillingCauser);
 	
 	/** UpDate points, kills, deaths... For the killer and the murdered */

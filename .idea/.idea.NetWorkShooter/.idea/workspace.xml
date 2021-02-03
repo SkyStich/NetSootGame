@@ -24,31 +24,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4e895809-3b0e-414a-9fb7-267441527844" name="Default Changelist" comment="Change system command">
-      <change afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/UI/TabMenu/Logic/W_MainTabMenu_Logic.uasset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.NetWorkShooter/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.NetWorkShooter/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/ThirdPersonCPP/Blueprints/GameModes/BP_CommandGameMode.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/Blueprints/GameModes/BP_CommandGameMode.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/ThirdPersonCPP/Blueprints/ThirdPersonCharacter.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/Blueprints/ThirdPersonCharacter.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/ThirdPersonCPP/UI/TabMenu/Design/W_CommandTabMenu.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/UI/TabMenu/Design/W_CommandTabMenu.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/ThirdPersonCPP/UI/TabMenu/Design/W_PlayerState.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/UI/TabMenu/Design/W_PlayerState.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/ThirdPersonCPP/UI/TabMenu/Design/W_TabMenu.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/UI/TabMenu/Design/W_TabMenu.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/NetWorkShooter/Components/HealthComponent.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/NetWorkShooter/Components/HealthComponent.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/NetWorkShooter/Controllers/PlayerControllers/MainPlayerController.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/NetWorkShooter/Controllers/PlayerControllers/MainPlayerController.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/NetWorkShooter/GameModes/CommandGameMode.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/NetWorkShooter/GameModes/CommandGameMode.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/NetWorkShooter/GameModes/CommandGameMode.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/NetWorkShooter/GameModes/CommandGameMode.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/NetWorkShooter/GameModes/EveryManForHimselfGameMode.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/NetWorkShooter/GameModes/EveryManForHimselfGameMode.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/NetWorkShooter/GameModes/EveryManForHimselfGameMode.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/NetWorkShooter/GameModes/EveryManForHimselfGameMode.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/NetWorkShooter/GameStates/BaseGameState.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/NetWorkShooter/GameStates/BaseGameState.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/NetWorkShooter/GameStates/BaseGameState.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/NetWorkShooter/GameStates/BaseGameState.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/NetWorkShooter/GameStates/CommandGameState.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/NetWorkShooter/GameStates/CommandGameState.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/NetWorkShooter/GameStates/CommandGameState.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/NetWorkShooter/GameStates/CommandGameState.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/NetWorkShooter/GameStates/EveryManForHimselfGameState.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/NetWorkShooter/GameStates/EveryManForHimselfGameState.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/NetWorkShooter/GameStates/EveryManForHimselfGameState.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/NetWorkShooter/GameStates/EveryManForHimselfGameState.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/NetWorkShooter/HUD/BaseHUD/BaseHUD.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/NetWorkShooter/HUD/BaseHUD/BaseHUD.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/NetWorkShooter/HUD/BaseHUD/BaseHUD.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/NetWorkShooter/HUD/BaseHUD/BaseHUD.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/NetWorkShooter/HUD/CommandHUD.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/NetWorkShooter/HUD/CommandHUD.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/NetWorkShooter/HUD/CommandHUD.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/NetWorkShooter/HUD/CommandHUD.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/NetWorkShooter/NetWorkShooterGameMode.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/NetWorkShooter/NetWorkShooterGameMode.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/NetWorkShooter/NetWorkShooterGameMode.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/NetWorkShooter/NetWorkShooterGameMode.h" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -82,19 +63,19 @@
       <option value="$PROJECT_DIR$/Source/NetWorkShooter/GameStates/EveryManForHimselfGameState.h" />
       <option value="$PROJECT_DIR$/Source/NetWorkShooter/GameStates/CommandGameState.h" />
       <option value="$PROJECT_DIR$/Source/NetWorkShooter/GameStates/CommandGameState.cpp" />
-      <option value="$PROJECT_DIR$/Source/NetWorkShooter/GameStates/BaseGameState.h" />
-      <option value="$PROJECT_DIR$/Source/NetWorkShooter/GameStates/BaseGameState.cpp" />
-      <option value="$PROJECT_DIR$/Source/NetWorkShooter/HUD/BaseHUD/BaseHUD.h" />
       <option value="$PROJECT_DIR$/Source/NetWorkShooter/NetWorkShooterGameMode.h" />
       <option value="$PROJECT_DIR$/Source/NetWorkShooter/GameModes/CommandGameMode.h" />
       <option value="$PROJECT_DIR$/Source/NetWorkShooter/GameModes/EveryManForHimselfGameMode.h" />
       <option value="$PROJECT_DIR$/Source/NetWorkShooter/GameModes/EveryManForHimselfGameMode.cpp" />
-      <option value="$PROJECT_DIR$/Source/NetWorkShooter/NetWorkShooterGameMode.cpp" />
       <option value="$PROJECT_DIR$/Source/NetWorkShooter/Components/HealthComponent.cpp" />
       <option value="$PROJECT_DIR$/Source/NetWorkShooter/GameModes/CommandGameMode.cpp" />
-      <option value="$PROJECT_DIR$/Source/NetWorkShooter/HUD/BaseHUD/BaseHUD.cpp" />
       <option value="$PROJECT_DIR$/Source/NetWorkShooter/Controllers/PlayerControllers/MainPlayerController.h" />
       <option value="$PROJECT_DIR$/Source/NetWorkShooter/Controllers/PlayerControllers/MainPlayerController.cpp" />
+      <option value="$PROJECT_DIR$/Source/NetWorkShooter/NetWorkShooterGameMode.cpp" />
+      <option value="$PROJECT_DIR$/Source/NetWorkShooter/GameStates/BaseGameState.h" />
+      <option value="$PROJECT_DIR$/Source/NetWorkShooter/GameStates/BaseGameState.cpp" />
+      <option value="$PROJECT_DIR$/Source/NetWorkShooter/HUD/BaseHUD/BaseHUD.h" />
+      <option value="$PROJECT_DIR$/Source/NetWorkShooter/HUD/BaseHUD/BaseHUD.cpp" />
     </changedPaths>
   </component>
   <component name="ProjectId" id="1mU45q9rLP6Qu9cx4YAzOsfUBVp" />
@@ -427,6 +408,9 @@
       <workItem from="1612192843847" duration="11878000" />
       <workItem from="1612217797882" duration="4513000" />
       <workItem from="1612269668973" duration="13436000" />
+      <workItem from="1612311881006" duration="5770000" />
+      <workItem from="1612344245736" duration="2350000" />
+      <workItem from="1612353029165" duration="6595000" />
     </task>
     <task id="LOCAL-00001" summary="init override function SpawnPlayer">
       <created>1610844415255</created>
