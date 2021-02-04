@@ -48476,6 +48476,7 @@
         <e p="DefaultEngine.ini" t="Include" />
         <e p="DefaultGame.ini" t="Include" />
         <e p="DefaultInput.ini" t="Include" />
+        <e p="NetWorkShooter - Ярлык.lnk" t="Include" />
       </e>
       <e p="Engine" t="Include" />
       <e p="Games" t="Include" />
@@ -48511,6 +48512,8 @@
           <e p="DataAssets" t="Include">
             <e p="WeaponDataAssetBase.cpp" t="Include" />
             <e p="WeaponDataAssetBase.h" t="Include" />
+            <e p="WidgetsDataAsset.cpp" t="Include" />
+            <e p="WidgetsDataAsset.h" t="Include" />
           </e>
           <e p="GameModes" t="Include">
             <e p="CommandGameMode.cpp" t="Include" />

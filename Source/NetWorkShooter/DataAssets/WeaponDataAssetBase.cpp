@@ -11,7 +11,7 @@ UWeaponDataAssetBase::UWeaponDataAssetBase()
    
 }
 
-/** Synchron load assets*/
+/** Synch load assets*/
 USkeletalMesh* UWeaponDataAssetBase::GetWeaponMesh(FName const AssetName) const
 {
     /** Create temp value */
@@ -41,7 +41,7 @@ UMainWeaponObject* UWeaponDataAssetBase::CreateWeaponObject(UObject* WorldContex
     if(TempWeapon.IsNull())
     {
         FString const InstigatorName = WorldContext != nullptr ? WorldContext->GetFullName() : TEXT("Unknown");
-        UE_LOG(LogAssetData, Warning, TEXT("UMyAssetLibrary::SyncCreateWidget -- Asset ptr is null for: %s"), *InstigatorName);
+        UE_LOG(LogAssetData, Warning, TEXT("UMyAssetLibrary::SyncCreateObject -- Asset ptr is null for: %s"), *InstigatorName);
         return nullptr;
     }
 

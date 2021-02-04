@@ -62,6 +62,9 @@ public:
 	
 protected:
 
+	/** Get all Player start */
+	virtual TArray<APlayerStartBase*> GetSpawnPoints();
+	
 	virtual void BeginPlay() override;
 
 	/** Return an array of points for the player to spawn with conditions from the function */
@@ -77,10 +80,6 @@ public:
 	UPROPERTY(BlueprintAssignable)
 	FPlayerDeadEvent PlayerDeadEvent;
 protected:
-
-	/** All points where can be spawn the player  */
-	UPROPERTY()
-	TArray<AActor*> AllStartPoints;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	bool bCanAutoRespawn;

@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/HUD.h"
 #include "NetWorkShooter/GameStates/BaseGameState.h"
+#include "NetWorkShooter/DataAssets/WidgetsDataAsset.h"
 #include "BaseHUD.generated.h"
 
 class UUserWidget;
@@ -49,4 +50,6 @@ protected:
 
     UUserWidget* TabMenuWidget;
     UUserWidget* MainWidget;
+
+    UWidgetsDataAsset* DataAsset;
 };

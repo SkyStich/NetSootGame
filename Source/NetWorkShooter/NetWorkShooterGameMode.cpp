@@ -9,6 +9,7 @@
 #include "NetWorkShooter/PlayerState/BasePlayerState.h"
 #include "NetWorkShooter/PlayerStart/PlayerStartBase.h"
 #include "UObject/ConstructorHelpers.h"
+#include "EngineUtils.h"
 
 ANetWorkShooterGameMode::ANetWorkShooterGameMode()
 {
@@ -28,9 +29,20 @@ ANetWorkShooterGameMode::ANetWorkShooterGameMode()
 void ANetWorkShooterGameMode::BeginPlay()
 {
 	Super::BeginPlay();
+}
 
-	/** Add all points where can be spawned the playert */
-	UGameplayStatics::GetAllActorsOfClass(GetWorld(), APlayerStartBase::StaticClass(),AllStartPoints);
+TArray<APlayerStartBase*> ANetWorkShooterGameMode::GetSpawnPoints()
+{
+	TArray<APlayerStartBase*> Points;
+	for (TActorIterator<APlayerStartBase> It(GetWorld()); It; ++It)
+	{
+		APlayerStartBase* Start = *It;
+		if(Start)
+		{
+			Points.Add(Start);
+		}
+	}
+	return Points;
 }
 
 void ANetWorkShooterGameMode::CharacterDead(AController* LoserController, AController* DeathInstigator, AActor* KillingCauser)
@@ -56,9 +68,10 @@ void ANetWorkShooterGameMode::CharacterDead(AController* LoserController, AContr
 }
 
 void ANetWorkShooterGameMode::GetFreeSpawnPoints(TArray<APlayerStartBase*> & FreePoints, AController* SpawnController)
-{	
+{
+	auto const Points = GetSpawnPoints();
 	/** Get all free points for spawn player in naw time  */
-	for(auto ByArray : AllStartPoints)
+	for(auto& ByArray : Points)
 	{
 		auto const TempPoint = Cast<APlayerStartBase>(ByArray);
 		if(TempPoint)
