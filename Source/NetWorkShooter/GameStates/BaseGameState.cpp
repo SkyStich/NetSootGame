@@ -8,7 +8,7 @@
 
 ABaseGameState::ABaseGameState()
 {
-    TimeBeforeStartOfMatch = 76;
+    TimeBeforeStartOfMatch = FTimespan(0, 0, 20);
     MatchDurationTime = FTimespan(0, 2, 0);
     MatchState = EMatchState::PreStart;
 }
@@ -32,12 +32,12 @@ void ABaseGameState::GameStartTime()
     {
         if(MatchState == EMatchState::PreStart)
         {
-            TimeBeforeStartOfMatch -= 1;
-            if(TimeBeforeStartOfMatch <= 0)
+            TimeBeforeStartOfMatch -= FTimespan(0, 0, 1);
+            if(TimeBeforeStartOfMatch.IsZero())
             {                
                 Cast<ANetWorkShooterGameMode>(AuthorityGameMode)->StartGameMatch();
                 MatchStart();
-                GetWorld()->GetTimerManager().ClearTimer(GameStartTimer); 
+                GetWorld()->GetTimerManager().ClearTimer(GameStartTimer);
             }
         }
     }
@@ -70,7 +70,7 @@ void ABaseGameState::MatchEnd(FString Reason)
 {
     MulticastMatchEnd(Reason);
 
-    TimeBeforeStartOfMatch = 78;
+    TimeBeforeStartOfMatch = FTimespan(0, 20, 0);
     MatchState = EMatchState::MatchEnd;
 }
 

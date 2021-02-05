@@ -24,22 +24,27 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4e895809-3b0e-414a-9fb7-267441527844" name="Default Changelist" comment="Change system command">
-      <change afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/UI/PreMatchScreen/Designer/PreMatchPlayersGrid/W_PreStartPlayers_Command.uasset" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/UI/PreMatchScreen/Designer/W_PreMatch_Command.uasset" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/UI/PreMatchScreen/Designer/W_PreMatch_EveryMan.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/UI/HUD/W_ConstructWidgets/W_GameTime.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/UI/HUD/W_ConstructWidgets/W_HUD_HealthStats.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/UI/HUD/W_ConstructWidgets/W_Hud_AmmoStatus.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/UI/PreMatchScreen/Designer/TimerBeforMatch/W_TimerBeforeMatch.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Source/NetWorkShooter/FunctionLibrary/WorkWithTime.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Source/NetWorkShooter/FunctionLibrary/WorkWithTime.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.NetWorkShooter/.idea/contentModel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.NetWorkShooter/.idea/contentModel.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.NetWorkShooter/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.NetWorkShooter/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Config/DefaultEngine.ini" beforeDir="false" afterPath="$PROJECT_DIR$/Config/DefaultEngine.ini" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/ThirdPersonCPP/Blueprints/DataAssets/WIdgetAssets/CommandWidgetData.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/Blueprints/DataAssets/WIdgetAssets/CommandWidgetData.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/ThirdPersonCPP/Blueprints/DataAssets/WIdgetAssets/EveryManForHimselfWidgetData.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/Blueprints/DataAssets/WIdgetAssets/EveryManForHimselfWidgetData.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/ThirdPersonCPP/UI/PreMatchScreen/Designer/PreMatchPlayerSlot/W_PreMatch_PlayerSlot.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/UI/PreMatchScreen/Designer/PreMatchPlayerSlot/W_PreMatch_PlayerSlot.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/ThirdPersonCPP/Maps/ThirdPersonExampleMap.umap" beforeDir="false" afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/Maps/ThirdPersonExampleMap.umap" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/ThirdPersonCPP/UI/HUD/W_HUD_HealthStats.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/UI/HUD/W_HUD_HealthStats.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/ThirdPersonCPP/UI/HUD/W_HUD_MainWidget.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/UI/HUD/W_HUD_MainWidget.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/ThirdPersonCPP/UI/HUD/W_Hud_AmmoStatus.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/UI/HUD/W_Hud_AmmoStatus.uasset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Content/ThirdPersonCPP/UI/PreMatchScreen/Designer/PreMatchPlayersGrid/W_PreScreenPlayers_EveryManForHimself.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/UI/PreMatchScreen/Designer/PreMatchPlayersGrid/W_PreScreenPlayers_EveryManForHimself.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/ThirdPersonCPP/UI/PreMatchScreen/Designer/TimerBeforMatch/W_TimerBeforeMatch.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/UI/PreMatchScreen/Designer/TimerBeforMatch/W_TimerBeforeMatch.uasset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Content/ThirdPersonCPP/UI/PreMatchScreen/Designer/W_PreMatch.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/UI/PreMatchScreen/Designer/W_PreMatch.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/ThirdPersonCPP/UI/PreMatchScreen/Logic/W_PreScreenPlayer_Logic.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/UI/PreMatchScreen/Logic/W_PreScreenPlayer_Logic.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/NetWorkShooter/FunctionLibrary/WorkWithTime.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/NetWorkShooter/FunctionLibrary/WorkWithTime.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/NetWorkShooter/FunctionLibrary/WorkWithTime.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/NetWorkShooter/FunctionLibrary/WorkWithTime.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/NetWorkShooter/GameStates/BaseGameState.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/NetWorkShooter/GameStates/BaseGameState.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/NetWorkShooter/GameStates/BaseGameState.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/NetWorkShooter/GameStates/BaseGameState.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/NetWorkShooter/HUD/BaseHUD/BaseHUD.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/NetWorkShooter/HUD/BaseHUD/BaseHUD.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/NetWorkShooter/HUD/BaseHUD/BaseHUD.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/NetWorkShooter/HUD/BaseHUD/BaseHUD.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/NetWorkShooter/HUD/CommandHUD.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/NetWorkShooter/HUD/CommandHUD.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/NetWorkShooter/HUD/EveryManForHimselfHUD.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/NetWorkShooter/HUD/EveryManForHimselfHUD.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/NetWorkShooter/Spectators/MainSpectatorPawn.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/NetWorkShooter/Spectators/MainSpectatorPawn.h" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -94,13 +99,13 @@
       <option value="$PROJECT_DIR$/Source/NetWorkShooter/HUD/CommandHUD.cpp" />
       <option value="$PROJECT_DIR$/Source/NetWorkShooter/HUD/EveryManForHimselfHUD.cpp" />
       <option value="$PROJECT_DIR$/Source/NetWorkShooter/Spectators/MainSpectatorPawn.cpp" />
+      <option value="$PROJECT_DIR$/Source/NetWorkShooter/FunctionLibrary/WorkWithTime.cpp" />
+      <option value="$PROJECT_DIR$/Source/NetWorkShooter/GameStates/BaseGameState.h" />
+      <option value="$PROJECT_DIR$/Source/NetWorkShooter/FunctionLibrary/WorkWithTime.h" />
       <option value="$PROJECT_DIR$/Source/NetWorkShooter/HUD/BaseHUD/BaseHUD.cpp" />
       <option value="$PROJECT_DIR$/Source/NetWorkShooter/HUD/BaseHUD/BaseHUD.h" />
-      <option value="$PROJECT_DIR$/Source/NetWorkShooter/Spectators/MainSpectatorPawn.h" />
-      <option value="$PROJECT_DIR$/Source/NetWorkShooter/GameStates/BaseGameState.h" />
       <option value="$PROJECT_DIR$/Source/NetWorkShooter/GameStates/BaseGameState.cpp" />
-      <option value="$PROJECT_DIR$/Source/NetWorkShooter/FunctionLibrary/WorkWithTime.h" />
-      <option value="$PROJECT_DIR$/Source/NetWorkShooter/FunctionLibrary/WorkWithTime.cpp" />
+      <option value="$PROJECT_DIR$/Source/NetWorkShooter/Spectators/MainSpectatorPawn.h" />
     </changedPaths>
   </component>
   <component name="ProjectId" id="1mU45q9rLP6Qu9cx4YAzOsfUBVp" />
@@ -442,8 +447,6 @@
       <workItem from="1612448180984" duration="2686000" />
       <workItem from="1612463186946" duration="9007000" />
       <workItem from="1612484490849" duration="1148000" />
-      <workItem from="1612530217072" duration="1114000" />
-      <workItem from="1612536101026" duration="3767000" />
     </task>
     <task id="LOCAL-00001" summary="init override function SpawnPlayer">
       <created>1610844415255</created>

@@ -18,7 +18,7 @@ FString UWorkWithTime::ConvertSecondOnTimeStandard(int32 Sec)
 {
 	/** Get minutes and seconds from total seconds */
 	int32 const Minutes = Sec / 60;
-	int32 const Seconds = Minutes > 0 ? Sec % (Minutes * 60) : Sec;
+	int32 const Seconds = Sec % (Minutes * 60);
 
 	FString StringMin;
 	FString StringSec;
@@ -26,7 +26,7 @@ FString UWorkWithTime::ConvertSecondOnTimeStandard(int32 Sec)
 	Minutes < 10 ? StringMin = "0" + FString::FromInt(Minutes) : StringMin = FString::FromInt(Minutes);
 	Seconds < 10 ? StringSec = "0" + FString::FromInt(Seconds) : StringSec = FString::FromInt(Seconds);
 
-	return StringMin + ":" + StringSec;
+	return FString(StringMin + ":" + StringSec);
 }
 
 void UWorkWithTime::ConvertTotalSecondInStandardTime(int32 const Sec, int32 & ReturnSeconds, int32 & ReturnMinutes)
