@@ -8,7 +8,8 @@
 
 ABaseGameState::ABaseGameState()
 {
-    TimeBeforeStartOfMatch = 78;
+    MaxTimeBeforeStartOfMatch = 8;
+    TimeBeforeStartOfMatch = MaxTimeBeforeStartOfMatch;
     MatchDurationTime = FTimespan(0, 2, 0);
     MatchState = EMatchState::PreStart;
 }
@@ -71,7 +72,7 @@ void ABaseGameState::MatchEnd(FString Reason)
 {
     MulticastMatchEnd(Reason);
 
-    TimeBeforeStartOfMatch = 78;
+    TimeBeforeStartOfMatch = MaxTimeBeforeStartOfMatch;
     MatchState = EMatchState::MatchEnd;
 }
 

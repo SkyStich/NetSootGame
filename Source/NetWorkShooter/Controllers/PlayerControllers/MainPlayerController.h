@@ -29,6 +29,7 @@ protected:
 
 	virtual void SetupInputComponent() override;
 	virtual void BeginPlay() override;
+	virtual void MatchEnded(FString Reason);
 	
 	UFUNCTION()
 	void ToggleTabMenu();

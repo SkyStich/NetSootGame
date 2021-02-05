@@ -18,11 +18,8 @@ void ACommandGameState::BeginPlay()
 {
 	Super::BeginPlay();
 	
-	if(GetLocalRole() == ROLE_Authority)
-	{
-		TeamPoints.Add(ETeamList::TeamA, 0);
-		TeamPoints.Add(ETeamList::TeamB, 0);
-	}
+	TeamPoints.Add(ETeamList::TeamA, 0);
+	TeamPoints.Add(ETeamList::TeamB, 0);
 }
 
 void ACommandGameState::ChangeTeamPoints(const TEnumAsByte<ETeamList>& Team, int32 Value)
@@ -35,3 +32,9 @@ int32 ACommandGameState::GetPointByTeam(TEnumAsByte<ETeamList> Team)
 {
 	return TeamPoints.FindRef(Team);
 }
+
+void ACommandGameState::GameWinnerFound(TEnumAsByte<ETeamList> WinnerTeam)
+{
+	OnWinnerFountEvent.Broadcast(WinnerTeam);
+}
+

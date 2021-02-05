@@ -76,6 +76,7 @@ bool ACommandGameMode::UpDateDeathPoints(AController* LoserController, AControll
                 if(CommandState->GetPointByTeam(CommandInstigatorState->GetTeam()) >= MaximumCountOfKillsPerMatch)
                 {
                     StopGameMatch("Max kill.");
+                    CommandState->GameWinnerFound(CommandInstigatorState->GetTeam());
                 }
                 return true;
             }

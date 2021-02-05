@@ -16,6 +16,11 @@ AMainPlayerController::AMainPlayerController()
 void AMainPlayerController::BeginPlay()
 {
     Super::BeginPlay(); 
+    
+    if(GetLocalRole() == ROLE_Authority)
+    {
+        Cast<ABaseGameState>(UGameplayStatics::GetGameState(GetWorld()))->OnMatchEndedEvent.AddDynamic(this, &AMainPlayerController::MatchEnded);
+    }
 }
 
 void AMainPlayerController::SpawnPlayer()
@@ -25,6 +30,12 @@ void AMainPlayerController::SpawnPlayer()
     {
         GameMode->SpawnPlayer(this);
     }
+}
+
+void AMainPlayerController::MatchEnded(FString Reason)
+{
+    DisableInput(this);
+    StopMovement();
 }
 
 void AMainPlayerController::SetupInputComponent()

@@ -13,6 +13,8 @@
  The winners are the ones who reach the maximum kills first.
  */
 
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FWinnerFound, TEnumAsByte<ETeamList>, Winner);
+
 UCLASS()
 class NETWORKSHOOTER_API ACommandGameState : public ABaseGameState
 {
@@ -27,10 +29,16 @@ public:
 
 	virtual void GetLifetimeReplicatedProps(TArray< FLifetimeProperty > & OutLifetimeProps) const override;
 	void ChangeTeamPoints(const TEnumAsByte<ETeamList>& Team, int32 Value);
+	void GameWinnerFound(TEnumAsByte<ETeamList> WinnerTeam);
 
 protected:
 
 	virtual void BeginPlay() override;
+
+public:
+
+	UPROPERTY(BlueprintAssignable, Category = "GameState|CommandState")
+	FWinnerFound OnWinnerFountEvent;
 
 private:
 

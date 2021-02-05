@@ -74,6 +74,9 @@ private:
     UPROPERTY(Replicated)
     FTimespan CurrentPlayTime;
 
+    UPROPERTY(EditAnywhere, Category = "TimeBeforeStartGame")
+    int32 MaxTimeBeforeStartOfMatch;
+
     FTimerHandle GameStartTimer;
 
 public:

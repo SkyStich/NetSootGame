@@ -24,15 +24,27 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4e895809-3b0e-414a-9fb7-267441527844" name="Default Changelist" comment="Change system command">
-      <change afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/UI/PreMatchScreen/Designer/PreMatchPlayersGrid/W_PreScreenPlayers_CommandMode.uasset" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/UI/PreMatchScreen/Designer/W_PreMatc_Command.uasset" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/UI/PreMatchScreen/Designer/W_PreMatch_Everyman.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/UI/GameOverWidget/Logic/W_GenerateGameOverPlayerSlot.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/UI/PlayerSlot/GeneratePlayerSlot.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/UI/PlayerSlot/W_PlayerSlot.uasset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.NetWorkShooter/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.NetWorkShooter/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/ThirdPersonCPP/UI/PreMatchScreen/Designer/TimerBeforMatch/W_TimerBeforeMatch.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/UI/PreMatchScreen/Designer/TimerBeforMatch/W_TimerBeforeMatch.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/ThirdPersonCPP/UI/PreMatchScreen/Designer/W_PreMatch.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/UI/PreMatchScreen/Designer/W_PreMatch.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/NetWorkShooter/FunctionLibrary/WorkWithTime.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/NetWorkShooter/FunctionLibrary/WorkWithTime.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/ThirdPersonCPP/Blueprints/ThirdPersonCharacter.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/Blueprints/ThirdPersonCharacter.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/ThirdPersonCPP/UI/PreMatchScreen/Designer/PreMatchPlayerSlot/W_PreMatch_PlayerSlot.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/UI/PreMatchScreen/Designer/PreMatchPlayerSlot/W_PreMatch_PlayerSlot.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/ThirdPersonCPP/UI/PreMatchScreen/Designer/PreMatchPlayersGrid/W_PreScreenPlayers_CommandMode.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/UI/PreMatchScreen/Designer/PreMatchPlayersGrid/W_PreScreenPlayers_CommandMode.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/ThirdPersonCPP/UI/PreMatchScreen/Designer/PreMatchPlayersGrid/W_PreScreenPlayers_EveryManForHimself.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/UI/PreMatchScreen/Designer/PreMatchPlayersGrid/W_PreScreenPlayers_EveryManForHimself.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/ThirdPersonCPP/UI/PreMatchScreen/Designer/W_PreMatc_Command.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/UI/PreMatchScreen/Designer/W_PreMatc_Command.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/ThirdPersonCPP/UI/PreMatchScreen/Logic/W_PreScreenPlayer_Logic.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/ThirdPersonCPP/UI/TabMenu/Design/PlayerStateSlot/W_PlayerState.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/UI/TabMenu/Design/PlayerStateSlot/W_PlayerState.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/ThirdPersonCPP/UI/TabMenu/Design/W_CommandTabMenu.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/UI/TabMenu/Design/W_CommandTabMenu.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/ThirdPersonCPP/UI/TabMenu/Design/W_TabMenu_EveryManHimself.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/UI/TabMenu/Design/W_TabMenu_EveryManHimself.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/ThirdPersonCPP/UI/TabMenu/Logic/W_MainTabMenu_Logic.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/NetWorkShooter/Controllers/PlayerControllers/MainPlayerController.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/NetWorkShooter/Controllers/PlayerControllers/MainPlayerController.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/NetWorkShooter/Controllers/PlayerControllers/MainPlayerController.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/NetWorkShooter/Controllers/PlayerControllers/MainPlayerController.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/NetWorkShooter/GameModes/CommandGameMode.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/NetWorkShooter/GameModes/CommandGameMode.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/NetWorkShooter/GameStates/BaseGameState.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/NetWorkShooter/GameStates/BaseGameState.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/NetWorkShooter/GameStates/BaseGameState.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/NetWorkShooter/GameStates/BaseGameState.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/NetWorkShooter/GameStates/CommandGameState.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/NetWorkShooter/GameStates/CommandGameState.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/NetWorkShooter/GameStates/CommandGameState.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/NetWorkShooter/GameStates/CommandGameState.h" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -70,15 +82,10 @@
       <option value="$PROJECT_DIR$/Source/NetWorkShooter/HUD/CommandHUD.h" />
       <option value="$PROJECT_DIR$/Source/NetWorkShooter/GameStates/EveryManForHimselfGameState.cpp" />
       <option value="$PROJECT_DIR$/Source/NetWorkShooter/GameStates/EveryManForHimselfGameState.h" />
-      <option value="$PROJECT_DIR$/Source/NetWorkShooter/GameStates/CommandGameState.h" />
-      <option value="$PROJECT_DIR$/Source/NetWorkShooter/GameStates/CommandGameState.cpp" />
       <option value="$PROJECT_DIR$/Source/NetWorkShooter/GameModes/CommandGameMode.h" />
       <option value="$PROJECT_DIR$/Source/NetWorkShooter/GameModes/EveryManForHimselfGameMode.h" />
       <option value="$PROJECT_DIR$/Source/NetWorkShooter/GameModes/EveryManForHimselfGameMode.cpp" />
       <option value="$PROJECT_DIR$/Source/NetWorkShooter/Components/HealthComponent.cpp" />
-      <option value="$PROJECT_DIR$/Source/NetWorkShooter/GameModes/CommandGameMode.cpp" />
-      <option value="$PROJECT_DIR$/Source/NetWorkShooter/Controllers/PlayerControllers/MainPlayerController.h" />
-      <option value="$PROJECT_DIR$/Source/NetWorkShooter/Controllers/PlayerControllers/MainPlayerController.cpp" />
       <option value="$PROJECT_DIR$/Source/NetWorkShooter/NetWorkShooterGameMode.cpp" />
       <option value="$PROJECT_DIR$/Source/NetWorkShooter/NetWorkShooterGameMode.h" />
       <option value="$PROJECT_DIR$/Source/NetWorkShooter/DataAssets/WeaponDataAssetBase.cpp" />
@@ -94,6 +101,11 @@
       <option value="$PROJECT_DIR$/Source/NetWorkShooter/FunctionLibrary/WorkWithTime.cpp" />
       <option value="$PROJECT_DIR$/Source/NetWorkShooter/GameStates/BaseGameState.h" />
       <option value="$PROJECT_DIR$/Source/NetWorkShooter/GameStates/BaseGameState.cpp" />
+      <option value="$PROJECT_DIR$/Source/NetWorkShooter/GameStates/CommandGameState.h" />
+      <option value="$PROJECT_DIR$/Source/NetWorkShooter/GameStates/CommandGameState.cpp" />
+      <option value="$PROJECT_DIR$/Source/NetWorkShooter/GameModes/CommandGameMode.cpp" />
+      <option value="$PROJECT_DIR$/Source/NetWorkShooter/Controllers/PlayerControllers/MainPlayerController.h" />
+      <option value="$PROJECT_DIR$/Source/NetWorkShooter/Controllers/PlayerControllers/MainPlayerController.cpp" />
     </changedPaths>
   </component>
   <component name="ProjectId" id="1mU45q9rLP6Qu9cx4YAzOsfUBVp" />
