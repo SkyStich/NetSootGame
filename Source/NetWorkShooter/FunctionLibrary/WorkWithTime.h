@@ -22,7 +22,7 @@ class NETWORKSHOOTER_API UWorkWithTime : public UBlueprintFunctionLibrary
 	UFUNCTION(BlueprintPure, Category = "TimeLibrary")
 	static FString ConvertSecondOnTimeStandard(int32 Sec);
 
-	/** Get min from total seconds and remainder seconds */
+	/** Get minutes from total seconds and remainder seconds */
 	UFUNCTION(BlueprintPure, Category = "TimeLibrary")
 	static void ConvertTotalSecondInStandardTime(int32 const Sec, int32 & ReturnSeconds, int32 & ReturnMinutes);
 };
