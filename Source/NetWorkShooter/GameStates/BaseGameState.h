@@ -63,7 +63,7 @@ public:
     TEnumAsByte<EMatchState> GetMatchState() const { return MatchState; }
 
     UFUNCTION(BlueprintPure)
-    FTimespan GetTimeBeforeStartOfMatch() const { return TimeBeforeStartOfMatch; }
+    int32  GetTimeBeforeStartOfMatch() const { return TimeBeforeStartOfMatch; }
     
 protected:
 
@@ -92,7 +92,7 @@ protected:
     TEnumAsByte<EMatchState> MatchState;
 
     UPROPERTY(Replicated)
-    FTimespan TimeBeforeStartOfMatch;
+    int32 TimeBeforeStartOfMatch;
 
     /** Game duration */
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "GameState|PlayTime")
