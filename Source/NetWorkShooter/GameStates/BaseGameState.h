@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/GameState.h"
+#include "Kismet/KismetMathLibrary.h"
 #include "BaseGameState.generated.h"
 
 UENUM(BlueprintType)
@@ -60,6 +61,9 @@ public:
     
     UFUNCTION(BlueprintPure)
     TEnumAsByte<EMatchState> GetMatchState() const { return MatchState; }
+
+    UFUNCTION(BlueprintPure)
+    FTimespan GetTimeBeforeStartOfMatch() const { return TimeBeforeStartOfMatch; }
     
 protected:
 
@@ -88,7 +92,7 @@ protected:
     TEnumAsByte<EMatchState> MatchState;
 
     UPROPERTY(Replicated)
-    int32 TimeBeforeStartOfMatch;
+    FTimespan TimeBeforeStartOfMatch;
 
     /** Game duration */
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "GameState|PlayTime")

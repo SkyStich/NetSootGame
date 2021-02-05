@@ -14,40 +14,13 @@ void ABaseHUD::BeginPlay()
     Super::BeginPlay();
     
     GetBaseGameState()->OnMatchStateChangedEvent.AddDynamic(this, &ABaseHUD::MatchStarted);
+    CreatePreMatchWidget();
+    ShowPreMatchWidget();
 }
 
 ABaseGameState* ABaseHUD::GetBaseGameState()
 {
     return Cast<ABaseGameState>(UGameplayStatics::GetGameState(GetWorld()));
-}
-
-void ABaseHUD::DrawHUD()
-{
-    Super::DrawHUD();
-
-    auto const State = GetBaseGameState();
-    if(State && !State->IsPendingKill())
-    {
-        int32 ScreenX, ScreenY;
-        GetOwningPlayerController()->GetViewportSize(ScreenX, ScreenY);
-
-        /** Format position for draw text */
-        ScreenX /= 2;
-        ScreenY /= ScreenX + 40;
-
-        /** Set local var minutes and sec */
-        int32 const Minutes = State->GetCurrentPlayTime().GetMinutes();
-        int32 const Seconds = State->GetCurrentPlayTime().GetSeconds();
-    
-        /** Format text */
-        FString Min;
-        FString Sec;
-        Minutes < 10 ? Min = "0" + FString::FromInt(Minutes) : Min = FString::FromInt(Minutes);
-        Seconds < 10 ? Sec = "0" + FString::FromInt(Seconds) : Sec = FString::FromInt(Seconds);
-
-        /** Draw text */
-        DrawText(Min + ":" + Sec, FColor::Cyan, ScreenX, ScreenY, 0, 1.5f, false);
-    }
 }
 
 void ABaseHUD::MatchStarted(TEnumAsByte<EMatchState> NewMatchState)
@@ -56,7 +29,8 @@ void ABaseHUD::MatchStarted(TEnumAsByte<EMatchState> NewMatchState)
     {
         CreateTabMenu();
         CreateMainWidget();
-        ShowMainWidget(); 
+        ShowMainWidget();
+        DestroyPreMatchWidget();
     }
 }
 
@@ -68,6 +42,34 @@ void ABaseHUD::CreateTabMenu()
 void ABaseHUD::CreateMainWidget()
 {
     MainWidget = DataAsset->SyncCreateWidget(GetWorld(), DataAsset->GetWidgetData()->MainWidgetClass, GetOwningPlayerController());
+}
+
+void ABaseHUD::CreatePreMatchWidget()
+{
+    PreMatch = DataAsset->SyncCreateWidget(GetWorld(), DataAsset->GetWidgetData()->PreStartWidgetClass, GetOwningPlayerController());
+}
+
+void ABaseHUD::ShowPreMatchWidget()
+{
+    if(PreMatch && !PreMatch->IsPendingKill())
+    {
+        PreMatch->AddToViewport();
+    }
+    else
+    {
+        CreatePreMatchWidget();
+        PreMatch->AddToViewport();
+    } 
+}
+
+void ABaseHUD::DestroyPreMatchWidget()
+{
+    if(GetBaseGameState()->GetMatchState() == EMatchState::Game)
+    {
+        PreMatch->RemoveFromParent();
+        PreMatch->ConditionalBeginDestroy();
+        PreMatch = nullptr;
+    }
 }
 
 void ABaseHUD::ShowTabMenu() 
@@ -90,7 +92,8 @@ void ABaseHUD::HiddenTabMenu()
 {
     if(GetBaseGameState()->GetMatchState() == EMatchState::Game)
     {
-        TabMenuWidget && !TabMenuWidget->IsPendingKill() ? TabMenuWidget->RemoveFromParent() : CreateTabMenu();
+        if(TabMenuWidget && !TabMenuWidget->IsPendingKill())
+            TabMenuWidget->RemoveFromParent();
     }
 }
 
@@ -110,11 +113,11 @@ void ABaseHUD::ShowMainWidget()
     }
 }
 
-void ABaseHUD::HiddenMainWidget() 
+void ABaseHUD::HiddenMainWidget()
 {
     if(GetBaseGameState()->GetMatchState() == EMatchState::Game)
     {
-        MainWidget && !MainWidget->IsPendingKill() ? MainWidget->RemoveFromParent() : CreateMainWidget();
+        if(MainWidget && !MainWidget->IsPendingKill())
+            MainWidget->RemoveFromParent();
     }
 }
-

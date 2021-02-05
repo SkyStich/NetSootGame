@@ -48515,6 +48515,10 @@
             <e p="WidgetsDataAsset.cpp" t="Include" />
             <e p="WidgetsDataAsset.h" t="Include" />
           </e>
+          <e p="FunctionLibrary" t="Include">
+            <e p="WorkWithTime.cpp" t="Include" />
+            <e p="WorkWithTime.h" t="Include" />
+          </e>
           <e p="GameModes" t="Include">
             <e p="CommandGameMode.cpp" t="Include" />
             <e p="CommandGameMode.h" t="Include" />

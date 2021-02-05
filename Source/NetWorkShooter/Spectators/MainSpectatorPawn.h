@@ -21,7 +21,7 @@ protected:
 	virtual void SetupPlayerInputComponent(UInputComponent* PlayerInputComponent) override;
 	virtual void BeginPlay();
 
-	/** Turn controlle */
+	/** Turn controller */
 	void TurnAtRate(float Rate);
 	void LookUpAtRate(float Rate);
 

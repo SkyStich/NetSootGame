@@ -3,17 +3,15 @@
 
 #include "CommandHUD.h"
 #include "Blueprint/UserWidget.h"
+#include "NetWorkShooter/DataAssets/WidgetsDataAsset.h"
 #include "Kismet/GameplayStatics.h"
 #include "UObject/ConstructorHelpers.h"
 
 ACommandHUD::ACommandHUD()
 {
-	ConstructorHelpers::FClassFinder<UUserWidget>TabMenuClassFinder(TEXT("/Game/ThirdPersonCPP/UI/TabMenu/Design/W_CommandTabMenu"));
-	ConstructorHelpers::FClassFinder<UUserWidget>MainWidgetClassFinder(TEXT("/Game/ThirdPersonCPP/UI/HUD/W_HUD_MainWidget"));
-    
-	if(TabMenuClassFinder.Succeeded() && MainWidgetClassFinder.Succeeded())
+	ConstructorHelpers::FObjectFinder<UWidgetsDataAsset>WidgetDataAssetFinder(TEXT("/Game/ThirdPersonCPP/Blueprints/DataAssets/WIdgetAssets/CommandWidgetData"));
+	if(WidgetDataAssetFinder.Succeeded())
 	{
-		TabMenuWidgetClass = TabMenuClassFinder.Class;
-		MainWidgetClass = MainWidgetClassFinder.Class;
+		DataAsset = WidgetDataAssetFinder.Object;
 	}
 }
