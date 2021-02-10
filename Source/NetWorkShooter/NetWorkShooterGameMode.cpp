@@ -125,14 +125,19 @@ void ANetWorkShooterGameMode::StartGameTimer()
 		if(BaseState)
 		{
 			BaseState->IncrementPlayTime();
-			if(BaseState->GetCurrentPlayTime().IsZero())
+			if(CheckGameTimer(BaseState))
 			{
-				StopGameMatch("GameEnded");
+				StopGameMatch("Time ended");
 			}
 		}
 	});
 	
 	GetWorld()->GetTimerManager().SetTimer(TimeTickHandle, TimerDelegate, 1, true);
+}
+
+bool ANetWorkShooterGameMode::CheckGameTimer(class ABaseGameState* BaseGameState)
+{
+	return BaseGameState->GetCurrentPlayTime().IsZero();
 }
 
 void ANetWorkShooterGameMode::StopGameMatch(FString StopReason)

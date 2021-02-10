@@ -35,7 +35,7 @@ void AMainPlayerController::SpawnPlayer()
 void AMainPlayerController::MatchEnded(FString Reason)
 {
     DisableInput(this);
-    StopMovement();
+    GetPawn()->DisableInput(this);
 }
 
 void AMainPlayerController::SetupInputComponent()

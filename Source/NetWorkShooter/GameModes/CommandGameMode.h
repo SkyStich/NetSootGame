@@ -9,7 +9,6 @@
 UENUM(BlueprintType)
 enum ETeamList
 {
-    TeamNone,
     TeamA,
     TeamB
 };

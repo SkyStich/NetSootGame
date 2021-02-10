@@ -12,6 +12,8 @@ ABaseGameState::ABaseGameState()
     TimeBeforeStartOfMatch = MaxTimeBeforeStartOfMatch;
     MatchDurationTime = FTimespan(0, 2, 0);
     MatchState = EMatchState::PreStart;
+
+    NetUpdateFrequency = 10.f;
 }
 
 void ABaseGameState::BeginPlay()
@@ -57,10 +59,10 @@ void ABaseGameState::GetLifetimeReplicatedProps(TArray< FLifetimeProperty > & Ou
 void ABaseGameState::MatchStart()
 {
     CurrentPlayTime = MatchDurationTime;
-
-    MulticastMatchStart();
     
     MatchState = EMatchState::Game;
+
+    MulticastMatchStart();
 }
 
 void ABaseGameState::OnRep_MatchState()
@@ -70,10 +72,11 @@ void ABaseGameState::OnRep_MatchState()
 
 void ABaseGameState::MatchEnd(FString Reason)
 {
+    MatchState = EMatchState::MatchEnd;
+    
     MulticastMatchEnd(Reason);
 
     TimeBeforeStartOfMatch = MaxTimeBeforeStartOfMatch;
-    MatchState = EMatchState::MatchEnd;
 }
 
 void ABaseGameState::MulticastMatchEnd_Implementation(const FString& Reason)

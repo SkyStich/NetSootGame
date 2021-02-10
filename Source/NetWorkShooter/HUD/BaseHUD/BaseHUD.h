@@ -20,11 +20,12 @@ class NETWORKSHOOTER_API ABaseHUD : public AHUD
 protected:
 
     UFUNCTION()
-    void MatchStarted(TEnumAsByte<EMatchState> NewMatchState);
+    void GameStateChanged(TEnumAsByte<EMatchState> NewMatchState);
     
     void CreateTabMenu();
     void CreateMainWidget();
     void CreatePreMatchWidget();
+    void CreateMatchOverWidget();
 public:
   
     virtual void BeginPlay() override;
@@ -46,6 +47,12 @@ public:
 
     UFUNCTION(BlueprintCallable, Category = "HUD")
     void DestroyPreMatchWidget();
+    
+    UFUNCTION(BlueprintCallable, Category = "HUD")
+    void ShowGameOverMatchWidget();
+    
+    UFUNCTION(BlueprintCallable, Category = "HUD")
+    void DestroyMatchOverWidget();
 
 protected:
 
@@ -58,6 +65,9 @@ protected:
     UPROPERTY()
     UUserWidget* PreMatch;
 
+    UPROPERTY()
+    UUserWidget* MatchOverWidget;
+    
     UPROPERTY()
     UWidgetsDataAsset* DataAsset;
 };

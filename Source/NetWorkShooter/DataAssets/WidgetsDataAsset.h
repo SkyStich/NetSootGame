@@ -28,6 +28,9 @@ public:
 
 	UPROPERTY(EditAnywhere)
 	TSoftClassPtr<UUserWidget> PreStartWidgetClass;
+	
+	UPROPERTY(EditAnywhere)
+    TSoftClassPtr<UUserWidget> MatchOverWidgetClass;
 };
 
 UCLASS()

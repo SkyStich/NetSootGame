@@ -6,35 +6,51 @@
 
 ACommandGameState::ACommandGameState()
 {
+	Points.SetNum(2);
+	Points.Add(0);
+	Points.Add(0);
 }
 
 void ACommandGameState::GetLifetimeReplicatedProps(TArray< FLifetimeProperty > & OutLifetimeProps) const
 {
 	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
-	DOREPLIFETIME(ACommandGameState, TeamPoints);
+	
+	DOREPLIFETIME(ACommandGameState, Points);
 }
 
 void ACommandGameState::BeginPlay()
 {
 	Super::BeginPlay();
-	
-	TeamPoints.Add(ETeamList::TeamA, 0);
-	TeamPoints.Add(ETeamList::TeamB, 0);
+
 }
 
-void ACommandGameState::ChangeTeamPoints(const TEnumAsByte<ETeamList>& Team, int32 Value)
+void ACommandGameState::ChangeTeamPoints(const TEnumAsByte<ETeamList>& Team)
 {
-	int32 const TempPoint = TeamPoints.FindRef(Team) + Value;
-	TeamPoints.Add(Team, TempPoint);
+	if(Points.IsValidIndex(Team))
+		Points[Team]++;
+	else
+		UE_LOG(LogGameState, Error, TEXT("Is not valid index. Can not add points in team. ACommandGameState(27)"));
 }
 
 int32 ACommandGameState::GetPointByTeam(TEnumAsByte<ETeamList> Team)
 {
-	return TeamPoints.FindRef(Team);
+	if(Points.IsValidIndex(Team))
+	{
+		return Points[Team];
+	}
+	return 0;
 }
 
-void ACommandGameState::GameWinnerFound(TEnumAsByte<ETeamList> WinnerTeam)
+TEnumAsByte<ETeamList> ACommandGameState::CheckWinnerTeam()
 {
-	OnWinnerFountEvent.Broadcast(WinnerTeam);
+	TEnumAsByte<ETeamList> TempWinner;
+            
+	GetPointByTeam(ETeamList::TeamA) > GetPointByTeam(ETeamList::TeamB) ? TempWinner = ETeamList::TeamA : TempWinner = ETeamList::TeamB;
+
+	return TempWinner;
 }
 
+void ACommandGameState::OnRep_TeamPoints()
+{
+	OnTeamPointChangedEvent.Broadcast();
+}

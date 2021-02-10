@@ -5,32 +5,40 @@
 #include "CoreMinimal.h"
 #include "BaseGameState.h"
 #include "NetWorkShooter/GameModes/CommandGameMode.h"
-
 #include "CommandGameState.generated.h"
+ 
+/** Called if team points be changed  */
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FTeamPointChanged);
 
 /**
- The class is responsible for the state of the command battle. Upon reaching the maximum of one of the commands, the game is considered over.
- The winners are the ones who reach the maximum kills first.
- */
-
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FWinnerFound, TEnumAsByte<ETeamList>, Winner);
-
+ *The class is responsible for the state of the command battle. Upon reaching the maximum of one of the commands, the game is considered over.
+ *The winners are the ones who reach the maximum kills first.
+*/
 UCLASS()
 class NETWORKSHOOTER_API ACommandGameState : public ABaseGameState
 {
 	GENERATED_BODY()
+	
+	UFUNCTION()
+	void OnRep_TeamPoints();
 
 public:
 
 	ACommandGameState();
-	
+
+	/** Get points command using of team list */
 	UFUNCTION(BlueprintPure)
 	int32 GetPointByTeam(TEnumAsByte<ETeamList> Team);
 
-	virtual void GetLifetimeReplicatedProps(TArray< FLifetimeProperty > & OutLifetimeProps) const override;
-	void ChangeTeamPoints(const TEnumAsByte<ETeamList>& Team, int32 Value);
-	void GameWinnerFound(TEnumAsByte<ETeamList> WinnerTeam);
+	/** Check points all commands and get winner team */
+	UFUNCTION(BlueprintPure)
+	TEnumAsByte<ETeamList> CheckWinnerTeam();
 
+	virtual void GetLifetimeReplicatedProps(TArray< FLifetimeProperty > & OutLifetimeProps) const override;
+
+	/** Increment points of one of the commands using of team list */
+	void ChangeTeamPoints(const TEnumAsByte<ETeamList>& Team);
+	
 protected:
 
 	virtual void BeginPlay() override;
@@ -38,10 +46,11 @@ protected:
 public:
 
 	UPROPERTY(BlueprintAssignable, Category = "GameState|CommandState")
-	FWinnerFound OnWinnerFountEvent;
+	FTeamPointChanged OnTeamPointChangedEvent;
 
 private:
 
-	UPROPERTY(Replicated)
-	TMap<TEnumAsByte<ETeamList>, int32> TeamPoints; 
+	/** An array that stores the scores of both teams. To get the command index, an enumeration(ETeamList(CommandGameMode)) with the command names is used */
+	UPROPERTY(ReplicatedUsing = OnRep_TeamPoints)
+	TArray<int32>Points;
 };

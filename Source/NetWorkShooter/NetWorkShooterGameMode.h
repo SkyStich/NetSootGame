@@ -72,6 +72,9 @@ protected:
 	
 	/** Function responsible for the conditions for selecting spawn points */
 	virtual bool PointSelectionConditions(AController* SpawnController, APlayerStartBase* PointToCheck);
+
+	/** return true if game timer is zero */
+	FORCEINLINE bool CheckGameTimer(class ABaseGameState* BaseGameState);
 public:
 
 	FMatchStarted MatchStartedEvent;

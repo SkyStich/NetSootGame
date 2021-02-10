@@ -28,14 +28,6 @@ class NETWORKSHOOTER_API ABaseGameState : public AGameStateBase
 {
 	GENERATED_BODY()
 
-    UFUNCTION(NetMulticast, Reliable)
-    void MulticastMatchEnd(const FString& Reason);
-    void MulticastMatchEnd_Implementation(const FString& Reason);
-    
-    UFUNCTION(NetMulticast, Reliable)
-    void MulticastMatchStart();
-    void MulticastMatchStart_Implementation();
-
     void GameStartTime();
 
     UFUNCTION()
@@ -68,6 +60,14 @@ public:
 protected:
 
     virtual void BeginPlay() override;
+    
+    UFUNCTION(NetMulticast, Reliable)
+    void MulticastMatchEnd(const FString& Reason);
+    virtual void MulticastMatchEnd_Implementation(const FString& Reason);
+    
+    UFUNCTION(NetMulticast, Reliable)
+    void MulticastMatchStart();
+    void MulticastMatchStart_Implementation();
     
 private:
 
