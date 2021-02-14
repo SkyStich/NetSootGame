@@ -2,6 +2,8 @@
 
 
 #include "MainPlayerController.h"
+
+#include "Blueprint/UserWidget.h"
 #include "NetWorkShooter/Spectators/MainSpectatorPawn.h"
 #include "NetWorkShooter/NetWorkShooterGameMode.h"
 #include "GameFramework/GameState.h"
@@ -35,7 +37,6 @@ void AMainPlayerController::SpawnPlayer()
 void AMainPlayerController::MatchEnded(FString Reason)
 {
     DisableInput(this);
-    GetPawn()->DisableInput(this);
 }
 
 void AMainPlayerController::SetupInputComponent()
@@ -91,4 +92,3 @@ void AMainPlayerController::HideTabMenu()
         }
     }
 }
-

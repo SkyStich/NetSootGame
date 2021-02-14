@@ -6,7 +6,17 @@
 #include "GameFramework/PlayerState.h"
 #include "BasePlayerState.generated.h"
 
+UENUM(BlueprintType)
+enum ECauseOfPlayerDeath
+{
+    EnemyKilledEnemy, //Base death
+    Suicide, //The player is directly involved in his death
+    FriendlyKilled, // Player killed a player from his team
+    DeathByNegligence //For example the player crashed
+};
+
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FUpdateStateKDA);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_ThreeParams(FPlayerDeadEvent, const FString&, LoserName, const FString&, InstigatedName, const FString&, WeaponName);
 
 UCLASS()
 class NETWORKSHOOTER_API ABasePlayerState : public APlayerState
@@ -14,9 +24,10 @@ class NETWORKSHOOTER_API ABasePlayerState : public APlayerState
 	GENERATED_BODY()
 
     UFUNCTION()
-    void OnRep_KDA() { OnUpdateStateKDAEvent.Broadcast(); }
+    void OnRep_KDA() const { OnUpdateStateKDAEvent.Broadcast(); }
+    
 public:
-
+    
     ABasePlayerState();
     
     virtual void GetLifetimeReplicatedProps(TArray< FLifetimeProperty > & OutLifetimeProps) const override;
@@ -35,8 +46,18 @@ public:
     UFUNCTION(BlueprintPure)
     int32 GetNumberOfMurders() const { return  NumberOfMurders; }
     
-     UFUNCTION(BlueprintPure)
-     int32 GetNumberOfDeaths() const { return  NumberOfDeaths; }
+    UFUNCTION(BlueprintPure)
+    int32 GetNumberOfDeaths() const { return  NumberOfDeaths; }
+
+    
+    UFUNCTION(NetMulticast, Unreliable)
+    void NetMulticastOwnerDead(const FString& LoserName, const FString& InstigatorName, const FString& WeaponName);
+
+    void SetIsAlive(bool const bNewState);
+
+protected:
+
+    virtual void BeginPlay() override;
 
 private:
 
@@ -48,8 +69,18 @@ private:
     UPROPERTY(ReplicatedUsing = OnRep_KDA)
     int32 NumberOfDeaths;
 
+    /* return true in owner player character is alive **/
+    UPROPERTY(Replicated)
+    bool bIsAlive;
+    
+    /** Only test */
+    TArray<FString>PlayersName;
+
 public:
 
     UPROPERTY(BlueprintAssignable)
     FUpdateStateKDA OnUpdateStateKDAEvent;
+    
+    UPROPERTY(BlueprintAssignable)
+    FPlayerDeadEvent OnPlayerDeadEvent;
 };

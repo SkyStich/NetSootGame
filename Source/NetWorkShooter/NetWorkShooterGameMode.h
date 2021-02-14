@@ -11,8 +11,6 @@
 
 class APlayerStartBase;
 
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_ThreeParams(FPlayerDeadEvent, AController*, LoserController, AController*, InstigatedBy, AActor*, KillingCauser);
-
 /** Bind when the match has started directly (All players are ready and can perform actions)*/
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FMatchStarted);
 
@@ -80,8 +78,6 @@ public:
 	FMatchStarted MatchStartedEvent;
 	FMatchEnded OnMatchStopEvent;
 
-	UPROPERTY(BlueprintAssignable)
-	FPlayerDeadEvent PlayerDeadEvent;
 protected:
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)

@@ -22,13 +22,13 @@ void APlayerStartBase::BeginPlay()
 
 void APlayerStartBase::CharacterEnterInSpawnPoint(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool FromSweep, const FHitResult& SweepResult)
 {
-    if(OtherActor->GetClass() == ANetWorkShooterCharacter::StaticClass())
+    if(Cast<ACharacter>(OtherActor))
     bCharacterInside = false;  
 }
 
 void APlayerStartBase::PlayerLeaveSpawnPoint(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComponent, int32 OtherBodyIndex)
 {
-    if(OtherActor->GetClass() == ANetWorkShooterCharacter::StaticClass())
+    if(Cast<ACharacter>(OtherActor))
     bCharacterInside = true;
 }
 
@@ -47,3 +47,4 @@ void APlayerStartBase::SpawnCharacter(AController* Controller, ANetWorkShooterCh
         PlayerSpawnedEvent.Broadcast(SpawnCharacter);
     }
 }
+

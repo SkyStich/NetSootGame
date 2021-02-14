@@ -18,12 +18,6 @@ void ACommandGameState::GetLifetimeReplicatedProps(TArray< FLifetimeProperty > &
 	DOREPLIFETIME(ACommandGameState, Points);
 }
 
-void ACommandGameState::BeginPlay()
-{
-	Super::BeginPlay();
-
-}
-
 void ACommandGameState::ChangeTeamPoints(const TEnumAsByte<ETeamList>& Team)
 {
 	if(Points.IsValidIndex(Team))

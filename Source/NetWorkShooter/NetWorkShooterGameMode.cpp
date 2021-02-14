@@ -10,6 +10,7 @@
 #include "NetWorkShooter/PlayerStart/PlayerStartBase.h"
 #include "UObject/ConstructorHelpers.h"
 #include "EngineUtils.h"
+#include "Objects/WeaponObject/MainWeaponObject.h"
 
 ANetWorkShooterGameMode::ANetWorkShooterGameMode()
 {
@@ -47,8 +48,6 @@ TArray<APlayerStartBase*> ANetWorkShooterGameMode::GetSpawnPoints()
 
 void ANetWorkShooterGameMode::CharacterDead(AController* LoserController, AController* DeathInstigator, AActor* KillingCauser)
 {	
-	PlayerDeadEvent.Broadcast(LoserController, DeathInstigator, KillingCauser);
-	
 	/** UpDate points, kills, deaths... For the killer and the murdered */
 	UpDateDeathPoints(LoserController, DeathInstigator);
 
@@ -151,12 +150,16 @@ void ANetWorkShooterGameMode::StopGameMatch(FString StopReason)
 bool ANetWorkShooterGameMode::UpDateDeathPoints(AController* LoserController, AController* InstigatorController)
 {
 	auto const LoserState = Cast<ABasePlayerState>(LoserController->PlayerState);
+	LoserState->SetIsAlive(false);
 	
 	/** if instigator controller is empty, then the player is to blame for his death (but did not kill himself personally), for example, crashed */	
 	if(!InstigatorController)
 	{
 		/** Add one death and reduce one of murder if we killed ourselves */
 		LoserState->IncrementNumberOfDeaths();
+		LoserState->DecrementNumberOfMurders();
+		
+		LoserState->NetMulticastOwnerDead(LoserState->GetPlayerName(), "None", "None");
 		
 		/** LosetCharacter kill self */
 		return false;
@@ -172,6 +175,9 @@ bool ANetWorkShooterGameMode::UpDateDeathPoints(AController* LoserController, AC
 
 		/** Add one murber of the instigator controller */ 
 		InstigatorState->IncrementNumberOfMurders();
+
+		FString const WeaponName = Cast<ANetWorkShooterCharacter>(InstigatorController->GetPawn())->GetWeaponManager()->GetCurrentWeapon()->GetWeaponName().ToString();
+		LoserState->NetMulticastOwnerDead(LoserState->GetPlayerName(), InstigatorState->GetPlayerName(), WeaponName);
 		return true;
 	}
 	
@@ -181,6 +187,7 @@ bool ANetWorkShooterGameMode::UpDateDeathPoints(AController* LoserController, AC
 	 **/
 	LoserState->DecrementNumberOfMurders();
 	LoserState->IncrementNumberOfDeaths();
+	LoserState->NetMulticastOwnerDead(LoserState->GetPlayerName(), "None", "None");
 
 	/** LosetCharacter kill self */
 	return false;

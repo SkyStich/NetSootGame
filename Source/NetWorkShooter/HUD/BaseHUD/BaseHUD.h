@@ -15,6 +15,7 @@ class NETWORKSHOOTER_API ABaseHUD : public AHUD
 {
 	GENERATED_BODY()
 
+    /** Helpers get base game state */
     ABaseGameState* GetBaseGameState();
     
 protected:
@@ -45,14 +46,18 @@ public:
     UFUNCTION(BlueprintCallable, Category = "HUD")
     void ShowPreMatchWidget();
 
+    /** remove widget in viewport and from memory */
     UFUNCTION(BlueprintCallable, Category = "HUD")
     void DestroyPreMatchWidget();
     
     UFUNCTION(BlueprintCallable, Category = "HUD")
     void ShowGameOverMatchWidget();
-    
+
+    /** remove widget in viewport and from memory */
     UFUNCTION(BlueprintCallable, Category = "HUD")
     void DestroyMatchOverWidget();
+
+    UUserWidget* GetMainWidget() const { return MainWidget; }
 
 protected:
 

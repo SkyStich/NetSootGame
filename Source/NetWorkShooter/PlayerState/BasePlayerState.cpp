@@ -2,11 +2,18 @@
 
 
 #include "BasePlayerState.h"
+#include "Kismet/KismetMathLibrary.h"
 #include "Net/UnrealNetwork.h"
 
 ABasePlayerState::ABasePlayerState()
 {
+    bUseCustomPlayerNames = true;
     
+    PlayersName.Add("Jon");
+    PlayersName.Add("Peeter");
+    PlayersName.Add("Jess");
+    PlayersName.Add("Rick");
+    PlayersName.Add("Tom");
 }
 
 void ABasePlayerState::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
@@ -15,6 +22,14 @@ void ABasePlayerState::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& Out
 
    DOREPLIFETIME(ABasePlayerState, NumberOfMurders);
    DOREPLIFETIME(ABasePlayerState, NumberOfDeaths);
+   DOREPLIFETIME(ABasePlayerState, bIsAlive);
+}
+
+void ABasePlayerState::BeginPlay()
+{
+    Super::BeginPlay();
+
+    SetPlayerName(PlayersName[UKismetMathLibrary::RandomIntegerInRange(0, PlayersName.Num() - 1)]);
 }
 
 void ABasePlayerState::IncrementNumberOfMurders()
@@ -30,4 +45,14 @@ void ABasePlayerState::DecrementNumberOfMurders()
 void ABasePlayerState::IncrementNumberOfDeaths()
 {
     NumberOfDeaths++;
+}
+
+void ABasePlayerState::SetIsAlive(bool const bNewState)
+{
+    bIsAlive = bNewState;
+}
+
+void ABasePlayerState::NetMulticastOwnerDead_Implementation(const FString& LoserName, const FString& InstigatorName, const FString& WeaponName)
+{
+    OnPlayerDeadEvent.Broadcast(LoserName, InstigatorName, WeaponName);
 }

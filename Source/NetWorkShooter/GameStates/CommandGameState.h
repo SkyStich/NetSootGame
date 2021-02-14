@@ -25,6 +25,11 @@ class NETWORKSHOOTER_API ACommandGameState : public ABaseGameState
 public:
 
 	ACommandGameState();
+	
+	virtual void GetLifetimeReplicatedProps(TArray< FLifetimeProperty > & OutLifetimeProps) const override;
+	
+	/** Increment points of one of the commands using of team list */
+	virtual void ChangeTeamPoints(const TEnumAsByte<ETeamList>& Team);
 
 	/** Get points command using of team list */
 	UFUNCTION(BlueprintPure)
@@ -34,23 +39,14 @@ public:
 	UFUNCTION(BlueprintPure)
 	TEnumAsByte<ETeamList> CheckWinnerTeam();
 
-	virtual void GetLifetimeReplicatedProps(TArray< FLifetimeProperty > & OutLifetimeProps) const override;
-
-	/** Increment points of one of the commands using of team list */
-	void ChangeTeamPoints(const TEnumAsByte<ETeamList>& Team);
-	
-protected:
-
-	virtual void BeginPlay() override;
-
-public:
-
-	UPROPERTY(BlueprintAssignable, Category = "GameState|CommandState")
-	FTeamPointChanged OnTeamPointChangedEvent;
-
 private:
 
 	/** An array that stores the scores of both teams. To get the command index, an enumeration(ETeamList(CommandGameMode)) with the command names is used */
 	UPROPERTY(ReplicatedUsing = OnRep_TeamPoints)
 	TArray<int32>Points;
+
+public:
+
+	UPROPERTY(BlueprintAssignable, Category = "GameState|CommandState")
+	FTeamPointChanged OnTeamPointChangedEvent;
 };

@@ -46,7 +46,7 @@ bool URangeWeaponObject::UseWeapon()
         {
             FVector const UnitVector = UKismetMathLibrary::GetDirectionUnitVector(OutHit.TraceEnd, OutHit.TraceStart);
             UGameplayStatics::ApplyPointDamage(OutHit.GetActor(), WeaponData->BaseDamage, UnitVector, OutHit,
-                CharacterOwner->GetController(), CharacterOwner, UDamageType::StaticClass());
+                CharacterOwner->GetController(),CharacterOwner, UDamageType::StaticClass());
         }
     }
     return true;

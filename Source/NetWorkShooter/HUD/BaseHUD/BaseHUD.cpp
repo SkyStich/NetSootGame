@@ -5,6 +5,8 @@
 #include "Blueprint/UserWidget.h"
 #include "Kismet/GameplayStatics.h"
 #include "Engine/World.h"
+#include "NetWorkShooter/NetWorkShooterCharacter.h"
+#include "NetWorkShooter/Spectators/MainSpectatorPawn.h"
 
 void ABaseHUD::BeginPlay()
 {
@@ -12,6 +14,7 @@ void ABaseHUD::BeginPlay()
     
     auto const TempGameState = GetBaseGameState();
     TempGameState->OnMatchStateChangedEvent.AddDynamic(this, &ABaseHUD::GameStateChanged);
+    
     CreatePreMatchWidget();
     ShowPreMatchWidget();
 }
@@ -27,8 +30,8 @@ void ABaseHUD::GameStateChanged(TEnumAsByte<EMatchState> NewMatchState)
     {
         CreateTabMenu();
         CreateMainWidget();
-        ShowMainWidget();
         DestroyPreMatchWidget();
+        ShowMainWidget();
     }
     else if(NewMatchState == EMatchState::MatchEnd)
     {
@@ -75,7 +78,7 @@ void ABaseHUD::DestroyPreMatchWidget()
 {
     PreMatch->RemoveFromParent();
     PreMatch->ConditionalBeginDestroy();
-   PreMatch = nullptr;   
+    PreMatch = nullptr;   
 }
 
 void ABaseHUD::ShowTabMenu() 
@@ -135,4 +138,3 @@ void ABaseHUD::DestroyMatchOverWidget()
     MatchOverWidget->ConditionalBeginDestroy();
     MatchOverWidget = nullptr;
 }
-

@@ -7,6 +7,7 @@
 #include "NetWorkShooter/Controllers/PlayerControllers/CommandPlayerController.h"
 #include "NetWorkShooter/GameStates/BaseGameState.h"
 #include "NetWorkShooter/GameStates/CommandGameState.h"
+#include "NetWorkShooter/Objects/WeaponObject/MainWeaponObject.h"
 #include "NetWorkShooter/Spectators/MoveSpectatorToKiller.h"
 #include "NetWorkShooter/PlayerStart/PlayerStartBase.h"
 
@@ -79,11 +80,15 @@ bool ACommandGameMode::UpDateDeathPoints(AController* LoserController, AControll
                 }
                 return true;
             }
+            return false;
         }
         else
         {
             CommandLoserState->IncrementNumberOfDeaths();
             CommandInstigatorState->DecrementNumberOfMurders();
+
+            FString const WeaponName = Cast<ANetWorkShooterCharacter>(InstigatorController->GetPawn())->GetWeaponManager()->GetCurrentWeapon()->GetWeaponName().ToString();
+            CommandInstigatorState->NetMulticastOwnerDead(CommandLoserState->GetPlayerName(), CommandInstigatorState->GetPlayerName(), WeaponName);
             return false;
         }
     }

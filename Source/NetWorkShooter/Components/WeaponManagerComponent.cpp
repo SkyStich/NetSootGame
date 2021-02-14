@@ -26,7 +26,6 @@ UWeaponManagerComponent::UWeaponManagerComponent()
 
 void UWeaponManagerComponent::OnRep_CurrentWeapon()
 {
-	GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Green, TEXT("OnRep_CurrentWeapon"));
 	OnCurrentWeaponChangedEvent.Broadcast(CurrentWeapon);
 }
 
@@ -56,10 +55,10 @@ void UWeaponManagerComponent::GetLifetimeReplicatedProps(TArray< FLifetimeProper
 	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
 
 	/** Replicated with using condition */
-	DOREPLIFETIME_CONDITION(UWeaponManagerComponent, CurrentWeapon, COND_OwnerOnly);
+	DOREPLIFETIME_CONDITION(UWeaponManagerComponent, Weapons, COND_OwnerOnly);
 	
 	/** Replicated without using condition */
-	DOREPLIFETIME(UWeaponManagerComponent, Weapons);
+	DOREPLIFETIME(UWeaponManagerComponent, CurrentWeapon);
 }
 
 /** Replicate other subobjects (CurrentWeapon) */
