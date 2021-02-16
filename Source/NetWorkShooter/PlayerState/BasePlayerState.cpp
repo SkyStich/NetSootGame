@@ -2,13 +2,10 @@
 
 
 #include "BasePlayerState.h"
-#include "Kismet/KismetMathLibrary.h"
 #include "Net/UnrealNetwork.h"
 
 ABasePlayerState::ABasePlayerState()
-{
-    bUseCustomPlayerNames = true;
-    
+{    
     PlayersName.Add("Jon");
     PlayersName.Add("Peeter");
     PlayersName.Add("Jess");
@@ -29,7 +26,10 @@ void ABasePlayerState::BeginPlay()
 {
     Super::BeginPlay();
 
-    SetPlayerName(PlayersName[UKismetMathLibrary::RandomIntegerInRange(0, PlayersName.Num() - 1)]);
+    if(GetLocalRole() == ROLE_Authority)
+    {
+        SetPlayerName("Jon");
+    }
 }
 
 void ABasePlayerState::IncrementNumberOfMurders()
@@ -50,6 +50,7 @@ void ABasePlayerState::IncrementNumberOfDeaths()
 void ABasePlayerState::SetIsAlive(bool const bNewState)
 {
     bIsAlive = bNewState;
+    ForceNetUpdate();
 }
 
 void ABasePlayerState::NetMulticastOwnerDead_Implementation(const FString& LoserName, const FString& InstigatorName, const FString& WeaponName)

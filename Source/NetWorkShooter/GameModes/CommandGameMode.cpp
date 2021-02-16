@@ -1,6 +1,5 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
-
 #include "CommandGameMode.h"
 #include "Kismet/GameplayStatics.h"
 #include "NetWorkShooter/PlayerState/CommandPlayerState.h"
@@ -10,6 +9,7 @@
 #include "NetWorkShooter/Objects/WeaponObject/MainWeaponObject.h"
 #include "NetWorkShooter/Spectators/MoveSpectatorToKiller.h"
 #include "NetWorkShooter/PlayerStart/PlayerStartBase.h"
+#include "Kismet/KismetMathLibrary.h"
 
 ACommandGameMode::ACommandGameMode()
 {
@@ -17,8 +17,16 @@ ACommandGameMode::ACommandGameMode()
 }
 
 void ACommandGameMode::BeginPlay()
-{
+{    
     Super::BeginPlay();
+
+}
+
+void ACommandGameMode::StartGameMatch()
+{
+    AutoBalanceOfTeams();
+    
+    Super::StartGameMatch();
 }
 
 bool ACommandGameMode::PointSelectionConditions(AController* SpawnController, APlayerStartBase* PointToCheck)
@@ -95,4 +103,31 @@ bool ACommandGameMode::UpDateDeathPoints(AController* LoserController, AControll
     return Super::UpDateDeathPoints(LoserController, InstigatorController);
 }
 
-
+void ACommandGameMode::AutoBalanceOfTeams()
+{
+    auto const TeamGameState = Cast<ACommandGameState>(GameState);
+    if(TeamGameState)
+    {
+        int32 const LenghtTeamA = TeamGameState->GetAmountPlayersInTeam(TeamA);
+        int32 const LenghtTeamB = TeamGameState->GetAmountPlayersInTeam(TeamB);
+        int32 const Difference = abs(LenghtTeamA - LenghtTeamB);
+        
+        if(Difference > 1)
+        {
+            for(int32 i = 0; i < Difference / 2; ++i)
+            {
+                if(LenghtTeamA > LenghtTeamB)
+                {
+                    TArray<ACommandPlayerState*> TempTeam;
+                    TempTeam[UKismetMathLibrary::RandomInteger(TempTeam.Num() - 1)]->SetTeam(TeamB);
+                }
+                else
+                {
+                    TArray<ACommandPlayerState*> TempTeam;
+                    TeamGameState->GetPlayersInOneTeam(TeamB, TempTeam);
+                    TempTeam[UKismetMathLibrary::RandomInteger(TempTeam.Num() - 1)]->SetTeam(TeamA);
+                }
+            }
+        }
+    }
+}

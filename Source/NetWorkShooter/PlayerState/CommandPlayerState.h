@@ -15,14 +15,20 @@ class NETWORKSHOOTER_API ACommandPlayerState : public ABasePlayerState
 {
 	GENERATED_BODY()
 
+	void FindTeam();
+
 protected:
 
 	virtual void BeginPlay() override;
 
 public:
 
+	ACommandPlayerState();
+
 	UFUNCTION(BlueprintPure, Category = "CommandController|Getting")
     TEnumAsByte<ETeamList> GetTeam() const { return Team; }
+    
+	void SetTeam(const TEnumAsByte<ETeamList> NewTeam);
 
 	virtual void GetLifetimeReplicatedProps(TArray< FLifetimeProperty > & OutLifetimeProps) const override;
 	

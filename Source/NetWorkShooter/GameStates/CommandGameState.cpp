@@ -3,6 +3,7 @@
 
 #include "CommandGameState.h"
 #include "Net/UnrealNetwork.h"
+#include "NetWorkShooter/PlayerState/CommandPlayerState.h"
 
 ACommandGameState::ACommandGameState()
 {
@@ -47,4 +48,57 @@ TEnumAsByte<ETeamList> ACommandGameState::CheckWinnerTeam()
 void ACommandGameState::OnRep_TeamPoints()
 {
 	OnTeamPointChangedEvent.Broadcast();
+}
+
+void ACommandGameState::GetPlayersInOneTeam(TEnumAsByte<ETeamList> Team, TArray<ACommandPlayerState*>& PlayersInTeam)
+{
+	for(auto& ByArray : PlayerArray)
+	{
+		auto const LocalState = Cast<ACommandPlayerState>(ByArray);
+		if(LocalState)
+		{
+			if(LocalState->GetTeam() == Team)
+			{
+				PlayersInTeam.Add(LocalState);
+			}
+		}
+		else
+		{
+			UE_LOG(LogGameState, Error, TEXT("Cast can not be create ACommandGameMode(57"));
+		}
+	}
+}
+
+TArray<ACommandPlayerState*> ACommandGameState::GetPlayersInOneTeam(TEnumAsByte<ETeamList> Team)
+{
+	TArray<ACommandPlayerState*> PlayersInTeam;
+	for(auto& ByArray : PlayerArray)
+	{
+		auto const LocalState = Cast<ACommandPlayerState>(ByArray);
+		if(LocalState)
+		{
+			if(LocalState->GetTeam() == Team)
+			{
+				PlayersInTeam.Add(LocalState);
+			}
+		}
+		else
+		{
+			UE_LOG(LogGameState, Error, TEXT("Cast can not be create ACommandGameMode(57"));
+		}
+	}
+	return PlayersInTeam;
+}
+
+int32 ACommandGameState::GetAmountPlayersInTeam(TEnumAsByte<ETeamList> TeamForFind)
+{
+	int32 TempAmount = 0;
+	for(auto& ByArray : PlayerArray)
+	{
+		if(Cast<ACommandPlayerState>(ByArray)->GetTeam() == TeamForFind)
+		{
+			TempAmount++;
+		}
+	}
+	return TempAmount;
 }

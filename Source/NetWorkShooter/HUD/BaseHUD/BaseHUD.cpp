@@ -67,11 +67,6 @@ void ABaseHUD::ShowPreMatchWidget()
     {
         PreMatch->AddToViewport();
     }
-    else
-    {
-        CreatePreMatchWidget();
-        PreMatch->AddToViewport();
-    } 
 }
 
 void ABaseHUD::DestroyPreMatchWidget()
@@ -86,12 +81,7 @@ void ABaseHUD::ShowTabMenu()
     if(TabMenuWidget && !TabMenuWidget->IsPendingKill())
     {
         TabMenuWidget->AddToViewport();
-    }
-    else
-    {
-        CreateTabMenu();
-        TabMenuWidget->AddToViewport();
-    }    
+    }  
 }
 
 void ABaseHUD::HiddenTabMenu() 
@@ -106,11 +96,6 @@ void ABaseHUD::ShowMainWidget()
     {
         MainWidget->AddToViewport();
     }
-    else
-    {
-        CreateMainWidget();
-        MainWidget->AddToViewport();
-    }
 }
 
 void ABaseHUD::HiddenMainWidget()
@@ -123,11 +108,6 @@ void ABaseHUD::ShowGameOverMatchWidget()
 {
     if(MatchOverWidget && !MatchOverWidget->IsPendingKill())
     {
-        MatchOverWidget->AddToViewport();
-    }
-    else
-    {
-        CreateMatchOverWidget();
         MatchOverWidget->AddToViewport();
     }
 }

@@ -1,6 +1,5 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
-
 #include "PlayerStartBase.h"
 #include "Engine/World.h"
 #include "Components/CapsuleComponent.h"
@@ -44,6 +43,7 @@ void APlayerStartBase::SpawnCharacter(AController* Controller, ANetWorkShooterCh
     {
         Controller->Possess(SpawnCharacter);
         SpawnedCharacter = SpawnCharacter;
+        bCharacterInside = false;
         PlayerSpawnedEvent.Broadcast(SpawnCharacter);
     }
 }

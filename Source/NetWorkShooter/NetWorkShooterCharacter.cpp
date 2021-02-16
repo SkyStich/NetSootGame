@@ -6,6 +6,7 @@
 #include "GameFramework/CharacterMovementComponent.h"
 #include "Objects/WeaponObject/MainWeaponObject.h"
 #include "Net/UnrealNetwork.h"
+#include "EngineUtils.h"
 #include "Objects/MainRangeWeapon/RangeWeaponObject.h"
 
 ANetWorkShooterCharacter::ANetWorkShooterCharacter()
@@ -162,10 +163,10 @@ void ANetWorkShooterCharacter::CharacterDead()
 		/** Lambda -> void, instigate to drop dead of player and destroy of him */
 		TimerCallBack.BindLambda([&]() -> void
 			{
-			UMainWeaponObject* MainDeadPlayer;
-			WeaponManagerComponent->GetWeaponByCategory(EEquipmentSlot::MainWeapon, MainDeadPlayer);	
-			WeaponManagerComponent->DropWeaponToWorld(MainDeadPlayer);
-			Destroy();
+				UMainWeaponObject* MainDeadPlayer;
+				WeaponManagerComponent->GetWeaponByCategory(EEquipmentSlot::MainWeapon, MainDeadPlayer);	
+				WeaponManagerComponent->DropWeaponToWorld(MainDeadPlayer);
+				Destroy();
 			});
 
 		/** Start Timer */
@@ -177,4 +178,3 @@ void ANetWorkShooterCharacter::CharacterDead()
 		GetMesh()->SetSimulatePhysics(true);
 	}
 }
-

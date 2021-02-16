@@ -39,6 +39,13 @@ public:
 	UFUNCTION(BlueprintPure)
 	TEnumAsByte<ETeamList> CheckWinnerTeam();
 
+	UFUNCTION(BlueprintPure)
+	int32 GetAmountPlayersInTeam(TEnumAsByte<ETeamList> TeamForFind);
+
+	UFUNCTION(BlueprintPure, Category = "GameState|CommandState")
+	void GetPlayersInOneTeam(TEnumAsByte<ETeamList> Team, TArray<class ACommandPlayerState*>& PlayersInTeam);
+	TArray<class ACommandPlayerState*> GetPlayersInOneTeam(TEnumAsByte<ETeamList> Team);
+
 private:
 
 	/** An array that stores the scores of both teams. To get the command index, an enumeration(ETeamList(CommandGameMode)) with the command names is used */

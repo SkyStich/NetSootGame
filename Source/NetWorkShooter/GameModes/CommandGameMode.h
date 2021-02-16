@@ -10,7 +10,8 @@ UENUM(BlueprintType)
 enum ETeamList
 {
     TeamA,
-    TeamB
+    TeamB,
+	TeamNone
 };
 
 UCLASS(Abstract)
@@ -26,11 +27,15 @@ public:
 
 	/** Is responsible for awarding points to certain trams */
     virtual bool UpDateDeathPoints(AController* LoserController, AController* InstigatorController) override;
+	virtual void StartGameMatch() override;
 	
 protected:
 
     virtual void BeginPlay() override;
 	virtual bool PointSelectionConditions(AController* SpawnController, APlayerStartBase* PointToCheck) override;
+	
+	/** Auto balance of teams  in command mode*/
+	virtual void AutoBalanceOfTeams();
 
 private:
 
