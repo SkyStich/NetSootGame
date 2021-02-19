@@ -54,11 +54,10 @@ void ANetWorkShooterGameMode::CharacterDead(AController* LoserController, AContr
 	/** Spawn spectator for loser controller */
 	AMainSpectatorPawn* NewSpectatorPawn;
 	SpawnSpectator(LoserController, DeathInstigator, NewSpectatorPawn);
-
+	
+	auto const MainPlayerController = Cast<AMainPlayerController>(LoserController);	
 	if(bCanAutoRespawn)
 	{
-		auto const MainPlayerController = Cast<AMainPlayerController>(LoserController);
-
 		if(MainPlayerController)
 		{
 			MainPlayerController->LaunchRespawnTimer(RespawnTime, this);
@@ -134,7 +133,7 @@ void ANetWorkShooterGameMode::StartGameTimer()
 	GetWorld()->GetTimerManager().SetTimer(TimeTickHandle, TimerDelegate, 1, true);
 }
 
-bool ANetWorkShooterGameMode::CheckGameTimer(class ABaseGameState* BaseGameState)
+bool ANetWorkShooterGameMode::CheckGameTimer(ABaseGameState* BaseGameState)
 {
 	return BaseGameState->GetCurrentPlayTime().IsZero();
 }

@@ -8,12 +8,17 @@
 
 ABaseGameState::ABaseGameState()
 {
+    /** init base variable */
     MaxTimeBeforeStartOfMatch = 8;
     TimeBeforeStartOfMatch = MaxTimeBeforeStartOfMatch;
     MatchDurationTime = FTimespan(0, 2, 0);
     MatchState = EMatchState::PreStart;
 
+    /** Set net time update */
     NetUpdateFrequency = 10.f;
+
+    /** Create components */
+    ChatComponent = CreateDefaultSubobject<UChatComponent>(TEXT("ChatComponent"));
 }
 
 void ABaseGameState::BeginPlay()

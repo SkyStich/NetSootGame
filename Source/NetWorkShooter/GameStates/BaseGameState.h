@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/GameState.h"
 #include "Kismet/KismetMathLibrary.h"
+#include "NetWorkShooter/Components/ChatComponent.h"
 #include "BaseGameState.generated.h"
 
 UENUM(BlueprintType)
@@ -48,14 +49,17 @@ public:
     UFUNCTION()
     virtual void MatchEnd(FString Reason);
     
-    UFUNCTION(BlueprintPure)
+    UFUNCTION(BlueprintPure, Category = "GameState|Time")
     FTimespan GetCurrentPlayTime() const { return CurrentPlayTime; }  
     
-    UFUNCTION(BlueprintPure)
+    UFUNCTION(BlueprintPure, Category = "GameState|MatchState")
     TEnumAsByte<EMatchState> GetMatchState() const { return MatchState; }
 
-    UFUNCTION(BlueprintPure)
-    int32  GetTimeBeforeStartOfMatch() const { return TimeBeforeStartOfMatch; }
+    UFUNCTION(BlueprintPure, Category = "GameState|Time")
+    int32 GetTimeBeforeStartOfMatch() const { return TimeBeforeStartOfMatch; }
+
+    UFUNCTION(BlueprintPure, Category = "GameState|Chat")
+    UChatComponent* GetChatComponent() const { return ChatComponent; }
     
 protected:
 
@@ -78,6 +82,9 @@ private:
     int32 MaxTimeBeforeStartOfMatch;
 
     FTimerHandle GameStartTimer;
+
+    UPROPERTY(VisibleAnywhere)
+    UChatComponent* ChatComponent;
 
 public:
 

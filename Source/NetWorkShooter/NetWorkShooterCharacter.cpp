@@ -178,3 +178,4 @@ void ANetWorkShooterCharacter::CharacterDead()
 		GetMesh()->SetSimulatePhysics(true);
 	}
 }
+

@@ -2541,9 +2541,17 @@
       <e p="Source" t="Include">
         <e p="RiderSourceCodeAccess" t="Include">
           <e p="Private" t="Include">
-            <e p="RiderPathLocatorWin" t="Include">
-              <e p="RiderPathLocator.cpp" t="Include" />
+            <e p="RiderPathLocator" t="Include">
+              <e p="Common" t="Include">
+                <e p="RiderPathLocator.cpp" t="Include" />
+              </e>
+              <e p="Mac" t="Include">
+                <e p="RiderPathLocatorMac.cpp" t="Include" />
+              </e>
               <e p="RiderPathLocator.h" t="Include" />
+              <e p="Win" t="Include">
+                <e p="RiderPathLocatorWin.cpp" t="Include" />
+              </e>
             </e>
             <e p="RiderSourceCodeAccessor.cpp" t="Include" />
             <e p="RiderSourceCodeAccessor.h" t="Include" />
@@ -6669,6 +6677,8 @@
           <e p="LogCategory.cpp" t="Include" />
           <e p="LogCategory.h" t="Include" />
           <e p="MaterialImporter.cpp" t="Include" />
+          <e p="MaterialImportUtils.cpp" t="Include" />
+          <e p="MaterialImportUtils.h" t="Include" />
           <e p="MaterialSelectors" t="Include">
             <e p="DatasmithRuntimeRevitMaterialSelector.cpp" t="Include" />
             <e p="DatasmithRuntimeRevitMaterialSelector.h" t="Include" />
@@ -8138,6 +8148,7 @@
             <e p="MeshBoundaryToolBase.cpp" t="Include" />
             <e p="MeshInspectorTool.cpp" t="Include" />
             <e p="MeshModelingTools.cpp" t="Include" />
+            <e p="MeshModelingToolsObjectKeepaliveFix.h" t="Include" />
             <e p="MeshSelectionTool.cpp" t="Include" />
             <e p="MeshSpaceDeformerTool.cpp" t="Include" />
             <e p="MeshVertexSculptTool.cpp" t="Include" />
@@ -12455,6 +12466,330 @@
         <e p="ThirdParty" t="Include">
           <e p="Build" t="Include">
             <e p="Blackmagic.Build.cs" t="Include" />
+          </e>
+        </e>
+      </e>
+    </e>
+    <e p="D:\Epic Games\UE_4.26\Engine\Plugins\Media\ElectraPlayer" t="Include">
+      <e p="ElectraPlayer.uplugin" t="Include" />
+      <e p="Source" t="Include">
+        <e p="ElectraPlayerFactory" t="Include">
+          <e p="ElectraPlayerFactory.Build.cs" t="Include" />
+          <e p="Private" t="Include">
+            <e p="ElectraPlayerFactoryModule.cpp" t="Include" />
+            <e p="ElectraPlayerFactoryPrivate.h" t="Include" />
+          </e>
+        </e>
+        <e p="ElectraPlayerPlugin" t="Include">
+          <e p="ElectraPlayerPlugin.Build.cs" t="Include" />
+          <e p="Private" t="Include">
+            <e p="ElectraPlayerAudioSample.cpp" t="Include" />
+            <e p="ElectraPlayerAudioSample.h" t="Include" />
+            <e p="ElectraPlayerPlugin.cpp" t="Include" />
+            <e p="ElectraPlayerPlugin.h" t="Include" />
+            <e p="ElectraPlayerPlugin_Android.cpp" t="Include" />
+            <e p="ElectraPlayerPlugin_Apple.cpp" t="Include" />
+            <e p="ElectraPlayerPlugin_Windows.cpp" t="Include" />
+            <e p="ElectraPlayerPluginModule.cpp" t="Include" />
+          </e>
+          <e p="Public" t="Include">
+            <e p="IElectraPlayerPluginModule.h" t="Include" />
+          </e>
+        </e>
+        <e p="ElectraPlayerRuntime" t="Include">
+          <e p="ElectraPlayerRuntime.Build.cs" t="Include" />
+          <e p="ElectraPlayerRuntime_UPL.xml" t="Include" />
+          <e p="Private" t="Include">
+            <e p="ElectraPlayer.cpp" t="Include" />
+            <e p="ElectraPlayer.h" t="Include" />
+            <e p="ElectraPlayer_Android.cpp" t="Include" />
+            <e p="ElectraPlayer_Apple.cpp" t="Include" />
+            <e p="ElectraPlayer_PC.cpp" t="Include" />
+            <e p="ElectraPlayerAudioDecoderOutput.cpp" t="Include" />
+            <e p="ElectraPlayerPlatform.h" t="Include" />
+            <e p="ElectraPlayerPrivate.h" t="Include" />
+            <e p="ElectraPlayerRuntimeModule.cpp" t="Include" />
+            <e p="Runtime" t="Include">
+              <e p="3rdParty" t="Include">
+                <e p="FastDelegate" t="Include">
+                  <e p="FastDelegate.h" t="Include" />
+                  <e p="FastDelegateBind.h" t="Include" />
+                  <e p="FastDelegateH_v1_5.tps" t="Include" />
+                </e>
+                <e p="tiny-AES-c" t="Include">
+                  <e p="AES.cpp" t="Include" />
+                  <e p="AES.h" t="Include" />
+                  <e p="ReadMe.txt" t="Include" />
+                  <e p="tiny-AES-c.tps" t="Include" />
+                </e>
+              </e>
+              <e p="BitDataStream.h" t="Include" />
+              <e p="core" t="Include">
+                <e p="MediaCriticalSection.h" t="Include" />
+                <e p="MediaEventSignal.h" t="Include" />
+                <e p="MediaFastDelegate.h" t="Include" />
+                <e p="MediaInterlocked.h" t="Include" />
+                <e p="MediaLock.h" t="Include" />
+                <e p="MediaMacros.h" t="Include" />
+                <e p="MediaMessageQueue.h" t="Include" />
+                <e p="MediaNoncopyable.h" t="Include" />
+                <e p="MediaQueue.h" t="Include" />
+                <e p="MediaSemaphore.h" t="Include" />
+                <e p="MediaThreads.cpp" t="Include" />
+                <e p="MediaThreads.h" t="Include" />
+                <e p="MediaTypes.h" t="Include" />
+              </e>
+              <e p="Crypto" t="Include">
+                <e p="StreamCryptoAES128.cpp" t="Include" />
+                <e p="StreamCryptoAES128.h" t="Include" />
+              </e>
+              <e p="Decoder" t="Include">
+                <e p="Android" t="Include">
+                  <e p="AudioDecoderAAC_Android.cpp" t="Include" />
+                  <e p="AudioDecoderAAC_JavaWrapper_Android.cpp" t="Include" />
+                  <e p="AudioDecoderAAC_JavaWrapper_Android.h" t="Include" />
+                  <e p="DecoderErrors_Android.h" t="Include" />
+                  <e p="Java" t="Include">
+                    <e p="src" t="Include">
+                      <e p="com" t="Include">
+                        <e p="epicgames" t="Include">
+                          <e p="ue4" t="Include">
+                            <e p="ElectraAudioDecoderAAC.java" t="Include" />
+                            <e p="ElectraVideoDecoderH264.java" t="Include" />
+                          </e>
+                        </e>
+                      </e>
+                    </e>
+                  </e>
+                  <e p="VideoDecoderH264_Android.cpp" t="Include" />
+                  <e p="VideoDecoderH264_JavaWrapper_Android.h" t="Include" />
+                  <e p="VideoDecoderH264_JavaWrapper_Decoder_Android.cpp" t="Include" />
+                  <e p="VideoDecoderResourceDelegate.h" t="Include" />
+                </e>
+                <e p="Apple" t="Include">
+                  <e p="AudioDecoderAAC_Apple.cpp" t="Include" />
+                  <e p="DecoderErrors_Apple.h" t="Include" />
+                  <e p="VideoDecoderH264_Apple.cpp" t="Include" />
+                  <e p="VideoDecoderResourceDelegate.h" t="Include" />
+                </e>
+                <e p="AudioDecoderAAC.h" t="Include" />
+                <e p="DecoderBase.h" t="Include" />
+                <e p="DX" t="Include">
+                  <e p="AudioDecoderAAC_DX.cpp" t="Include" />
+                  <e p="DecoderErrors_DX.h" t="Include" />
+                  <e p="VideoDecoderH264_DX.cpp" t="Include" />
+                  <e p="VideoDecoderH264_DX.h" t="Include" />
+                </e>
+                <e p="GStreamer" t="Include">
+                  <e p="AudioDecoderAAC_GStreamer.cpp" t="Include" />
+                  <e p="VideoDecoderH264_GStreamer.cpp" t="Include" />
+                  <e p="VideoDecoderResourceDelegate.h" t="Include" />
+                </e>
+                <e p="VideoDecoderH264.h" t="Include" />
+                <e p="Windows" t="Include">
+                  <e p="VideoDecoderH264_PC.cpp" t="Include" />
+                  <e p="VideoDecoderResourceDelegate.h" t="Include" />
+                </e>
+              </e>
+              <e p="Demuxer" t="Include">
+                <e p="ParserISO14496-12.cpp" t="Include" />
+                <e p="ParserISO14496-12.h" t="Include" />
+              </e>
+              <e p="ErrorDetail.h" t="Include" />
+              <e p="HTTP" t="Include">
+                <e p="HttpManager.cpp" t="Include" />
+                <e p="HttpManager.h" t="Include" />
+              </e>
+              <e p="InfoLog.h" t="Include" />
+              <e p="OptionalValue.h" t="Include" />
+              <e p="platforms" t="Include">
+                <e p="Android" t="Include">
+                  <e p="PlayerRuntime_Android.cpp" t="Include" />
+                </e>
+                <e p="Apple" t="Include">
+                  <e p="PlayerRuntime_Apple.cpp" t="Include" />
+                </e>
+                <e p="Windows" t="Include">
+                  <e p="PlayerRuntime_PC.cpp" t="Include" />
+                </e>
+              </e>
+              <e p="Player" t="Include">
+                <e p="AdaptiveStreamingPlayer.cpp" t="Include" />
+                <e p="AdaptiveStreamingPlayer.h" t="Include" />
+                <e p="AdaptiveStreamingPlayerABR.cpp" t="Include" />
+                <e p="AdaptiveStreamingPlayerABR.h" t="Include" />
+                <e p="AdaptiveStreamingPlayerABR_State.h" t="Include" />
+                <e p="AdaptiveStreamingPlayerEvents.cpp" t="Include" />
+                <e p="AdaptiveStreamingPlayerInternal.h" t="Include" />
+                <e p="AdaptiveStreamingPlayerInternalConfig.h" t="Include" />
+                <e p="AdaptiveStreamingPlayerManifest.cpp" t="Include" />
+                <e p="AdaptiveStreamingPlayerMetrics.h" t="Include" />
+                <e p="AdaptiveStreamingPlayerResourceRequest.h" t="Include" />
+                <e p="HLS" t="Include">
+                  <e p="EpicTags.h" t="Include" />
+                  <e p="InitSegmentCacheHLS.cpp" t="Include" />
+                  <e p="InitSegmentCacheHLS.h" t="Include" />
+                  <e p="LHLSTags.h" t="Include" />
+                  <e p="LicenseKeyCacheHLS.cpp" t="Include" />
+                  <e p="LicenseKeyCacheHLS.h" t="Include" />
+                  <e p="ManifestBuilderHLS.cpp" t="Include" />
+                  <e p="ManifestBuilderHLS.h" t="Include" />
+                  <e p="ManifestHLS.cpp" t="Include" />
+                  <e p="ManifestHLS.h" t="Include" />
+                  <e p="MediaTag.h" t="Include" />
+                  <e p="Parser.cpp" t="Include" />
+                  <e p="Parser.h" t="Include" />
+                  <e p="Playlist.cpp" t="Include" />
+                  <e p="PlaylistReaderHLS.cpp" t="Include" />
+                  <e p="PlaylistReaderHLS.h" t="Include" />
+                  <e p="StreamReaderHLSfmp4.cpp" t="Include" />
+                  <e p="StreamReaderHLSfmp4.h" t="Include" />
+                  <e p="TagContainer.cpp" t="Include" />
+                  <e p="Tags.h" t="Include" />
+                  <e p="Token.h" t="Include" />
+                </e>
+                <e p="Manifest.h" t="Include" />
+                <e p="mp4" t="Include">
+                  <e p="ManifestMP4.cpp" t="Include" />
+                  <e p="ManifestMP4.h" t="Include" />
+                  <e p="PlaylistReaderMP4.cpp" t="Include" />
+                  <e p="PlaylistReaderMP4.h" t="Include" />
+                  <e p="StreamReaderMP4.cpp" t="Include" />
+                  <e p="StreamReaderMP4.h" t="Include" />
+                </e>
+                <e p="PlaybackTimeline.h" t="Include" />
+                <e p="PlayerLicenseKey.h" t="Include" />
+                <e p="PlayerSessionServices.h" t="Include" />
+                <e p="PlayerStreamFilter.h" t="Include" />
+                <e p="PlayerStreamReader.h" t="Include" />
+                <e p="Playlist.h" t="Include" />
+                <e p="PlaylistReader.h" t="Include" />
+              </e>
+              <e p="PlayerCore.h" t="Include" />
+              <e p="PlayerFacility.h" t="Include" />
+              <e p="PlayerRuntimeGlobal.cpp" t="Include" />
+              <e p="PlayerRuntimeGlobal.h" t="Include" />
+              <e p="PlayerTime.cpp" t="Include" />
+              <e p="Renderer" t="Include">
+                <e p="RendererAudio.cpp" t="Include" />
+                <e p="RendererAudio.h" t="Include" />
+                <e p="RendererBase.h" t="Include" />
+                <e p="RendererVideo.cpp" t="Include" />
+                <e p="RendererVideo.h" t="Include" />
+              </e>
+              <e p="StreamAccessUnitBuffer.cpp" t="Include" />
+              <e p="StreamAccessUnitBuffer.h" t="Include" />
+              <e p="StreamDataBuffer.h" t="Include" />
+              <e p="StreamTypes.h" t="Include" />
+              <e p="SynchronizedClock.cpp" t="Include" />
+              <e p="SynchronizedClock.h" t="Include" />
+              <e p="TimeUtilities.cpp" t="Include" />
+              <e p="Utilities" t="Include">
+                <e p="HashFunctions.cpp" t="Include" />
+                <e p="HashFunctions.h" t="Include" />
+                <e p="StringHelpers.cpp" t="Include" />
+                <e p="StringHelpers.h" t="Include" />
+                <e p="TimeUtilities.h" t="Include" />
+                <e p="URI.cpp" t="Include" />
+                <e p="URI.h" t="Include" />
+                <e p="URLParser.cpp" t="Include" />
+                <e p="URLParser.h" t="Include" />
+                <e p="Utilities.h" t="Include" />
+                <e p="UtilsMPEG.cpp" t="Include" />
+                <e p="UtilsMPEG.h" t="Include" />
+                <e p="UtilsMPEGAudio.cpp" t="Include" />
+                <e p="UtilsMPEGAudio.h" t="Include" />
+                <e p="UtilsMPEGVideo.cpp" t="Include" />
+                <e p="UtilsMPEGVideo.h" t="Include" />
+              </e>
+            </e>
+            <e p="Tests" t="Include">
+              <e p="Parser.spec.cpp" t="Include" />
+            </e>
+            <e p="Windows" t="Include">
+              <e p="ElectraPlayerPrivate_Platform.h" t="Include" />
+            </e>
+          </e>
+          <e p="Public" t="Include">
+            <e p="Android" t="Include">
+              <e p="ElectraPlayerResourceDelegate.h" t="Include" />
+            </e>
+            <e p="Apple" t="Include">
+              <e p="ElectraPlayerResourceDelegate.h" t="Include" />
+            </e>
+            <e p="ElectraPlayerMisc.h" t="Include" />
+            <e p="IElectraPlayerInterface.h" t="Include" />
+            <e p="IElectraPlayerRuntimeModule.h" t="Include" />
+            <e p="Unix" t="Include">
+              <e p="ElectraPlayerResourceDelegate.h" t="Include" />
+            </e>
+            <e p="Windows" t="Include">
+              <e p="ElectraPlayerResourceDelegate.h" t="Include" />
+            </e>
+          </e>
+        </e>
+      </e>
+    </e>
+    <e p="D:\Epic Games\UE_4.26\Engine\Plugins\Media\ElectraUtil" t="Include">
+      <e p="ElectraUtil.uplugin" t="Include" />
+      <e p="Source" t="Include">
+        <e p="ElectraBase" t="Include">
+          <e p="ElectraBase.Build.cs" t="Include" />
+          <e p="Private" t="Include">
+            <e p="ElectraBaseModule.cpp" t="Include" />
+            <e p="ElectraBaseModule.h" t="Include" />
+            <e p="ParameterDictionary.cpp" t="Include" />
+          </e>
+          <e p="Public" t="Include">
+            <e p="IElectraBaseModule.h" t="Include" />
+            <e p="MediaAudioDecoderOutput.h" t="Include" />
+            <e p="MediaDecoderOutput.h" t="Include" />
+            <e p="MediaVideoDecoderOutput.h" t="Include" />
+            <e p="MediaVideoDecoderOutputAndroid.h" t="Include" />
+            <e p="MediaVideoDecoderOutputApple.h" t="Include" />
+            <e p="MediaVideoDecoderOutputPC.h" t="Include" />
+            <e p="ParameterDictionary.h" t="Include" />
+            <e p="PlayerTime.h" t="Include" />
+          </e>
+        </e>
+        <e p="ElectraSamples" t="Include">
+          <e p="ElectraSamples.Build.cs" t="Include" />
+          <e p="ElectraSamples_UPL.xml" t="Include" />
+          <e p="Private" t="Include">
+            <e p="ElectraSamplesModule.cpp" t="Include" />
+            <e p="ElectraSamplesModule.h" t="Include" />
+            <e p="ElectraSamplesTextureManager.cpp" t="Include" />
+            <e p="ElectraTextureSampleAndroid.cpp" t="Include" />
+            <e p="ElectraTextureSampleAVF.cpp" t="Include" />
+            <e p="ElectraTextureSamplePC.cpp" t="Include" />
+            <e p="ElectraTextureSampleUnix.cpp" t="Include" />
+            <e p="Java" t="Include">
+              <e p="src" t="Include">
+                <e p="com" t="Include">
+                  <e p="epicgames" t="Include">
+                    <e p="ue4" t="Include">
+                      <e p="ElectraTextureSample.java" t="Include" />
+                    </e>
+                  </e>
+                </e>
+              </e>
+            </e>
+          </e>
+          <e p="Public" t="Include">
+            <e p="Android" t="Include">
+              <e p="ElectraTextureSample.h" t="Include" />
+            </e>
+            <e p="Apple" t="Include">
+              <e p="ElectraTextureSample.h" t="Include" />
+            </e>
+            <e p="ElectraSamplesTextureManager.h" t="Include" />
+            <e p="GStreamer" t="Include">
+              <e p="ElectraTextureSample.h" t="Include" />
+            </e>
+            <e p="IElectraSamplesModule.h" t="Include" />
+            <e p="Windows" t="Include">
+              <e p="ElectraTextureSample.h" t="Include" />
+            </e>
           </e>
         </e>
       </e>
@@ -17749,6 +18084,8 @@
               <e p="DisplayClusterAppExit.h" t="Include" />
               <e p="DisplayClusterBarrier.cpp" t="Include" />
               <e p="DisplayClusterBarrier.h" t="Include" />
+              <e p="DisplayClusterConsoleExec.cpp" t="Include" />
+              <e p="DisplayClusterConsoleExec.h" t="Include" />
               <e p="DisplayClusterConstants.h" t="Include" />
               <e p="DisplayClusterGlobals.cpp" t="Include" />
               <e p="DisplayClusterGlobals.h" t="Include" />
@@ -22308,6 +22645,9 @@
       <e p="WindowsMoviePlayer.uplugin" t="Include" />
     </e>
     <e p="D:\Epic Games\UE_4.26\Engine\Plugins\Runtime\XR\XRVisualization" t="Include">
+      <e p="Config" t="Include">
+        <e p="BaseXRVisualization.ini" t="Include" />
+      </e>
       <e p="Source" t="Include">
         <e p="XRVisualization" t="Include">
           <e p="Private" t="Include">
@@ -23082,6 +23422,7 @@
             <e p="DMXProtocolSACNModule.cpp" t="Include" />
             <e p="DMXProtocolSACNReceivingRunnable.cpp" t="Include" />
             <e p="DMXProtocolSACNReceivingRunnable.h" t="Include" />
+            <e p="DMXProtocolSACNTypes.h" t="Include" />
             <e p="DMXProtocolSACNUtils.h" t="Include" />
             <e p="DMXProtocolTransportSACN.cpp" t="Include" />
             <e p="DMXProtocolTransportSACN.h" t="Include" />
@@ -23993,6 +24334,7 @@
         <e p="RayTracingRectLight.ush" t="Include" />
         <e p="RayTracingRectLightRGS.usf" t="Include" />
         <e p="RayTracingReflectionEnvironment.ush" t="Include" />
+        <e p="RayTracingReflectionResolve.usf" t="Include" />
         <e p="RayTracingReflections.usf" t="Include" />
         <e p="RayTracingReflectionsCommon.ush" t="Include" />
         <e p="RayTracingReflectionsGenerateRaysCS.usf" t="Include" />
@@ -40104,7 +40446,7 @@
               <e p="StaticMeshVertexBuffer.cpp" t="Include" />
               <e p="StreamableTextureResource.cpp" t="Include" />
               <e p="SubsurfaceProfile.cpp" t="Include" />
-              <e p="Texture2DArrayResource .cpp" t="Include" />
+              <e p="Texture2DArrayResource.cpp" t="Include" />
               <e p="Texture2DArrayResource.h" t="Include" />
               <e p="Texture2DResource.cpp" t="Include" />
               <e p="Texture3DResource.cpp" t="Include" />
@@ -48183,6 +48525,10 @@
           <e p="libcurl.Build.cs" t="Include" />
           <e p="libcurl.tps" t="Include" />
         </e>
+        <e p="libjpeg-turbo" t="Include">
+          <e p="libjpeg-turbo.tps" t="Include" />
+          <e p="LibJpegTurbo.Build.cs" t="Include" />
+        </e>
         <e p="libJPG" t="Include">
           <e p="jpeg-compressor.tps" t="Include" />
           <e p="JpegLibrary.tps" t="Include" />
@@ -48496,6 +48842,8 @@
             <e p="PickUpWeapon.h" t="Include" />
           </e>
           <e p="Components" t="Include">
+            <e p="ChatComponent.cpp" t="Include" />
+            <e p="ChatComponent.h" t="Include" />
             <e p="HealthComponent.cpp" t="Include" />
             <e p="HealthComponent.h" t="Include" />
             <e p="WeaponManagerComponent.cpp" t="Include" />
