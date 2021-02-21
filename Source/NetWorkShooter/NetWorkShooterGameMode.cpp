@@ -101,7 +101,7 @@ void ANetWorkShooterGameMode::SpawnPlayer(AController* Controller)
 
 bool ANetWorkShooterGameMode::PointSelectionConditions(AController* SpawnController, APlayerStartBase* PointToCheck)
 {
-	return PointToCheck->bCharacterInside;
+	return PointToCheck->CheckOnFreePoints();
 }
 
 void ANetWorkShooterGameMode::StartGameMatch()  

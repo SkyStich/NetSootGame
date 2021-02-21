@@ -16,23 +16,20 @@ UCLASS()
 class NETWORKSHOOTER_API APlayerStartBase : public APlayerStart
 {
 	GENERATED_BODY()
-
-	void PlayerLeaveSpawnPoint(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComponent, int32 OtherBodyIndex);
-	void CharacterEnterInSpawnPoint(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool FromSweep, const FHitResult& SweepResult);
-
+	
 public:
 
 	void SpawnCharacter(AController* Controller, ANetWorkShooterCharacter* & SpawnedCharacter);
 	TEnumAsByte<ETeamList> GetTeam() const { return Team; }
+
+	/** return true if points is free */
+	bool CheckOnFreePoints() const;
 	
 protected:
 
 	virtual void BeginPlay() override;
 
 public:
-
-	/** true if character in player start */
-	bool bCharacterInside;
 
 	UPROPERTY(BlueprintAssignable)
 	FPlayerSpawned PlayerSpawnedEvent;

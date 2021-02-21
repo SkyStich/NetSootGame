@@ -33,15 +33,12 @@ void UChatComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorC
 	// ...
 }
 
-void UChatComponent::PostMessage(FString& Message, ABasePlayerState* Player)
+void UChatComponent::PostMessage(const FString& Message, APlayerState* Player)
 {
-	if(GetOwnerRole() == ROLE_Authority)
-	{
-		NetMulticastMessagePosted(Message, Player);
-	}
+	NetMulticastMessagePosted(Message, Player);
 }
 
-void UChatComponent::NetMulticastMessagePosted_Implementation(const FString& Message, ABasePlayerState* Player)
+void UChatComponent::NetMulticastMessagePosted_Implementation(const FString& Message, APlayerState* Player)
 {
 	OnMessagePostedEvent.Broadcast(Message, Player);
 }

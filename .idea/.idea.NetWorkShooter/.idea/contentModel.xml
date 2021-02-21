@@ -48855,6 +48855,8 @@
               <e p="CommandPlayerController.h" t="Include" />
               <e p="MainPlayerController.cpp" t="Include" />
               <e p="MainPlayerController.h" t="Include" />
+              <e p="MatchOlayerController.cpp" t="Include" />
+              <e p="MatchOlayerController.h" t="Include" />
             </e>
           </e>
           <e p="DataAssets" t="Include">

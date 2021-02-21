@@ -7,7 +7,9 @@
 #include "MainPlayerController.generated.h"
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FChangedPawn, APawn*, NewPawn);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FPlayerShowChat);
 
+/**  Base player controller for all controllers */
 UCLASS()
 class NETWORKSHOOTER_API AMainPlayerController : public APlayerController
 {
@@ -15,6 +17,9 @@ class NETWORKSHOOTER_API AMainPlayerController : public APlayerController
 
 	UFUNCTION()
 	void PlayerRespawn();
+
+	UFUNCTION()
+    void OwnerPressedOpenChat();
 	
 public:
 
@@ -26,6 +31,9 @@ public:
 	UFUNCTION(BlueprintAuthorityOnly)
 	void LaunchRespawnTimer(float const TimeToRespawn, class ANetWorkShooterGameMode* MainGameMode);
 
+	UFUNCTION(BlueprintCallable, Server, Unreliable)
+	void ServerSendMessage(const FString& Message);
+
 protected:
 
 	virtual void SetupInputComponent() override;
@@ -33,7 +41,7 @@ protected:
 	virtual void MatchEnded(FString Reason);
 	virtual void GetLifetimeReplicatedProps( TArray< FLifetimeProperty > & OutLifetimeProps ) const override;
 	virtual void OnRep_Pawn() override;
-
+	
 	UFUNCTION()
 	void ToggleTabMenu();
 
@@ -44,9 +52,11 @@ private:
 
 	FTimerHandle RespawnTimer;
 
-
 public:
 
 	UPROPERTY(BlueprintAssignable)
 	FChangedPawn OnNewPawnEvent;
+
+	UPROPERTY(BlueprintAssignable)
+	FPlayerShowChat OnPlayerPressedOpenChatEvent;
 };

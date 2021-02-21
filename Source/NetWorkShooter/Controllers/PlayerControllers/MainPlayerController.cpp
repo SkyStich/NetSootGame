@@ -21,10 +21,7 @@ void AMainPlayerController::BeginPlay()
 {
     Super::BeginPlay(); 
     
-    if(GetLocalRole() == ROLE_Authority)
-    {
-        Cast<ABaseGameState>(UGameplayStatics::GetGameState(GetWorld()))->OnMatchEndedEvent.AddDynamic(this, &AMainPlayerController::MatchEnded);
-    }
+    Cast<ABaseGameState>(UGameplayStatics::GetGameState(GetWorld()))->OnMatchEndedEvent.AddDynamic(this, &AMainPlayerController::MatchEnded);
 }
 
 void AMainPlayerController::GetLifetimeReplicatedProps( TArray< FLifetimeProperty > & OutLifetimeProps ) const
@@ -43,7 +40,15 @@ void AMainPlayerController::SpawnPlayer()
 
 void AMainPlayerController::MatchEnded(FString Reason)
 {
-    DisableInput(this);
+    if(GetLocalRole() == ROLE_Authority)
+    {
+        GetWorld()->GetTimerManager().ClearTimer(RespawnTimer);
+    }
+    else
+    {
+        GetPawn()->DisableInput(this);
+        DisableInput(this);
+    }
 }
 
 void AMainPlayerController::SetupInputComponent()
@@ -58,6 +63,7 @@ void AMainPlayerController::SetupInputComponent()
 
     InputComponent->BindAction("TabMenu", IE_Pressed, this, &AMainPlayerController::ToggleTabMenu);
     InputComponent->BindAction("TabMenu", IE_Released, this, &AMainPlayerController::HideTabMenu);
+    InputComponent->BindAction("OpenChat", IE_Released, this, &AMainPlayerController::OwnerPressedOpenChat);
 }
 
 void AMainPlayerController::LaunchRespawnTimer(float const TimeToRespawn, class ANetWorkShooterGameMode* MainGameMode)
@@ -86,7 +92,7 @@ void AMainPlayerController::ToggleTabMenu()
         auto const HUD = GetHUD<ABaseHUD>();
         if(HUD)
         {
-            HUD->ShowTabMenu();
+            HUD->AddToViewportWidget(HUD->GetTabMenuWidget());
         }
     }
 }
@@ -107,4 +113,14 @@ void AMainPlayerController::OnRep_Pawn()
 {
     Super::OnRep_Pawn();
     OnNewPawnEvent.Broadcast(GetPawn());
+}
+
+void AMainPlayerController::ServerSendMessage_Implementation(const FString& Message)
+{
+    Cast<ABaseGameState>(UGameplayStatics::GetGameState(GetWorld()))->GetChatComponent()->PostMessage(Message, PlayerState);
+}
+
+void AMainPlayerController::OwnerPressedOpenChat()
+{
+    OnPlayerPressedOpenChatEvent.Broadcast();
 }

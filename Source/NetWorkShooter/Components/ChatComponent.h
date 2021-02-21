@@ -7,7 +7,7 @@
 #include "NetWorkShooter/PlayerState/BasePlayerState.h"
 #include "ChatComponent.generated.h"
 
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FMessagePosted, const FString&, Message, ABasePlayerState*, Player);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FMessagePosted, const FString&, Message, APlayerState*, Player);
 
 /** Chat component implement in Game state */
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
@@ -20,7 +20,7 @@ public:
 	UChatComponent();
 
 	UFUNCTION(BlueprintCallable)
-	void PostMessage(FString& Message, ABasePlayerState* Player);
+	void PostMessage(const FString& Message, APlayerState* Player);
 
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
@@ -30,7 +30,7 @@ protected:
 	virtual void BeginPlay() override;
 
 	UFUNCTION(NetMulticast, Unreliable)
-	void NetMulticastMessagePosted(const FString& Message, ABasePlayerState* Player);
+	void NetMulticastMessagePosted(const FString& Message, APlayerState* Player);
 
 public:
 

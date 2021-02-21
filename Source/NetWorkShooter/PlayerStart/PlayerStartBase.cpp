@@ -10,25 +10,22 @@
 void APlayerStartBase::BeginPlay()
 {
     Super::BeginPlay();
+}
 
-    if(GetLocalRole() == ROLE_Authority)
+bool APlayerStartBase::CheckOnFreePoints() const
+{
+    TArray<AActor*>OverlapActors;
+    GetCapsuleComponent()->GetOverlappingActors(OverlapActors);
+
+    for(auto& ByArray : OverlapActors)
     {
-        GetCapsuleComponent()->OnComponentEndOverlap.AddDynamic(this, &APlayerStartBase::PlayerLeaveSpawnPoint);
-        GetCapsuleComponent()->OnComponentBeginOverlap.AddDynamic(this, &APlayerStartBase::CharacterEnterInSpawnPoint);
-        bCharacterInside = true;
+        auto const TempCharacter = Cast<ANetWorkShooterCharacter>(ByArray);
+        if(TempCharacter && !TempCharacter->GetHealthComponent()->GetIsDead())
+        {
+            return false;
+        }
     }
-}
-
-void APlayerStartBase::CharacterEnterInSpawnPoint(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool FromSweep, const FHitResult& SweepResult)
-{
-    if(Cast<ACharacter>(OtherActor))
-    bCharacterInside = false;  
-}
-
-void APlayerStartBase::PlayerLeaveSpawnPoint(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComponent, int32 OtherBodyIndex)
-{
-    if(Cast<ACharacter>(OtherActor))
-    bCharacterInside = true;
+    return true;
 }
 
 void APlayerStartBase::SpawnCharacter(AController* Controller, ANetWorkShooterCharacter* & SpawnedCharacter)
@@ -43,7 +40,6 @@ void APlayerStartBase::SpawnCharacter(AController* Controller, ANetWorkShooterCh
     {
         Controller->Possess(SpawnCharacter);
         SpawnedCharacter = SpawnCharacter;
-        bCharacterInside = false;
         PlayerSpawnedEvent.Broadcast(SpawnCharacter);
     }
 }

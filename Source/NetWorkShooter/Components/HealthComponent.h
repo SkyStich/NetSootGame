@@ -24,6 +24,9 @@ public:
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
 	UFUNCTION(BlueprintPure, Category = "HealthComponent")
+	bool GetIsDead() const { return bIsDead; }
+
+	UFUNCTION(BlueprintPure, Category = "HealthComponent")
 	float GetMaxHealth() const { return MaxHealth;}
 
 	UFUNCTION(BlueprintPure, Category = "HealthComponent")

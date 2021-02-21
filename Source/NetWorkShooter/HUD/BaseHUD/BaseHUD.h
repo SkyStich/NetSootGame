@@ -22,42 +22,31 @@ protected:
 
     UFUNCTION()
     void GameStateChanged(TEnumAsByte<EMatchState> NewMatchState);
-    
-    void CreateTabMenu();
-    void CreateMainWidget();
-    void CreatePreMatchWidget();
-    void CreateMatchOverWidget();
+
+    void CreateWidget(UUserWidget*& Widget, TSoftClassPtr<UUserWidget> WidgetClass);
 public:
   
     virtual void BeginPlay() override;
-
+    
     UFUNCTION(BlueprintCallable, Category = "HUD")
-    void ShowTabMenu();
+    void AddToViewportWidget(UUserWidget* Widget);
 
     UFUNCTION(BlueprintCallable, Category = "HUD")
     void HiddenTabMenu();
 
     UFUNCTION(BlueprintCallable, Category = "HUD")
-    void ShowMainWidget();
-
-    UFUNCTION(BlueprintCallable, Category = "HUD")
     void HiddenMainWidget();
-
-    UFUNCTION(BlueprintCallable, Category = "HUD")
-    void ShowPreMatchWidget();
 
     /** remove widget in viewport and from memory */
     UFUNCTION(BlueprintCallable, Category = "HUD")
     void DestroyPreMatchWidget();
-    
-    UFUNCTION(BlueprintCallable, Category = "HUD")
-    void ShowGameOverMatchWidget();
 
     /** remove widget in viewport and from memory */
     UFUNCTION(BlueprintCallable, Category = "HUD")
     void DestroyMatchOverWidget();
 
     UUserWidget* GetMainWidget() const { return MainWidget; }
+    UUserWidget* GetTabMenuWidget() const { return TabMenuWidget; }
 
 protected:
 

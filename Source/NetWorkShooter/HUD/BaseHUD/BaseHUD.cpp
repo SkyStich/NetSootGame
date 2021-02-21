@@ -15,8 +15,8 @@ void ABaseHUD::BeginPlay()
     auto const TempGameState = GetBaseGameState();
     TempGameState->OnMatchStateChangedEvent.AddDynamic(this, &ABaseHUD::GameStateChanged);
     
-    CreatePreMatchWidget();
-    ShowPreMatchWidget();
+    CreateWidget(PreMatch, DataAsset->GetWidgetData()->PreStartWidgetClass);
+    AddToViewportWidget(PreMatch);
 }
 
 ABaseGameState* ABaseHUD::GetBaseGameState()
@@ -28,44 +28,29 @@ void ABaseHUD::GameStateChanged(TEnumAsByte<EMatchState> NewMatchState)
 {
     if(NewMatchState == EMatchState::Game)
     {
-        CreateTabMenu();
-        CreateMainWidget();
+        CreateWidget(TabMenuWidget, DataAsset->GetWidgetData()->TabMenuWidgetClass);
+        CreateWidget(MainWidget, DataAsset->GetWidgetData()->MainWidgetClass);
         DestroyPreMatchWidget();
-        ShowMainWidget();
+        AddToViewportWidget(MainWidget);
     }
     else if(NewMatchState == EMatchState::MatchEnd)
     {
-        CreateMatchOverWidget();
-        ShowGameOverMatchWidget();
+        CreateWidget(MatchOverWidget, DataAsset->GetWidgetData()->MatchOverWidgetClass);
+        AddToViewportWidget(MatchOverWidget);
         HiddenTabMenu();
     }
 }
 
-void ABaseHUD::CreateTabMenu()
+void ABaseHUD::CreateWidget(UUserWidget*& Widget, TSoftClassPtr<UUserWidget> WidgetClass)
 {
-    TabMenuWidget = DataAsset->SyncCreateWidget(GetWorld(), DataAsset->GetWidgetData()->TabMenuWidgetClass, GetOwningPlayerController());
+   Widget = DataAsset->SyncCreateWidget(GetWorld(), WidgetClass, GetOwningPlayerController());
 }
 
-void ABaseHUD::CreateMainWidget()
+void ABaseHUD::AddToViewportWidget(UUserWidget* Widget)
 {
-    MainWidget = DataAsset->SyncCreateWidget(GetWorld(), DataAsset->GetWidgetData()->MainWidgetClass, GetOwningPlayerController());
-}
-
-void ABaseHUD::CreatePreMatchWidget()
-{
-    PreMatch = DataAsset->SyncCreateWidget(GetWorld(), DataAsset->GetWidgetData()->PreStartWidgetClass, GetOwningPlayerController());
-}
-
-void ABaseHUD::CreateMatchOverWidget()
-{
-    MatchOverWidget = DataAsset->SyncCreateWidget(GetWorld(), DataAsset->GetWidgetData()->MatchOverWidgetClass, GetOwningPlayerController());
-}
-
-void ABaseHUD::ShowPreMatchWidget()
-{
-    if(PreMatch && !PreMatch->IsPendingKill())
+    if(Widget && !Widget->IsPendingKill())
     {
-        PreMatch->AddToViewport();
+        Widget->AddToViewport();
     }
 }
 
@@ -76,26 +61,10 @@ void ABaseHUD::DestroyPreMatchWidget()
     PreMatch = nullptr;   
 }
 
-void ABaseHUD::ShowTabMenu() 
-{
-    if(TabMenuWidget && !TabMenuWidget->IsPendingKill())
-    {
-        TabMenuWidget->AddToViewport();
-    }  
-}
-
 void ABaseHUD::HiddenTabMenu() 
 {    
     if(TabMenuWidget && !TabMenuWidget->IsPendingKill())
         TabMenuWidget->RemoveFromParent();   
-}
-
-void ABaseHUD::ShowMainWidget() 
-{
-    if(MainWidget && !MainWidget->IsPendingKill())
-    {
-        MainWidget->AddToViewport();
-    }
 }
 
 void ABaseHUD::HiddenMainWidget()
@@ -104,17 +73,10 @@ void ABaseHUD::HiddenMainWidget()
         MainWidget->RemoveFromParent();
 }
 
-void ABaseHUD::ShowGameOverMatchWidget()
-{
-    if(MatchOverWidget && !MatchOverWidget->IsPendingKill())
-    {
-        MatchOverWidget->AddToViewport();
-    }
-}
-
 void ABaseHUD::DestroyMatchOverWidget()
 {
     MatchOverWidget->RemoveFromParent();
     MatchOverWidget->ConditionalBeginDestroy();
     MatchOverWidget = nullptr;
 }
+
