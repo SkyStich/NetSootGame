@@ -13,14 +13,19 @@ URangeWeaponObject::URangeWeaponObject()
 
 }
 
+void URangeWeaponObject::Init(UDataTable* WeaponData, TCHAR* ContextString)
+{
+    RangeWeaponData = WeaponData->FindRow<FRangeWeaponData>(GetWeaponName(), ContextString);
+}
+
 void URangeWeaponObject::BeginPlay()
 {
     Super::BeginPlay();
 
     if(GetAuthority())
     {
-        CurrentAmmoInClip = WeaponData->MaxAmmoInWeapon;
-        CurrentAmmoInStorage = WeaponData->MaxAmmoInStorage;
+        CurrentAmmoInClip = RangeWeaponData->MaxAmmoInWeapon;
+        CurrentAmmoInStorage = RangeWeaponData->MaxAmmoInStorage;
     }
 }
 
@@ -45,7 +50,7 @@ bool URangeWeaponObject::UseWeapon()
         if(OutHit.GetActor())
         {
             FVector const UnitVector = UKismetMathLibrary::GetDirectionUnitVector(OutHit.TraceEnd, OutHit.TraceStart);
-            UGameplayStatics::ApplyPointDamage(OutHit.GetActor(), WeaponData->BaseDamage, UnitVector, OutHit,
+            UGameplayStatics::ApplyPointDamage(OutHit.GetActor(), RangeWeaponData->BaseDamage, UnitVector, OutHit,
                 CharacterOwner->GetController(),CharacterOwner, UDamageType::StaticClass());
         }
     }
@@ -60,7 +65,7 @@ bool URangeWeaponObject::IsAbleToUseWeapon()
 void URangeWeaponObject::StopRateDelay()
 {
     Super::StopRateDelay();
-    if(WeaponData->CanAutoFire && bUseWeapon)
+    if(RangeWeaponData->CanAutoFire && bUseWeapon)
     {
         UseWeapon();
     }
@@ -71,7 +76,7 @@ FHitResult URangeWeaponObject::GetTraceInfo()
     FHitResult OutHit;
     FVector const ForwardVector = UKismetMathLibrary::GetForwardVector(CharacterOwner->GetControlRotation());
     FVector Start = CharacterOwner->GetWeaponSkeletalMeshComponent()->GetSocketLocation("Muzzle");
-    FVector const TraceEnd = ForwardVector * WeaponData->RangeOfUse + Start;
+    FVector const TraceEnd = ForwardVector * RangeWeaponData->RangeOfUse + Start;
 
     /** Init Collision Quary param */
     FCollisionQueryParams Params;
@@ -98,13 +103,13 @@ void URangeWeaponObject::GetTraceInfoDebugger_Implementation(FVector Start, FVec
 void URangeWeaponObject::ReloadStart()
 {
     /** if current ammo in clip < max ammo in clip and we have ammo in storage */
-    if(CurrentAmmoInClip < WeaponData->MaxAmmoInWeapon && CurrentAmmoInStorage > 0)
+    if(CurrentAmmoInClip < RangeWeaponData->MaxAmmoInWeapon && CurrentAmmoInStorage > 0)
     {
         if(!bReloading)
         {
             if(GetAuthority())
             {
-                GetWorld()->GetTimerManager().SetTimer(ReloadHandle, this, &URangeWeaponObject::ReloadFinish,  WeaponData->ReloadTime, false);
+                GetWorld()->GetTimerManager().SetTimer(ReloadHandle, this, &URangeWeaponObject::ReloadFinish,  RangeWeaponData->ReloadTime, false);
                 bReloading = true;
             }
         }
@@ -116,7 +121,7 @@ void URangeWeaponObject::ReloadFinish()
     GetWorld()->GetTimerManager().ClearTimer(ReloadHandle);
     bReloading = false;
     
-    int32 const NeedAmmoFromMaxClip = WeaponData->MaxAmmoInWeapon - CurrentAmmoInClip;
+    int32 const NeedAmmoFromMaxClip = RangeWeaponData->MaxAmmoInWeapon - CurrentAmmoInClip;
     if(CurrentAmmoInStorage >= NeedAmmoFromMaxClip)
     {
         CurrentAmmoInStorage -= NeedAmmoFromMaxClip;

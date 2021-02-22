@@ -24,34 +24,26 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4e895809-3b0e-414a-9fb7-267441527844" name="Default Changelist" comment="Change system command">
-      <change afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/UI/HUD/KillChat/ConstructWidgets/W_KillChatSlot.uasset" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/UI/HUD/KillChat/W_KillChat.uasset" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/UI/HUD/PlayerChat/Construct/W_ChatMessage.uasset" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/UI/HUD/PlayerChat/Construct/W_ChatMessageInput.uasset" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/UI/HUD/PlayerChat/W_MainPlayerChat.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/Blueprints/DataTable/MeleeData.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/Blueprints/DataTable/RangeData.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/Blueprints/DataTable/ThrowData.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Source/NetWorkShooter/Objects/ThrowingWeapon/MainGrenadeObject.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Source/NetWorkShooter/Objects/ThrowingWeapon/MainGrenadeObject.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Source/NetWorkShooter/Objects/ThrowingWeapon/MainThrowingWeapon.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Source/NetWorkShooter/Objects/ThrowingWeapon/MainThrowingWeapon.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.NetWorkShooter/.idea/contentModel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.NetWorkShooter/.idea/contentModel.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.NetWorkShooter/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.NetWorkShooter/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Config/DefaultInput.ini" beforeDir="false" afterPath="$PROJECT_DIR$/Config/DefaultInput.ini" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/ThirdPersonCPP/Blueprints/DataAssets/WIdgetAssets/CommandWidgetData.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/Blueprints/DataAssets/WIdgetAssets/CommandWidgetData.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/ThirdPersonCPP/Blueprints/DataAssets/WIdgetAssets/EveryManForHimselfWidgetData.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/Blueprints/DataAssets/WIdgetAssets/EveryManForHimselfWidgetData.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/ThirdPersonCPP/Blueprints/GameModes/BP_EveryManForHimselfGameMode.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/Blueprints/GameModes/BP_EveryManForHimselfGameMode.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/ThirdPersonCPP/Blueprints/Tools/MiniMap/BP_MiniMapHelper.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/Blueprints/Tools/MiniMap/BP_MiniMapHelper.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/ThirdPersonCPP/Maps/ThirdPersonExampleMap.umap" beforeDir="false" afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/Maps/ThirdPersonExampleMap.umap" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/ThirdPersonCPP/UI/HUD/W_HUD_MainCommandMode.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/UI/HUD/W_HUD_MainCommandMode.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/ThirdPersonCPP/UI/HUD/W_HUD_mainEveryManForHimSelf.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/UI/HUD/W_HUD_mainEveryManForHimSelf.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/ThirdPersonCPP/UI/KillChat/ConstructWidgets/W_KillChatSlot.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/UI/KillChat/ConstructWidgets/W_KillChatSlot.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/ThirdPersonCPP/UI/KillChat/W_KillChat.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/UI/KillChat/W_KillChat.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/ThirdPersonCPP/UI/MiniMap/W_HUD_MiniMap.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/UI/MiniMap/W_HUD_MiniMap.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/NetWorkShooter/Components/ChatComponent.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/NetWorkShooter/Components/ChatComponent.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/NetWorkShooter/Components/ChatComponent.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/NetWorkShooter/Components/ChatComponent.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/NetWorkShooter/Components/HealthComponent.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/NetWorkShooter/Components/HealthComponent.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/NetWorkShooter/Controllers/PlayerControllers/MainPlayerController.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/NetWorkShooter/Controllers/PlayerControllers/MainPlayerController.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/NetWorkShooter/Controllers/PlayerControllers/MainPlayerController.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/NetWorkShooter/Controllers/PlayerControllers/MainPlayerController.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/NetWorkShooter/HUD/BaseHUD/BaseHUD.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/NetWorkShooter/HUD/BaseHUD/BaseHUD.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/NetWorkShooter/HUD/BaseHUD/BaseHUD.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/NetWorkShooter/HUD/BaseHUD/BaseHUD.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/NetWorkShooter/NetWorkShooterGameMode.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/NetWorkShooter/NetWorkShooterGameMode.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/NetWorkShooter/PlayerStart/PlayerStartBase.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/NetWorkShooter/PlayerStart/PlayerStartBase.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/NetWorkShooter/PlayerStart/PlayerStartBase.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/NetWorkShooter/PlayerStart/PlayerStartBase.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/ThirdPersonCPP/Blueprints/DataAssets/WeaponDataAsset.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/Blueprints/DataAssets/WeaponDataAsset.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/ThirdPersonCPP/Blueprints/ThirdPersonCharacter.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/Blueprints/ThirdPersonCharacter.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/NetWorkShooter/Actors/PickUpWeapon.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/NetWorkShooter/Actors/PickUpWeapon.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/NetWorkShooter/Components/WeaponManagerComponent.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/NetWorkShooter/Components/WeaponManagerComponent.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/NetWorkShooter/Components/WeaponManagerComponent.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/NetWorkShooter/Components/WeaponManagerComponent.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/NetWorkShooter/DataAssets/WeaponDataAssetBase.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/NetWorkShooter/DataAssets/WeaponDataAssetBase.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/NetWorkShooter/DataAssets/WeaponDataAssetBase.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/NetWorkShooter/DataAssets/WeaponDataAssetBase.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/NetWorkShooter/Objects/MainRangeWeapon/RangeWeaponObject.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/NetWorkShooter/Objects/MainRangeWeapon/RangeWeaponObject.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/NetWorkShooter/Objects/MainRangeWeapon/RangeWeaponObject.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/NetWorkShooter/Objects/MainRangeWeapon/RangeWeaponObject.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/NetWorkShooter/Objects/WeaponObject/MainWeaponObject.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/NetWorkShooter/Objects/WeaponObject/MainWeaponObject.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/NetWorkShooter/Objects/WeaponObject/MainWeaponObject.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/NetWorkShooter/Objects/WeaponObject/MainWeaponObject.h" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -63,6 +55,7 @@
     <option name="UPDATE_TYPE" value="REBASE" />
   </component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/../../Epic Games/UE_4.26/Engine/Source/Runtime/Engine/Classes/Sound/SoundWaveLoadingBehavior.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../../Epic Games/UE_4.26/Engine/Source/Runtime/Engine/Private/GameSession.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../../Epic Games/UE_4.26/Engine/Source/Runtime/Engine/Private/Controller.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Intermediate/Build/Win64/UE4Editor/Inc/NetWorkShooter/CommandGameState.generated.h" root0="SKIP_HIGHLIGHTING" />
@@ -85,6 +78,7 @@
     <setting file="file://$PROJECT_DIR$/../../Epic Games/UE_4.26/Engine/Source/Runtime/Engine/Classes/GameFramework/GameModeBase.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/NetWorkShooter/Objects/WeaponObject/MainWeaponObject.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/NetWorkShooter/DataAssets/WeaponDataAssetBase.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../../Epic Games/UE_4.26/Engine/Source/Runtime/Engine/Classes/Engine/DataTable.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/NetWorkShooter/Components/WeaponManagerComponent.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../../Epic Games/UE_4.26/Engine/Source/Runtime/Engine/Private/PlayerState.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../../Epic Games/UE_4.26/Engine/Source/Runtime/CoreUObject/Public/UObject/UObjectBaseUtility.h" root0="FORCE_HIGHLIGHTING" />
@@ -95,15 +89,12 @@
   </component>
   <component name="IdeDocumentHistory">
     <changedPaths>
-      <option value="$PROJECT_DIR$/Source/NetWorkShooter/HUD/EveryManForHimselfHUD.h" />
-      <option value="$PROJECT_DIR$/Source/NetWorkShooter/Controllers/PlayerControllers/CommandPlayerController.cpp" />
       <option value="$PROJECT_DIR$/Source/NetWorkShooter/Controllers/PlayerControllers/CommandPlayerController.h" />
       <option value="$PROJECT_DIR$/Source/NetWorkShooter/HUD/CommandHUD.h" />
       <option value="$PROJECT_DIR$/Source/NetWorkShooter/GameStates/EveryManForHimselfGameState.cpp" />
       <option value="$PROJECT_DIR$/Source/NetWorkShooter/GameStates/EveryManForHimselfGameState.h" />
       <option value="$PROJECT_DIR$/Source/NetWorkShooter/GameModes/EveryManForHimselfGameMode.h" />
       <option value="$PROJECT_DIR$/Source/NetWorkShooter/GameModes/EveryManForHimselfGameMode.cpp" />
-      <option value="$PROJECT_DIR$/Source/NetWorkShooter/DataAssets/WeaponDataAssetBase.cpp" />
       <option value="$PROJECT_DIR$/Source/NetWorkShooter/DataAssets/WidgetsDataAsset.cpp" />
       <option value="$PROJECT_DIR$/Source/NetWorkShooter/HUD/CommandHUD.cpp" />
       <option value="$PROJECT_DIR$/Source/NetWorkShooter/HUD/EveryManForHimselfHUD.cpp" />
@@ -113,8 +104,6 @@
       <option value="$PROJECT_DIR$/Source/NetWorkShooter/FunctionLibrary/WorkWithTime.cpp" />
       <option value="$PROJECT_DIR$/Source/NetWorkShooter/NetWorkShooterGameMode.h" />
       <option value="$PROJECT_DIR$/Source/NetWorkShooter/Components/HealthComponent.cpp" />
-      <option value="$PROJECT_DIR$/Source/NetWorkShooter/Objects/MainRangeWeapon/RangeWeaponObject.cpp" />
-      <option value="$PROJECT_DIR$/Source/NetWorkShooter/Components/WeaponManagerComponent.cpp" />
       <option value="$PROJECT_DIR$/Source/NetWorkShooter/PlayerState/BasePlayerState.h" />
       <option value="$PROJECT_DIR$/Source/NetWorkShooter/GameStates/CommandGameState.h" />
       <option value="$PROJECT_DIR$/Source/NetWorkShooter/GameStates/CommandGameState.cpp" />
@@ -138,6 +127,19 @@
       <option value="$PROJECT_DIR$/Source/NetWorkShooter/PlayerStart/PlayerStartBase.cpp" />
       <option value="$PROJECT_DIR$/Source/NetWorkShooter/NetWorkShooterGameMode.cpp" />
       <option value="$PROJECT_DIR$/Source/NetWorkShooter/Controllers/PlayerControllers/MainPlayerController.cpp" />
+      <option value="$PROJECT_DIR$/Source/NetWorkShooter/Objects/ThrowingWeapon/MainGrenadeObject.cpp" />
+      <option value="$PROJECT_DIR$/Source/NetWorkShooter/Components/WeaponManagerComponent.h" />
+      <option value="$PROJECT_DIR$/Source/NetWorkShooter/DataAssets/WeaponDataAssetBase.h" />
+      <option value="$PROJECT_DIR$/Source/NetWorkShooter/Objects/WeaponObject/MainWeaponObject.cpp" />
+      <option value="$PROJECT_DIR$/Source/NetWorkShooter/Actors/PickUpWeapon.cpp" />
+      <option value="$PROJECT_DIR$/Source/NetWorkShooter/Components/WeaponManagerComponent.cpp" />
+      <option value="$PROJECT_DIR$/Source/NetWorkShooter/Objects/WeaponObject/MainWeaponObject.h" />
+      <option value="$PROJECT_DIR$/Source/NetWorkShooter/Objects/MainRangeWeapon/RangeWeaponObject.h" />
+      <option value="$PROJECT_DIR$/Source/NetWorkShooter/Objects/MainRangeWeapon/RangeWeaponObject.cpp" />
+      <option value="$PROJECT_DIR$/Source/NetWorkShooter/DataAssets/WeaponDataAssetBase.cpp" />
+      <option value="$PROJECT_DIR$/Source/NetWorkShooter/Objects/ThrowingWeapon/MainGrenadeObject.h" />
+      <option value="$PROJECT_DIR$/Source/NetWorkShooter/Objects/ThrowingWeapon/MainThrowingWeapon.cpp" />
+      <option value="$PROJECT_DIR$/Source/NetWorkShooter/Objects/ThrowingWeapon/MainThrowingWeapon.h" />
     </changedPaths>
   </component>
   <component name="ProjectId" id="1mU45q9rLP6Qu9cx4YAzOsfUBVp" />
@@ -521,7 +523,9 @@
       <workItem from="1613779242268" duration="688000" />
       <workItem from="1613814047697" duration="39000" />
       <workItem from="1613815588200" duration="12954000" />
-      <workItem from="1613901500791" duration="1195000" />
+      <workItem from="1613901500791" duration="11603000" />
+      <workItem from="1613922796129" duration="10436000" />
+      <workItem from="1613944766313" duration="4558000" />
     </task>
     <task id="LOCAL-00001" summary="init override function SpawnPlayer">
       <created>1610844415255</created>

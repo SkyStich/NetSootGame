@@ -48855,8 +48855,6 @@
               <e p="CommandPlayerController.h" t="Include" />
               <e p="MainPlayerController.cpp" t="Include" />
               <e p="MainPlayerController.h" t="Include" />
-              <e p="MatchOlayerController.cpp" t="Include" />
-              <e p="MatchOlayerController.h" t="Include" />
             </e>
           </e>
           <e p="DataAssets" t="Include">
@@ -48908,6 +48906,12 @@
             <e p="MainRangeWeapon" t="Include">
               <e p="RangeWeaponObject.cpp" t="Include" />
               <e p="RangeWeaponObject.h" t="Include" />
+            </e>
+            <e p="ThrowingWeapon" t="Include">
+              <e p="MainGrenadeObject.cpp" t="Include" />
+              <e p="MainGrenadeObject.h" t="Include" />
+              <e p="MainThrowingWeapon.cpp" t="Include" />
+              <e p="MainThrowingWeapon.h" t="Include" />
             </e>
             <e p="WeaponObject" t="Include">
               <e p="MainWeaponObject.cpp" t="Include" />

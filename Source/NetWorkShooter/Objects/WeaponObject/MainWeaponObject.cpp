@@ -3,9 +3,7 @@
 
 #include "MainWeaponObject.h"
 #include "Engine/NetDriver.h"
-#include "GameplayDebuggerTypes.h"
 #include "Net/UnrealNetwork.h"
-#include "NetWorkShooter/DataAssets/WeaponDataAssetBase.h"
 #include "NetWorkShooter/NetWorkShooterCharacter.h"
 
 UMainWeaponObject::UMainWeaponObject()
@@ -57,10 +55,10 @@ void UMainWeaponObject::BeginPlay()
 
 bool UMainWeaponObject::UseWeapon()
 {
-    if(this->IsAbleToUseWeapon())
+    if(this->IsAbleToUseWeapon() && GetAuthority())
     {
         bUseWeapon = true;
-        GetWorld()->GetTimerManager().SetTimer(UseWeaponHandle, this, &UMainWeaponObject::StopRateDelay, WeaponData->DelayBeforeUse);
+        GetWorld()->GetTimerManager().SetTimer(UseWeaponHandle, this, &UMainWeaponObject::StopRateDelay, GetDelayBeforeUse());
         return true;
     }
    return false;

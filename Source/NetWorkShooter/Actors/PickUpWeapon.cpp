@@ -60,7 +60,7 @@ bool APickUpWeapon::InteractWithActor_Implementation(ANetWorkShooterCharacter* O
 {
 	if(GetLocalRole() == ROLE_Authority)
 	{
-		auto const TempCategory = OwnerObject->GetWeaponData()->EquipmentSlot;
+		auto const TempCategory = OwnerObject->GetEquipmentSlot();
 		
 		/** if interact weapon == Disposable create logic later */
 		if(TempCategory == EEquipmentSlot::Disposable)

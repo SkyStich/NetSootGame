@@ -4,13 +4,13 @@
 
 #include "CoreMinimal.h"
 #include "UObject/Object.h"
+#include "NetWorkShooter/DataAssets/WeaponDataAssetBase.h"
 #include "MainWeaponObject.generated.h"
 
 class ANetWorkShooterCharacter;
-class UWeaponDataAssetBase;
 struct FRangeWeaponData;
 
-UCLASS(Blueprintable, Abstract)
+UCLASS(Abstract)
 class NETWORKSHOOTER_API UMainWeaponObject : public UObject
 {
 	GENERATED_BODY()
@@ -21,18 +21,34 @@ public:
 
     /** define that object in supported network and cun be replicated */
     virtual bool IsSupportedForNetworking() const override { return true; }
+    
     virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
     virtual int32 GetFunctionCallspace(UFunction* Function, FFrame* Stack) override;
     virtual bool CallRemoteFunction(UFunction* Function, void* Parms, FOutParmRec* OutParms, FFrame* Stack) override;
-
-    void SetWeaponData(FRangeWeaponData* NewWeaponData) { WeaponData = NewWeaponData; }
-
-    /** Set current weapon name */
-    UFUNCTION(BlueprintCallable, Category = "Weapon|Setter")
-    void SetWeaponName(FName const NewName) { WeaponName = NewName; }
     
-    UFUNCTION(BlueprintCallable, Category = "Weapon|Setter")
+    /** Call when create class */
+    virtual void Init(UDataTable* WeaponData, TCHAR* ContextString) {}
+    
+    /** Set current weapon name */
+    void SetWeaponName(FName const NewName) { WeaponName = NewName; }
     void SetCharacterOwner(ANetWorkShooterCharacter* NewOwner) { CharacterOwner = NewOwner; }
+
+    /** start getting var from base weapon struct */
+    UFUNCTION(BlueprintPure, Category = "Weapon|Getting")
+    virtual TAssetPtr< USkeletalMesh > GetWeaponMesh() const { return nullptr; }
+
+    UFUNCTION(BlueprintPure, Category = "Weapon|Getting")
+    virtual float GetBaseDamage() const { return 0.f; }
+
+    UFUNCTION(BlueprintPure, Category = "Weapon|Getting")
+    virtual float GetRangeOfUse() const { return 0.f; }
+
+    UFUNCTION(BlueprintPure, Category = "Weapon|Getting")
+    virtual float GetDelayBeforeUse() const { return 0.f; }
+
+    UFUNCTION(BlueprintPure, Category = "Weapon|Getting")
+    virtual TEnumAsByte<EEquipmentSlot> GetEquipmentSlot() const { return EEquipmentSlot::None; }
+    /** stop getting var from base weapon struct */
 
     /** Get current weapon name */
     UFUNCTION(BlueprintPure, Category = "Weapon|Getter")
@@ -50,8 +66,6 @@ public:
     /** Create custom begin play */
     UFUNCTION()
     virtual void BeginPlay();
-
-    FRangeWeaponData* GetWeaponData() const { return WeaponData; }
 
 protected:
 
@@ -71,9 +85,6 @@ protected:
 
     /** Timer use for delay before use weapon */
     FTimerHandle UseWeaponHandle;
-
-    /** Data this weapon */
-    FRangeWeaponData* WeaponData;    
     
     UPROPERTY(Replicated)
     ANetWorkShooterCharacter* CharacterOwner;

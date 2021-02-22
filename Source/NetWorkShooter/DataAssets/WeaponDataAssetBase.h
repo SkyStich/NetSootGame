@@ -4,7 +4,16 @@
 
 #include "CoreMinimal.h"
 #include "Engine/DataAsset.h"
+#include "Engine/DataTable.h"
 #include "WeaponDataAssetBase.generated.h"
+
+UENUM(BlueprintType)
+enum EGlobalItemData
+{
+	MeleeData,
+	RangeData,
+	ThrowData
+};
 
 UENUM(BlueprintType)
 enum EEquipmentSlot
@@ -13,14 +22,12 @@ enum EEquipmentSlot
 	MainWeapon,
 	SecondWeapon,
 	Melee,
-	SpecialSlotOne,
-	SpecialSlotTwo,
-	SpecialSlotTree,
+	SpecialSlot,
 	Disposable
 };
 
 USTRUCT(BlueprintType)
-struct FRangeWeaponData
+struct FBaseWeaponData : public FTableRowBase
 {
 	GENERATED_BODY()
 
@@ -37,6 +44,18 @@ struct FRangeWeaponData
 	float DelayBeforeUse;
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = DataAsset)
+	TSoftClassPtr< class UMainWeaponObject > WeaponClass;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = DataAsset)
+	TEnumAsByte<EEquipmentSlot> EquipmentSlot;
+};
+
+USTRUCT(BlueprintType)
+struct FRangeWeaponData : public FBaseWeaponData
+{
+	GENERATED_BODY()
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = DataAsset)
 	float MaxAmmoInStorage;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = DataAsset)
@@ -47,12 +66,18 @@ struct FRangeWeaponData
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = DataAsset)
 	bool CanAutoFire; 
+};
+
+USTRUCT(BlueprintType)
+struct FThrowWeaponData : public FBaseWeaponData
+{
+	GENERATED_BODY()
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = DataAsset)
-	TSoftClassPtr< class UMainWeaponObject > WeaponClass;
-	
+	int32 MaxAmount;
+
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = DataAsset)
-	TEnumAsByte<EEquipmentSlot> EquipmentSlot;
+	float TimeBeforeExplosion;
 };
 
 UCLASS(BlueprintType)
@@ -64,34 +89,20 @@ public:
 
 	UWeaponDataAssetBase();
 
-	UFUNCTION(BlueprintPure, Category = DataAsset)
-	FORCEINLINE float GetBaseDamage(FName const AssetName) const { return RangeWeaponData.Find(AssetName)->BaseDamage; }
-
-	UFUNCTION(BlueprintPure, Category = DataAsset)
-    FORCEINLINE float GetRangeOfUse(FName const AssetName) const { return RangeWeaponData.Find(AssetName)->RangeOfUse; }
+	TCHAR* GlobalDataToString(EGlobalItemData GlobalCategory) const;
     
 	UFUNCTION(BlueprintPure, Category = DataAsset)
-    FORCEINLINE float GetDelayBeforeUse(FName const AssetName) const { return RangeWeaponData.Find(AssetName)->DelayBeforeUse; }  
+   	USkeletalMesh* GetWeaponMesh(TAssetPtr< USkeletalMesh > MeshPtr) const;
     
-	UFUNCTION(BlueprintPure, Category = DataAsset)
-   	USkeletalMesh* GetWeaponMesh(FName const AssetName) const;
-    
-   	UFUNCTION(BlueprintPure, Category = DataAsset)
-	TSoftClassPtr<class UMainWeaponObject> GetWeaponObjectClass(FName const AssetName) const;
-
-	UFUNCTION(BlueprintPure, Category = DataAsset)
-	float GetReloadTime(FName const AssetName) const { return RangeWeaponData.Find(AssetName)->ReloadTime; }
-	
-	UFUNCTION(BlueprintPure, Category = DataAsset)
-	FORCEINLINE TEnumAsByte<EEquipmentSlot> GetEquipmentSlot(FName const AssetName) const { return RangeWeaponData.Find(AssetName)->EquipmentSlot; }
-
-	FORCEINLINE FRangeWeaponData* GetWeaponData(FName const AssetName) { return RangeWeaponData.Find(AssetName); }
+	TSoftClassPtr<class UMainWeaponObject> GetWeaponObjectClass(FName const AssetName, TEnumAsByte<EGlobalItemData> GlobalCategory) const;
 	
 	UFUNCTION(BlueprintCallable)
-	UMainWeaponObject* CreateWeaponObject(UObject* WorldContext, FName const AssetName, UObject* Outer);
+	UMainWeaponObject* CreateWeaponObject(UObject* WorldContext, FName const AssetName, TEnumAsByte<EGlobalItemData> GlobalCategory, UObject* Outer);
+
+	UDataTable* GetDataTableByGlobalCategory(TEnumAsByte<EGlobalItemData> GlobalCategory) const;
 
 private:
 
 	UPROPERTY(EditAnywhere)
-	TMap<FName, FRangeWeaponData> RangeWeaponData;	
+	TMap<TEnumAsByte<EGlobalItemData>, UDataTable*> WeaponData;
 };

@@ -59,7 +59,7 @@ public:
 
 	/** Create weapon before game */
 	UFUNCTION(BlueprintCallable, Category = "WeaponManager|CreateWeapon")
-	UMainWeaponObject* CreateWeaponObject(FName const WeaponName);
+	UMainWeaponObject* CreateWeaponObject(FName const WeaponName, TEnumAsByte<EGlobalItemData> GlobalCategory);
 
 	UFUNCTION(BlueprintCallable, Category = "Weapon|Select")
 	void SelectWeapon(TEnumAsByte<EEquipmentSlot> const NewActiveSlot);

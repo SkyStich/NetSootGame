@@ -83,13 +83,13 @@ void UWeaponManagerComponent::GetWeaponByCategory(TEnumAsByte<EEquipmentSlot> co
 	}
 }
 
-UMainWeaponObject* UWeaponManagerComponent::CreateWeaponObject(FName const WeaponName)
+UMainWeaponObject* UWeaponManagerComponent::CreateWeaponObject(FName const WeaponName, TEnumAsByte<EGlobalItemData> GlobalCategory)
 {
 	/** If this function called in server */
 	if(GetOwnerRole() == ROLE_Authority)
 	{
 		/** Create and init temp variable */
-		UMainWeaponObject* NewWeapon = WeaponDataAssetBase->CreateWeaponObject(GetWorld(), WeaponName, CharacterOwner);
+		UMainWeaponObject* NewWeapon = WeaponDataAssetBase->CreateWeaponObject(GetWorld(), WeaponName, GlobalCategory, CharacterOwner);
 		
 		/** Set character owner*/
 		NewWeapon->SetCharacterOwner(CharacterOwner);
@@ -104,13 +104,13 @@ void UWeaponManagerComponent::SetCurrentWeapon(UMainWeaponObject* const NewCurre
 	if(GetOwnerRole() == ROLE_Authority)
 	{
 		CurrentWeapon = NewCurrentWeapon;
-		CharacterOwner->SetCurrentMesh(WeaponDataAssetBase->GetWeaponMesh(CurrentWeapon->GetWeaponName()));
+		CharacterOwner->SetCurrentMesh(WeaponDataAssetBase->GetWeaponMesh(CurrentWeapon->GetWeaponMesh()));
 	}
 }
 
 void UWeaponManagerComponent::SelectWeapon(TEnumAsByte<EEquipmentSlot> const NewActiveSlot)
 {
-	if(WeaponDataAssetBase->GetEquipmentSlot(CurrentWeapon->GetWeaponName()) != NewActiveSlot)
+	if(CurrentWeapon->GetEquipmentSlot() != NewActiveSlot)
 	{
 		auto const TempNewWeapon = Weapons.Find(NewActiveSlot);
 		if(TempNewWeapon)
@@ -127,7 +127,7 @@ void UWeaponManagerComponent::AddWeapon(UMainWeaponObject* WeaponToAdd)
 	{
 		/** Set owner's for new weapon and add her in storage */
 		WeaponToAdd->SetCharacterOwner(CharacterOwner);
-		Weapons.Add(WeaponToAdd->GetWeaponData()->EquipmentSlot, WeaponToAdd);	
+		Weapons.Add(WeaponToAdd->GetEquipmentSlot(), WeaponToAdd);	
 	}
 }
 
@@ -143,7 +143,7 @@ void UWeaponManagerComponent::DropWeaponToWorld(UMainWeaponObject* WeaponToDrop)
 {
 	if(GetOwnerRole() == ROLE_Authority)
 	{
-		if(WeaponToDrop->GetWeaponData()->EquipmentSlot == EEquipmentSlot::MainWeapon || WeaponToDrop->GetWeaponData()->EquipmentSlot  == EEquipmentSlot::Disposable)
+		if(WeaponToDrop->GetEquipmentSlot() == EEquipmentSlot::MainWeapon || WeaponToDrop->GetEquipmentSlot()  == EEquipmentSlot::Disposable)
 		{
 			FActorSpawnParameters SpawnParam;
 			SpawnParam.Owner = GetOwner();
@@ -156,7 +156,7 @@ void UWeaponManagerComponent::DropWeaponToWorld(UMainWeaponObject* WeaponToDrop)
 			if(SpawnWeapon)
 			{
 				SpawnWeapon->SetOwnerObject(WeaponToDrop);
-				SpawnWeapon->WeaponMesh = WeaponDataAssetBase->GetWeaponMesh(WeaponToDrop->GetWeaponName());
+				SpawnWeapon->WeaponMesh = WeaponDataAssetBase->GetWeaponMesh(WeaponToDrop->GetWeaponMesh());
 			}
 		}	
 	}

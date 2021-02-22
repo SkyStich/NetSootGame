@@ -11,33 +11,53 @@ UWeaponDataAssetBase::UWeaponDataAssetBase()
    
 }
 
-/** Synch load assets*/
-USkeletalMesh* UWeaponDataAssetBase::GetWeaponMesh(FName const AssetName) const
+TCHAR* UWeaponDataAssetBase::GlobalDataToString(EGlobalItemData GlobalCategory) const
 {
-    /** Create temp value */
-    auto TempMesh = RangeWeaponData.Find(AssetName)->WeaponMesh;
-
-    if(TempMesh.IsPending())
+    switch (GlobalCategory)
     {
-        auto const AssetSoftObject = TempMesh.ToSoftObjectPath();
+        case EGlobalItemData::MeleeData:
+            return TEXT("MeleeData");
+        
+        case EGlobalItemData::RangeData:
+            return TEXT("RangeData");
+        
+        case EGlobalItemData::ThrowData:
+            return TEXT("ThrowData");
+    }
+    ensure(false);
+    return TEXT("Unknown");
+}
+
+/** Synch load assets*/
+USkeletalMesh* UWeaponDataAssetBase::GetWeaponMesh(TAssetPtr< USkeletalMesh > MeshPtr) const
+{
+    if(MeshPtr.IsPending())
+    {
+        auto const AssetSoftObject = MeshPtr.ToSoftObjectPath();
         
         /** Synchrone load the asset */
-        TempMesh = Cast<USkeletalMesh>(UGameSingletonClass::Get().AssetLoader.LoadSynchronous(AssetSoftObject));
+        MeshPtr = Cast<USkeletalMesh>(UGameSingletonClass::Get().AssetLoader.LoadSynchronous(AssetSoftObject));
     }
-    return TempMesh.Get();
+    return MeshPtr.Get();
 }
 
 /** Find Weapon object class in asset data */
-TSoftClassPtr<class UMainWeaponObject> UWeaponDataAssetBase::GetWeaponObjectClass(FName const AssetName) const
+TSoftClassPtr<class UMainWeaponObject> UWeaponDataAssetBase::GetWeaponObjectClass(FName const AssetName, TEnumAsByte<EGlobalItemData> GlobalCategory) const
 {
-    return RangeWeaponData.Find(AssetName)->WeaponClass;
+    FString const ContextString = GlobalDataToString(GlobalCategory);
+    return WeaponData.FindRef(GlobalCategory)->FindRow<FBaseWeaponData>(AssetName, ContextString)->WeaponClass;
+}
+
+UDataTable* UWeaponDataAssetBase::GetDataTableByGlobalCategory(TEnumAsByte<EGlobalItemData> GlobalCategory) const
+{
+    return WeaponData.FindRef(GlobalCategory);
 }
 
 /** Synchron load and create object*/
-UMainWeaponObject* UWeaponDataAssetBase::CreateWeaponObject(UObject* WorldContext, FName const AssetName, UObject* Outer)
+UMainWeaponObject* UWeaponDataAssetBase::CreateWeaponObject(UObject* WorldContext, FName const AssetName, TEnumAsByte<EGlobalItemData> GlobalCategory, UObject* Outer)
 {
     /** Find Weapon object class in asset data */
-    auto const TempWeapon = GetWeaponObjectClass(AssetName);
+    auto const TempWeapon = GetWeaponObjectClass(AssetName, GlobalCategory);
     if(TempWeapon.IsNull())
     {
         FString const InstigatorName = WorldContext != nullptr ? WorldContext->GetFullName() : TEXT("Unknown");
@@ -66,8 +86,8 @@ UMainWeaponObject* UWeaponDataAssetBase::CreateWeaponObject(UObject* WorldContex
     if(Weapon)
     {
         Weapon->SetFlags(RF_StrongRefOnFrame);
-        Weapon->SetWeaponData(GetWeaponData(AssetName));
         Weapon->SetWeaponName(AssetName);
+        Weapon->Init(GetDataTableByGlobalCategory(GlobalCategory), GlobalDataToString(GlobalCategory));
         Weapon->BeginPlay();
     }
     return Weapon;
