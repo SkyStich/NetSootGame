@@ -13,12 +13,14 @@ ABaseGameState::ABaseGameState()
     TimeBeforeStartOfMatch = MaxTimeBeforeStartOfMatch;
     MatchDurationTime = FTimespan(0, 2, 0);
     MatchState = EMatchState::PreStart;
+    bReplicates = true;
 
     /** Set net time update */
     NetUpdateFrequency = 10.f;
 
     /** Create components */
     ChatComponent = CreateDefaultSubobject<UChatComponent>(TEXT("ChatComponent"));
+    ChatComponent->SetIsReplicated(true);
 }
 
 void ABaseGameState::BeginPlay()

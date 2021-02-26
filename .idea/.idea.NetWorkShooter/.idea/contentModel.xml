@@ -48840,6 +48840,18 @@
           <e p="Actors" t="Include">
             <e p="PickUpWeapon.cpp" t="Include" />
             <e p="PickUpWeapon.h" t="Include" />
+            <e p="Projectiles" t="Include">
+              <e p="MainProjectile" t="Include">
+                <e p="MainProjectile.cpp" t="Include" />
+                <e p="MainProjectile.h" t="Include" />
+              </e>
+            </e>
+            <e p="SpecialWeapon" t="Include">
+              <e p="BaseGrenadeWeapon.cpp" t="Include" />
+              <e p="BaseGrenadeWeapon.h" t="Include" />
+              <e p="BaseSpecialWeapon.cpp" t="Include" />
+              <e p="BaseSpecialWeapon.h" t="Include" />
+            </e>
           </e>
           <e p="Components" t="Include">
             <e p="ChatComponent.cpp" t="Include" />

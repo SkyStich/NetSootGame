@@ -83,6 +83,18 @@ void UWeaponManagerComponent::GetWeaponByCategory(TEnumAsByte<EEquipmentSlot> co
 	}
 }
 
+UMainWeaponObject* UWeaponManagerComponent::GetWeaponByCategory(TEnumAsByte<EEquipmentSlot> const Category)
+{
+	for(auto& ByArray : Weapons)
+	{
+		if(ByArray.Key == Category)
+		{
+			return ByArray.Value;
+		}
+	}
+	return nullptr;
+}
+
 UMainWeaponObject* UWeaponManagerComponent::CreateWeaponObject(FName const WeaponName, TEnumAsByte<EGlobalItemData> GlobalCategory)
 {
 	/** If this function called in server */

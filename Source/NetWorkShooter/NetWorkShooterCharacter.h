@@ -8,6 +8,8 @@
 #include "Components/HealthComponent.h"
 #include "NetWorkShooterCharacter.generated.h"
 
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FControllerLeave, AController*, OldController);
+
 UCLASS(config=Game)
 class ANetWorkShooterCharacter : public ACharacter
 {
@@ -30,7 +32,7 @@ private:
 	void ReloadPressed();
 
 	UFUNCTION()
-	void CharacterDead();
+	void CharacterDead(AController* OldController);
 	
 public:
 	
@@ -59,6 +61,7 @@ protected:
 
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 	virtual void BeginPlay() override;
+
 public:
 
 	/** Base turn rate, in deg/sec. Other scaling may affect final turn rate. */
@@ -68,6 +71,9 @@ public:
 	/** Base look up/down rate, in deg/sec. Other scaling may affect final rate. */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category=Camera)
 	float BaseLookUpRate;
+
+	UPROPERTY(BlueprintAssignable)
+	FControllerLeave OnControllerLeaveEvent;
 
 private:
 

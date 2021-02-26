@@ -51,7 +51,7 @@ void ANetWorkShooterGameMode::CharacterDead(AController* LoserController, AContr
 	/** UpDate points, kills, deaths... For the killer and the murdered */
 	UpDateDeathPoints(LoserController, DeathInstigator);
 
-	/** Spawn spectator for loser controller */
+		/** Spawn spectator for loser controller */
 	AMainSpectatorPawn* NewSpectatorPawn;
 	SpawnSpectator(LoserController, DeathInstigator, NewSpectatorPawn);
 	
@@ -175,8 +175,8 @@ bool ANetWorkShooterGameMode::UpDateDeathPoints(AController* LoserController, AC
 		/** Add one murber of the instigator controller */ 
 		InstigatorState->IncrementNumberOfMurders();
 
-		FString const WeaponName = Cast<ANetWorkShooterCharacter>(InstigatorController->GetPawn())->GetWeaponManager()->GetCurrentWeapon()->GetWeaponName().ToString();
-		LoserState->NetMulticastOwnerDead(LoserState->GetPlayerName(), InstigatorState->GetPlayerName(), WeaponName);
+		//FString const WeaponName = Cast<ANetWorkShooterCharacter>(InstigatorController->GetPawn())->GetWeaponManager()->GetCurrentWeapon()->GetWeaponName().ToString();
+		LoserState->NetMulticastOwnerDead(LoserState->GetPlayerName(), InstigatorState->GetPlayerName(), "None");
 		return true;
 	}
 	

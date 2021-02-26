@@ -61,7 +61,7 @@ public:
     virtual void StopRateDelay();
 
     UFUNCTION()
-    void StopUseWeapon();
+    virtual void StopUseWeapon();
     
     /** Create custom begin play */
     UFUNCTION()

@@ -19,6 +19,8 @@ class NETWORKSHOOTER_API ACommandGameMode : public ANetWorkShooterGameMode
 {
 	GENERATED_BODY()
 
+	void AttachSpectatorToKiller(AMainSpectatorPawn* Spectator, APawn* Killer);
+
 public:
 
    ACommandGameMode();

@@ -29,7 +29,7 @@ TCHAR* UWeaponDataAssetBase::GlobalDataToString(EGlobalItemData GlobalCategory) 
 }
 
 /** Synch load assets*/
-USkeletalMesh* UWeaponDataAssetBase::GetWeaponMesh(TAssetPtr< USkeletalMesh > MeshPtr) const
+USkeletalMesh* UWeaponDataAssetBase::GetWeaponMesh(TAssetPtr< USkeletalMesh > MeshPtr) 
 {
     if(MeshPtr.IsPending())
     {
@@ -88,7 +88,6 @@ UMainWeaponObject* UWeaponDataAssetBase::CreateWeaponObject(UObject* WorldContex
         Weapon->SetFlags(RF_StrongRefOnFrame);
         Weapon->SetWeaponName(AssetName);
         Weapon->Init(GetDataTableByGlobalCategory(GlobalCategory), GlobalDataToString(GlobalCategory));
-        Weapon->BeginPlay();
     }
     return Weapon;
 }

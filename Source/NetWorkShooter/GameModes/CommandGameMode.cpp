@@ -46,7 +46,7 @@ void ACommandGameMode::SpawnSpectator(AController* LoserController, AController*
     bool const bOurKillerExists = DeathInstigator && LoserController != DeathInstigator;
 
     /** If we have a killler we follow him, otherwise we follow the place of death */
-    FTransform const Transform = bOurKillerExists ? DeathInstigator->GetPawn()->GetTransform() : LoserController->GetPawn()->GetTransform();
+    FTransform const Transform = LoserController->GetPawn()->GetTransform();
 
     /** Init spawn parameters */
     FActorSpawnParameters Param;
@@ -54,18 +54,26 @@ void ACommandGameMode::SpawnSpectator(AController* LoserController, AController*
 
     /** Spawn spectator */
     NewSpectator = GetWorld()->SpawnActor<AMainSpectatorPawn>(AMoveSpectatorToKiller::StaticClass(), Transform, Param);
-    
+
     if(NewSpectator)
     {
         /** Posses controller in the pawn */
         LoserController->Possess(NewSpectator);
 
-        /** If we have a killler we follow him */
         if(bOurKillerExists)
         {
-            NewSpectator->AttachToActor(DeathInstigator->GetPawn(), FAttachmentTransformRules::SnapToTargetNotIncludingScale);
+            FTimerDelegate TimerDel;
+            TimerDel.BindUObject(this, &ACommandGameMode::AttachSpectatorToKiller, NewSpectator, DeathInstigator->GetPawn());
+            
+            FTimerHandle TimerHandle;
+            GetWorldTimerManager().SetTimer(TimerHandle, TimerDel, 2.f, false);
         }
-    }     
+    }
+}
+
+void ACommandGameMode::AttachSpectatorToKiller(AMainSpectatorPawn* Spectator, APawn* Killer)
+{
+    Spectator->AttachToActor(Killer, FAttachmentTransformRules::SnapToTargetNotIncludingScale);
 }
 
 bool ACommandGameMode::UpDateDeathPoints(AController* LoserController, AController* InstigatorController)

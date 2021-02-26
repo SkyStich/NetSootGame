@@ -7,6 +7,7 @@
 #include "Objects/WeaponObject/MainWeaponObject.h"
 #include "Net/UnrealNetwork.h"
 #include "EngineUtils.h"
+#include "Kismet/KismetMathLibrary.h"
 #include "Objects/MainRangeWeapon/RangeWeaponObject.h"
 
 ANetWorkShooterCharacter::ANetWorkShooterCharacter()
@@ -147,7 +148,7 @@ void ANetWorkShooterCharacter::ServerReloading_Implementation()
 	Cast<URangeWeaponObject>(WeaponManagerComponent->GetCurrentWeapon())->ReloadStart();
 }
 
-void ANetWorkShooterCharacter::CharacterDead()
+void ANetWorkShooterCharacter::CharacterDead(AController* OldController)
 {
 	GetCharacterMovement()->DisableMovement();
 	GetCapsuleComponent()->SetCollisionEnabled(ECollisionEnabled::NoCollision);

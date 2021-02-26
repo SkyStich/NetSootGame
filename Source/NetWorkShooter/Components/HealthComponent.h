@@ -6,15 +6,20 @@
 #include "Components/ActorComponent.h"
 #include "HealthComponent.generated.h"
 
-DECLARE_DYNAMIC_MULTICAST_DELEGATE(FHealthEndedEvent);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FHealthEndedEvent, AController*, OldController);
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class NETWORKSHOOTER_API UHealthComponent : public UActorComponent
 {
 	GENERATED_BODY()
 
-	UFUNCTION()
-	void OnRep_IsDead();
+	bool CheckHealth(AController* InstigatorController, AActor* DamageCauser);
+
+	/** return damage that will be dealt directly to health */
+	float ArmorResist(float BaseDamage, float const Resist);
+
+	UFUNCTION(NetMulticast, Unreliable)
+	void NetMulticastCharacterDead(AController* OldController);
 	
 public:	
 	// Sets default values for this component's properties
@@ -39,8 +44,15 @@ public:
 	float GetMaxArmor() const { return MaxArmor; }
 protected:
 
+	/** Not exposed to sewn armor. deal damage directly to health */
 	UFUNCTION()
     void OnPlayerTakeAnyDamage(AActor* DamageActor, float BaseDamage, const UDamageType* DamageType, AController* InstigatorController, AActor* DamageCauser);
+	
+	UFUNCTION()
+	void OnPlayerTakePointDamage(AActor* DamagedActor, float Damage, AController* InstigatedBy, FVector HitLocation, UPrimitiveComponent* FHitComponent, FName BoneName, FVector ShotFromDirection, const UDamageType* DamageType, AActor* DamageCauser);
+	
+	UFUNCTION()
+	void OnPlayerTakeRadialDamage(AActor* DamagedActor, float Damage, const UDamageType* DamageType, FVector Origin, FHitResult HitInfo, AController* InstigatedBy, AActor* DamageCauser);
 	
 	// Called when the game starts
 	virtual void BeginPlay() override;
@@ -60,7 +72,14 @@ private:
 	UPROPERTY(EditAnywhere)
 	float MaxArmor;
 
-	UPROPERTY(ReplicatedUsing=OnRep_IsDead)
+	/** Responsible for the quality of armor protection. How many times health damage is cut with full armor */
+	UPROPERTY(EditAnywhere, Category = "HealthComponent|DamageResist")
+	float PointDamageResist;
+
+	UPROPERTY(EditAnywhere, Category = "HealthComponent|DamageResist")
+	float RadialDamageResist;
+
+	UPROPERTY(Replicated)
 	bool bIsDead;
 	
 public:

@@ -15,15 +15,9 @@ URangeWeaponObject::URangeWeaponObject()
 
 void URangeWeaponObject::Init(UDataTable* WeaponData, TCHAR* ContextString)
 {
-    RangeWeaponData = WeaponData->FindRow<FRangeWeaponData>(GetWeaponName(), ContextString);
-}
-
-void URangeWeaponObject::BeginPlay()
-{
-    Super::BeginPlay();
-
     if(GetAuthority())
     {
+        RangeWeaponData = WeaponData->FindRow<FRangeWeaponData>(GetWeaponName(), ContextString);
         CurrentAmmoInClip = RangeWeaponData->MaxAmmoInWeapon;
         CurrentAmmoInStorage = RangeWeaponData->MaxAmmoInStorage;
     }
@@ -41,6 +35,13 @@ void URangeWeaponObject::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& O
     DOREPLIFETIME(URangeWeaponObject, bReloading);
 }
 
+int32 URangeWeaponObject::CalculateDamageWithDistance(const FVector& Start, const FVector& End, float Damage)
+{
+    int32 const Distance = UKismetMathLibrary::Vector_Distance(Start, End) - RangeWeaponData->MaxDamageDistance;
+    int32 const DamageReduction = Distance > 0 ? Distance / (RangeWeaponData->DamageDrop * 100 ) : 0;
+    return UKismetMathLibrary::Max(Damage - DamageReduction, Damage / 2);;
+}
+
 bool URangeWeaponObject::UseWeapon()
 {
     if(Super::UseWeapon())
@@ -49,9 +50,17 @@ bool URangeWeaponObject::UseWeapon()
         FHitResult const OutHit = GetTraceInfo();
         if(OutHit.GetActor())
         {
+            /** Damage with calculate on distance */
+            int32 const NewDamage = CalculateDamageWithDistance(OutHit.TraceStart, OutHit.ImpactPoint, RangeWeaponData->BaseDamage);
+
+            /** Find Direction Unit Vector */
             FVector const UnitVector = UKismetMathLibrary::GetDirectionUnitVector(OutHit.TraceEnd, OutHit.TraceStart);
-            UGameplayStatics::ApplyPointDamage(OutHit.GetActor(), RangeWeaponData->BaseDamage, UnitVector, OutHit,
-                CharacterOwner->GetController(),CharacterOwner, UDamageType::StaticClass());
+            UGameplayStatics::ApplyPointDamage(OutHit.GetActor(), NewDamage, UnitVector, OutHit, CharacterOwner->GetController(),CharacterOwner, UDamageType::StaticClass());
+
+            if(OutHit.GetComponent()->IsSimulatingPhysics())
+            {
+                OutHit.GetComponent()->AddImpulseAtLocation(CharacterOwner->GetVelocity() * NewDamage, OutHit.ImpactPoint);
+            }
         }
     }
     return true;

@@ -41,6 +41,7 @@ public:
 
 	UFUNCTION(BlueprintCallable, Category = "WeaponManager|Setter")
 	void GetWeaponByCategory(TEnumAsByte<EEquipmentSlot> const Category, UMainWeaponObject* & ReturnValue);
+	UMainWeaponObject* GetWeaponByCategory(TEnumAsByte<EEquipmentSlot> const Category);
 	
 	virtual void GetLifetimeReplicatedProps(TArray< FLifetimeProperty > & OutLifetimeProps) const override;
 	virtual bool ReplicateSubobjects(UActorChannel* Channel, FOutBunch* Bunch, FReplicationFlags* RepFlags) override;
@@ -71,6 +72,7 @@ public:
 	/** Get weapon list owned by player */
 	UFUNCTION(BlueprintPure, Category = "WeaponManager|Getting")
     void GetWeapons(TMap<TEnumAsByte<EEquipmentSlot>, UMainWeaponObject*> & NewWeapons) const {  NewWeapons = Weapons; }
+    auto GetWeapons() const { return Weapons; }
 	
 protected:
 	// Called when the game starts

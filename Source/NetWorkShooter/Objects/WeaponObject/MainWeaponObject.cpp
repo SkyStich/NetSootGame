@@ -45,7 +45,7 @@ void UMainWeaponObject::PostInitProperties()
     Super::PostInitProperties();
 
     /** Called begin play function if world be created */
-    //if(GetOuter() && GetOuter()->GetWorld()) BeginPlay();
+    if(GetOuter() && GetOuter()->GetWorld()) BeginPlay();
 }
 
 void UMainWeaponObject::BeginPlay()

@@ -15,6 +15,8 @@ class NETWORKSHOOTER_API URangeWeaponObject : public UMainWeaponObject
 	void GetTraceInfoDebugger(FVector Start, FVector End, FVector Center);
 	void GetTraceInfoDebugger_Implementation(FVector Start, FVector End, FVector Center);
 
+	int32 CalculateDamageWithDistance(const FVector& Start, const FVector& End, float Damage);
+
 public:
 
 	URangeWeaponObject();
@@ -45,7 +47,6 @@ public:
 protected:
 
 	virtual bool IsAbleToUseWeapon() override;
-	virtual void BeginPlay() override;
 	virtual void StopRateDelay() override;
 	
 	UFUNCTION()

@@ -16,6 +16,9 @@ class NETWORKSHOOTER_API UMainThrowingWeapon : public UMainWeaponObject
 
 public:
 
+	UFUNCTION(BlueprintPure)
+	int32 GetCurrentAmount() const { return CurrentAmount; }
+
 	virtual void Init(UDataTable* WeaponData, TCHAR* ContextString) override;
 
 	virtual TAssetPtr< USkeletalMesh > GetWeaponMesh() const override { return ThrowData->WeaponMesh; }
@@ -24,7 +27,16 @@ public:
 	virtual float GetDelayBeforeUse() const override { return ThrowData->DelayBeforeUse; }
 	virtual TEnumAsByte<EEquipmentSlot> GetEquipmentSlot() const override { return ThrowData->EquipmentSlot; }
 
-private:
+	virtual bool UseWeapon() override;
+	virtual bool IsAbleToUseWeapon() override;
+	virtual void StopUseWeapon() override;
+
+	virtual void GetLifetimeReplicatedProps(TArray< FLifetimeProperty > & OutLifetimeProps) const override;
+
+protected:
 
 	FThrowWeaponData* ThrowData;
+	
+	UPROPERTY(Replicated)
+	int32 CurrentAmount;
 };

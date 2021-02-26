@@ -5,6 +5,8 @@
 #include "CoreMinimal.h"
 #include "Engine/DataAsset.h"
 #include "Engine/DataTable.h"
+#include "NetWorkShooter/Actors/Projectiles/MainProjectile/MainProjectile.h"
+#include "NetWorkShooter/Actors/SpecialWeapon/BaseSpecialWeapon.h"
 #include "WeaponDataAssetBase.generated.h"
 
 UENUM(BlueprintType)
@@ -64,8 +66,19 @@ struct FRangeWeaponData : public FBaseWeaponData
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = DataAsset)
 	float ReloadTime;
 	
+	/** At a distance from 0 to MaxDamageDistance the weapon deals max damage (in cm) */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = DataAsset)
-	bool CanAutoFire; 
+	int32 MaxDamageDistance;
+
+	/** Drop in damage for every 100 units passed from (DistanceVector(Start, End) - MaxDamageDistance). Max drop = BaseDamage / 2. 1 unit == 1 damage */
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = DataAsset)
+	float DamageDrop;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = DataAsset)
+	bool CanAutoFire;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = DataAsset)
+	TSubclassOf<AMainProjectile>Projectile;
 };
 
 USTRUCT(BlueprintType)
@@ -78,6 +91,12 @@ struct FThrowWeaponData : public FBaseWeaponData
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = DataAsset)
 	float TimeBeforeExplosion;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = DataAsset)
+	float MaxDamageRadius;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = DataAsset)
+	TSubclassOf<ABaseSpecialWeapon>SpecialActor;
 };
 
 UCLASS(BlueprintType)
@@ -92,7 +111,7 @@ public:
 	TCHAR* GlobalDataToString(EGlobalItemData GlobalCategory) const;
     
 	UFUNCTION(BlueprintPure, Category = DataAsset)
-   	USkeletalMesh* GetWeaponMesh(TAssetPtr< USkeletalMesh > MeshPtr) const;
+   	USkeletalMesh* GetWeaponMesh(TAssetPtr< USkeletalMesh > MeshPtr);
     
 	TSoftClassPtr<class UMainWeaponObject> GetWeaponObjectClass(FName const AssetName, TEnumAsByte<EGlobalItemData> GlobalCategory) const;
 	

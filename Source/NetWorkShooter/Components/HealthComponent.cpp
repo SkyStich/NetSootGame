@@ -18,6 +18,9 @@ UHealthComponent::UHealthComponent()
 
 	MaxHealth = 100;
 	MaxArmor = 120;
+
+	PointDamageResist = 0.2f;
+	RadialDamageResist = 0.3f;
 }
 
 // Called when the game starts
@@ -27,13 +30,13 @@ void UHealthComponent::BeginPlay()
 
 	if(GetOwnerRole() == ROLE_Authority)
 	{
-		GetOwner()->OnTakeAnyDamage.AddDynamic(this, &UHealthComponent::OnPlayerTakeAnyDamage);
+		//GetOwner()->OnTakeAnyDamage.AddDynamic(this, &UHealthComponent::OnPlayerTakeAnyDamage);
+		GetOwner()->OnTakeRadialDamage.AddDynamic(this, &UHealthComponent::OnPlayerTakeRadialDamage);
+		GetOwner()->OnTakePointDamage.AddDynamic(this, &UHealthComponent::OnPlayerTakePointDamage);
 		CurrentHealth = MaxHealth;
 		CurrentArmor = MaxArmor;
 	}
-	
 }
-
 
 // Called every frame
 void UHealthComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
@@ -55,32 +58,60 @@ void UHealthComponent::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& Out
 	DOREPLIFETIME(UHealthComponent, bIsDead);
 }
 
-void UHealthComponent::OnRep_IsDead()
+void UHealthComponent::NetMulticastCharacterDead_Implementation(AController* OldController)
 {
 	if(bIsDead)
 	{
-		HealthEndedEvent.Broadcast();
+		HealthEndedEvent.Broadcast(OldController);
 	}
 }
 
-void UHealthComponent::OnPlayerTakeAnyDamage(AActor* DamageActor, float BaseDamage, const UDamageType* DamageType, AController* InstigatorController, AActor* DamageCauser)
+bool UHealthComponent::CheckHealth(AController* InstigatorController, AActor* DamageCauser)
 {
-	float const NewDamage = (1 - (CurrentArmor / (MaxArmor * 1.2f))) * BaseDamage;
-
-	CurrentHealth -= NewDamage;
-	CurrentArmor = UKismetMathLibrary::Max(CurrentArmor - BaseDamage, 0);
-	
-	if(CurrentHealth <= 0)
+	if(GetOwnerRole() == ROLE_Authority)
 	{
-		bIsDead = true;
-		
-		auto const GameMode = Cast<ANetWorkShooterGameMode>(UGameplayStatics::GetGameMode(GetWorld()));
-		if(GameMode)
+		if(CurrentHealth <= 0)
 		{
-			GameMode->CharacterDead(GetOwner()->GetInstigatorController(), InstigatorController, DamageCauser);
-			GetOwner()->SetCanBeDamaged(false);
-			HealthEndedEvent.Broadcast();
+			bIsDead = true;
+		
+			auto const GameMode = Cast<ANetWorkShooterGameMode>(UGameplayStatics::GetGameMode(GetWorld()));
+			if(GameMode)
+			{
+				GetOwner()->SetCanBeDamaged(false);
+				NetMulticastCharacterDead(GetOwner()->GetInstigatorController());
+				GameMode->CharacterDead(GetOwner()->GetInstigatorController(), InstigatorController, DamageCauser);
+				return true;
+			}
 		}
 	}
+	return false;
 }
 
+float UHealthComponent::ArmorResist(float BaseDamage, float const Resist)
+{
+	float const NewDamage = BaseDamage * Resist;
+	float const TempArmor = CurrentArmor - (BaseDamage - NewDamage);
+	CurrentArmor = UKismetMathLibrary::Max(TempArmor, 0);
+	return NewDamage + (TempArmor < 0 ? abs(TempArmor) : 0);
+}
+void UHealthComponent::OnPlayerTakeAnyDamage(AActor* DamageActor, float BaseDamage, const UDamageType* DamageType, AController* InstigatorController, AActor* DamageCauser)
+{
+	//CurrentHealth -= BaseDamage;	
+	CheckHealth(InstigatorController, DamageCauser);
+}
+
+void UHealthComponent::OnPlayerTakePointDamage(AActor* DamagedActor, float Damage, AController* InstigatedBy, FVector HitLocation, UPrimitiveComponent* FHitComponent, FName BoneName, FVector ShotFromDirection, const UDamageType* DamageType, AActor* DamageCauser)
+{
+	CurrentHealth -= ArmorResist(Damage, PointDamageResist);
+	CheckHealth(InstigatedBy, DamageCauser);
+}
+
+void UHealthComponent::OnPlayerTakeRadialDamage(AActor* DamagedActor, float Damage, const UDamageType* DamageType, FVector Origin, FHitResult HitInfo, AController* InstigatedBy, AActor* DamageCauser)
+{
+	CurrentHealth -= ArmorResist(Damage, RadialDamageResist);
+	
+	if(CheckHealth(InstigatedBy, DamageCauser))
+	{
+		
+	}
+}
