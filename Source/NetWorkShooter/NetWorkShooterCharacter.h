@@ -17,10 +17,6 @@ class ANetWorkShooterCharacter : public ACharacter
 
 private:
 
-	/** Fix Me: ReWrite All server function in him components */
-	UFUNCTION()
-	void OnRep_CurrentWeaponMesh();
-
 	void UseWeaponPressed();
 	void UseWeaponReleased();
 
@@ -46,11 +42,18 @@ public:
 
 	UFUNCTION(BlueprintPure, Category = "Character|Gettting")
 	UHealthComponent* GetHealthComponent() const { return HealthComponent; }
+
+	UFUNCTION(BlueprintPure, Category = "Character|LocalMesh")
+	USkeletalMeshComponent* GetLocalMesh();
 	
 	UFUNCTION()
 	void SetCurrentMesh(USkeletalMesh* NewMesh) { CurrentWeaponMesh = NewMesh; } 
 
 	virtual void GetLifetimeReplicatedProps(TArray< FLifetimeProperty > & OutLifetimeProps) const override;
+	
+	/** Fix Me: ReWrite All server function in him components */
+	UFUNCTION()
+    	void OnRep_CurrentWeaponMesh();
 
 protected:
 
@@ -61,6 +64,7 @@ protected:
 
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 	virtual void BeginPlay() override;
+	virtual void OnConstruction(const FTransform& Transform) override;
 
 public:
 
@@ -74,6 +78,9 @@ public:
 
 	UPROPERTY(BlueprintAssignable)
 	FControllerLeave OnControllerLeaveEvent;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	USkeletalMeshComponent* FirstPersonMesh;
 
 private:
 

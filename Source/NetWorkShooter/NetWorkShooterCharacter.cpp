@@ -32,11 +32,14 @@ ANetWorkShooterCharacter::ANetWorkShooterCharacter()
 
 	/** Create and attach weapon skeletal mesh to socket */
 	WeaponSkeletalMeshComponent = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("WeaponSkeletalMesh"));
-	WeaponSkeletalMeshComponent->AttachToComponent(GetMesh(), FAttachmentTransformRules::SnapToTargetIncludingScale, "STK_RightArmWeaponSocket");
 	WeaponSkeletalMeshComponent->SetSkeletalMesh(CurrentWeaponMesh);
+	//WeaponSkeletalMeshComponent->SetIsReplicated(true);
 	
 	WeaponManagerComponent = CreateDefaultSubobject<UWeaponManagerComponent>(TEXT("WeaponManager"));
 	HealthComponent = CreateDefaultSubobject<UHealthComponent>(TEXT("HealthComponent"));
+
+	FirstPersonMesh = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("FistPersonMesh"));
+	FirstPersonMesh->SetupAttachment(RootComponent);
 }
 
 void ANetWorkShooterCharacter::BeginPlay()
@@ -44,6 +47,28 @@ void ANetWorkShooterCharacter::BeginPlay()
 	Super::BeginPlay();
 
 	HealthComponent->HealthEndedEvent.AddDynamic(this, &ANetWorkShooterCharacter::CharacterDead);
+	
+	WeaponSkeletalMeshComponent->AttachToComponent(GetLocalMesh(), FAttachmentTransformRules::SnapToTargetIncludingScale, "STK_RightArmWeaponSocket");
+
+	if(IsLocallyControlled())
+	{
+		GetMesh()->DestroyComponent();
+	}
+	else
+	{
+		FirstPersonMesh->DestroyComponent();
+	}
+}
+
+void ANetWorkShooterCharacter::OnConstruction(const FTransform& Transform)
+{
+	Super::OnConstruction(Transform);
+	
+}
+
+USkeletalMeshComponent* ANetWorkShooterCharacter::GetLocalMesh()
+{
+	return IsLocallyControlled() ? FirstPersonMesh : GetMesh();
 }
 
 void ANetWorkShooterCharacter::GetLifetimeReplicatedProps(TArray< FLifetimeProperty > & OutLifetimeProps) const

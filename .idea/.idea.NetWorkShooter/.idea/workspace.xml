@@ -24,38 +24,134 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4e895809-3b0e-414a-9fb7-267441527844" name="Default Changelist" comment="Change system command">
-      <change afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/Blueprints/Actors/Weapons/Special/BP_FragGrenade.uasset" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Source/NetWorkShooter/Actors/Projectiles/MainProjectile/MainProjectile.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Source/NetWorkShooter/Actors/Projectiles/MainProjectile/MainProjectile.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Source/NetWorkShooter/Actors/SpecialWeapon/BaseGrenadeWeapon.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Source/NetWorkShooter/Actors/SpecialWeapon/BaseGrenadeWeapon.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Source/NetWorkShooter/Actors/SpecialWeapon/BaseSpecialWeapon.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Source/NetWorkShooter/Actors/SpecialWeapon/BaseSpecialWeapon.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.NetWorkShooter/.idea/contentModel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.NetWorkShooter/.idea/contentModel.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/Assets/AnimStarterPack/Crouch/Crouch_Idle_Rifle_Hip.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/Assets/AnimStarterPack/Crouch/Crouch_Idle_Rifle_Ironsights.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/Assets/AnimStarterPack/Crouch/Crouch_Walk_Bwd_Rifle_Hip.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/Assets/AnimStarterPack/Crouch/Crouch_Walk_Bwd_Rifle_Ironsights.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/Assets/AnimStarterPack/Crouch/Crouch_Walk_Fwd_Rifle_Hip.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/Assets/AnimStarterPack/Crouch/Crouch_Walk_Fwd_Rifle_Ironsights.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/Assets/AnimStarterPack/Crouch/Crouch_Walk_Lt_Rifle_Hip.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/Assets/AnimStarterPack/Crouch/Crouch_Walk_Lt_Rifle_Ironsights.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/Assets/AnimStarterPack/Crouch/Crouch_Walk_Rt_Rifle_Hip.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/Assets/AnimStarterPack/Crouch/Crouch_Walk_Rt_Rifle_Ironsights.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/Assets/AnimStarterPack/Crouch/Crouch_to_Stand_Rifle_Hip.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/Assets/AnimStarterPack/Crouch/Crouch_to_Stand_Rifle_Ironsights.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/Assets/AnimStarterPack/Crouch/Stand_to_Crouch_Rifle_Hip.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/Assets/AnimStarterPack/Crouch/Stand_to_Crouch_Rifle_Ironsights.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/Assets/AnimStarterPack/Death/Death_1.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/Assets/AnimStarterPack/Death/Death_2.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/Assets/AnimStarterPack/Death/Death_3.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/Assets/AnimStarterPack/Death/Death_Ironsights_1.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/Assets/AnimStarterPack/Death/Death_Ironsights_2.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/Assets/AnimStarterPack/Death/Prone_Death_1.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/Assets/AnimStarterPack/Death/Prone_Death_2.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/Assets/AnimStarterPack/Hit/Hit_React_1.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/Assets/AnimStarterPack/Hit/Hit_React_2.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/Assets/AnimStarterPack/Hit/Hit_React_3.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/Assets/AnimStarterPack/Hit/Hit_React_4.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/Assets/AnimStarterPack/Pistol/Equip_Pistol_Standing.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/Assets/AnimStarterPack/Pistol/Idle_Pistol.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/Assets/AnimStarterPack/Pistol/Reload_Pistol.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/Assets/AnimStarterPack/Prone/Prone_Fire_1.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/Assets/AnimStarterPack/Prone/Prone_Fire_2.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/Assets/AnimStarterPack/Prone/Prone_Idle.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/Assets/AnimStarterPack/Prone/Prone_Reload_Rifle.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/Assets/AnimStarterPack/Prone/Prone_Reload_Shotgun.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/Assets/AnimStarterPack/Prone/Prone_To_Stand.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/Assets/AnimStarterPack/Prone/Stand_To_Prone.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/Assets/AnimStarterPack/Stand/Aim_Space_Hip.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/Assets/AnimStarterPack/Stand/Aim_Space_Ironsights.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/Assets/AnimStarterPack/Stand/Equip_Rifle_Standing.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/Assets/AnimStarterPack/Stand/Fire_Rifle_Hip.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/Assets/AnimStarterPack/Stand/Fire_Rifle_Ironsights.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/Assets/AnimStarterPack/Stand/Fire_Shotgun_Hip.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/Assets/AnimStarterPack/Stand/Fire_Shotgun_Ironsights.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/Assets/AnimStarterPack/Stand/Idle_Rifle_Hip.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/Assets/AnimStarterPack/Stand/Idle_Rifle_Hip_Break1.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/Assets/AnimStarterPack/Stand/Idle_Rifle_Hip_Break2.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/Assets/AnimStarterPack/Stand/Idle_Rifle_Ironsights.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/Assets/AnimStarterPack/Stand/IronsightForward.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/Assets/AnimStarterPack/Stand/IronsightLookDown.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/Assets/AnimStarterPack/Stand/IronsightLookUp.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/Assets/AnimStarterPack/Stand/Jog_Bwd_Rifle.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/Assets/AnimStarterPack/Stand/Jog_Fwd_Rifle.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/Assets/AnimStarterPack/Stand/Jog_Lt_Rifle.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/Assets/AnimStarterPack/Stand/Jog_Rt_Rifle.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/Assets/AnimStarterPack/Stand/Jump_From_Jog.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/Assets/AnimStarterPack/Stand/Jump_From_Stand.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/Assets/AnimStarterPack/Stand/Jump_From_Stand_Ironsights.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/Assets/AnimStarterPack/Stand/Reload_Rifle_Hip.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/Assets/AnimStarterPack/Stand/Reload_Rifle_Ironsights.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/Assets/AnimStarterPack/Stand/Reload_Shotgun_Hip.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/Assets/AnimStarterPack/Stand/Reload_Shotgun_Ironsights.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/Assets/AnimStarterPack/Stand/Sprint_Fwd_Rifle.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/Assets/AnimStarterPack/Stand/Walk_Bwd_Rifle_Ironsights.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/Assets/AnimStarterPack/Stand/Walk_Fwd_Rifle_Ironsights.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/Assets/AnimStarterPack/Stand/Walk_Lt_Rifle_Ironsights.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/Assets/AnimStarterPack/Stand/Walk_Rt_Rifle_Ironsights.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/Assets/FirstPerson/Animations/FirstPerson_AnimBP.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/Assets/FirstPerson/Animations/FirstPerson_Fire.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/Assets/FirstPerson/Animations/FirstPerson_Idle.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/Assets/FirstPerson/Animations/FirstPerson_JumpEnd.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/Assets/FirstPerson/Animations/FirstPerson_JumpLoop.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/Assets/FirstPerson/Animations/FirstPerson_JumpStart.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/Assets/FirstPerson/Animations/FirstPerson_Run.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/Assets/FirstPerson/Audio/FirstPersonTemplateWeaponFire02.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/Assets/FirstPerson/Character/Materials/M_UE4Man_Body.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/Assets/FirstPerson/Character/Materials/MaterialLayers/ML_GlossyBlack_Latex_UE4.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/Assets/FirstPerson/Character/Materials/MaterialLayers/ML_Plastic_Shiny_Beige.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/Assets/FirstPerson/Character/Materials/MaterialLayers/ML_Plastic_Shiny_Beige_LOGO.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/Assets/FirstPerson/Character/Materials/MaterialLayers/ML_SoftMetal_UE4.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/Assets/FirstPerson/Character/Materials/MaterialLayers/T_ML_Aluminum01.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/Assets/FirstPerson/Character/Materials/MaterialLayers/T_ML_Aluminum01_N.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/Assets/FirstPerson/Character/Materials/MaterialLayers/T_ML_Rubber_Blue_01_D.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/Assets/FirstPerson/Character/Materials/MaterialLayers/T_ML_Rubber_Blue_01_N.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/Assets/FirstPerson/Character/Mesh/SK_Mannequin_Arms.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/Assets/FirstPerson/Character/Mesh/SK_Mannequin_Arms_PhysicsAsset.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/Assets/FirstPerson/Character/Textures/UE4_LOGO_CARD.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/Assets/FirstPerson/Character/Textures/UE4_Mannequin_MAT_MASKA.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/Assets/FirstPerson/Character/Textures/UE4_Mannequin__normals.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/Assets/FirstPerson/FPWeapon/Materials/M_FPGun.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/Assets/FirstPerson/FPWeapon/Materials/MaterialLayers/ML_GlossyBlack_Latex_UE4.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/Assets/FirstPerson/FPWeapon/Materials/MaterialLayers/ML_Plastic_Shiny_Beige.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/Assets/FirstPerson/FPWeapon/Materials/MaterialLayers/ML_Plastic_Shiny_Beige_LOGO.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/Assets/FirstPerson/FPWeapon/Materials/MaterialLayers/ML_Screen.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/Assets/FirstPerson/FPWeapon/Materials/MaterialLayers/ML_SoftMetal_UE4.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/Assets/FirstPerson/FPWeapon/Materials/MaterialLayers/T_ML_Aluminum01.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/Assets/FirstPerson/FPWeapon/Materials/MaterialLayers/T_ML_Aluminum01_N.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/Assets/FirstPerson/FPWeapon/Materials/MaterialLayers/T_ML_FineRubber.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/Assets/FirstPerson/FPWeapon/Materials/MaterialLayers/T_ML_Rubber_Blue_01_D.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/Assets/FirstPerson/FPWeapon/Materials/MaterialLayers/T_ML_Rubber_Blue_01_N.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/Assets/FirstPerson/FPWeapon/Mesh/SK_FPGun.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/Assets/FirstPerson/FPWeapon/Mesh/SK_FPGun_PhysicsAsset.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/Assets/FirstPerson/FPWeapon/Mesh/SK_FPGun_Skeleton.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/Assets/FirstPerson/FPWeapon/Textures/T_FPGun_M.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/Assets/FirstPerson/FPWeapon/Textures/T_FPGun_N.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/Assets/FirstPerson/Meshes/BaseMaterial.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/Assets/FirstPerson/Meshes/CubeMaterialOverride.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/Assets/FirstPerson/Meshes/FirstPersonProjectileMaterial.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/Assets/FirstPerson/Meshes/FirstPersonProjectileMesh.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/Assets/FirstPerson/Textures/FirstPersonCrosshair.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/CharacterAnimation/AO_AimIronSight.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/CharacterAnimation/BasePlayerAnimBP.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/CharacterAnimation/StedWeaponEquipAnim.uasset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.NetWorkShooter/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.NetWorkShooter/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Config/DefaultEditor.ini" beforeDir="false" afterPath="$PROJECT_DIR$/Config/DefaultEditor.ini" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/FPS_Weapon_Bundle/Weapons/Meshes/G67_Grenade/SK_G67_X_Physics.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/FPS_Weapon_Bundle/Weapons/Meshes/G67_Grenade/SK_G67_X_Physics.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/ThirdPersonCPP/Blueprints/DataTable/RangeData.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/Blueprints/DataTable/RangeData.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/ThirdPersonCPP/Blueprints/DataTable/ThrowData.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/Blueprints/DataTable/ThrowData.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Config/DefaultInput.ini" beforeDir="false" afterPath="$PROJECT_DIR$/Config/DefaultInput.ini" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/FPS_Weapon_Bundle/Weapons/Meshes/AR4/SK_AR4_X_Skeleton.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/FPS_Weapon_Bundle/Weapons/Meshes/AR4/SK_AR4_X_Skeleton.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/FPS_Weapon_Bundle/Weapons/Meshes/Ka47/SK_KA47_X_Skeleton.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/FPS_Weapon_Bundle/Weapons/Meshes/Ka47/SK_KA47_X_Skeleton.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/FPS_Weapon_Bundle/Weapons/Meshes/SMG11/SK_SMG11_Nostock_X_Skeleton.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/FPS_Weapon_Bundle/Weapons/Meshes/SMG11/SK_SMG11_Nostock_X_Skeleton.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Geometry/Meshes/1M_Cube.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Geometry/Meshes/1M_Cube.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Geometry/Meshes/1M_Cube_Chamfer.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Geometry/Meshes/1M_Cube_Chamfer.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Geometry/Meshes/CubeMaterial.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Geometry/Meshes/CubeMaterial.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Geometry/Meshes/TemplateFloor.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Geometry/Meshes/TemplateFloor.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/ThirdPersonCPP/Assets/Mannequin/Character/Mesh/SK_Mannequin.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/Assets/Mannequin/Character/Mesh/SK_Mannequin.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/ThirdPersonCPP/Assets/Mannequin/Character/Mesh/UE4_Mannequin_Skeleton.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/Assets/Mannequin/Character/Mesh/UE4_Mannequin_Skeleton.uasset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Content/ThirdPersonCPP/Blueprints/ThirdPersonCharacter.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/Blueprints/ThirdPersonCharacter.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/ThirdPersonCPP/UI/HUD/W_ConstructWidgets/Base/W_Hud_AmmoStatus.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/UI/HUD/W_ConstructWidgets/Base/W_Hud_AmmoStatus.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/NetWorkShooter/Components/ChatComponent.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/NetWorkShooter/Components/ChatComponent.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/NetWorkShooter/Components/HealthComponent.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/NetWorkShooter/Components/HealthComponent.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/NetWorkShooter/Components/HealthComponent.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/NetWorkShooter/Components/HealthComponent.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/NetWorkShooter/Components/WeaponManagerComponent.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/NetWorkShooter/Components/WeaponManagerComponent.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/NetWorkShooter/Components/WeaponManagerComponent.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/NetWorkShooter/Components/WeaponManagerComponent.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/NetWorkShooter/DataAssets/WeaponDataAssetBase.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/NetWorkShooter/DataAssets/WeaponDataAssetBase.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/NetWorkShooter/DataAssets/WeaponDataAssetBase.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/NetWorkShooter/DataAssets/WeaponDataAssetBase.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/NetWorkShooter/GameModes/CommandGameMode.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/NetWorkShooter/GameModes/CommandGameMode.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/NetWorkShooter/GameModes/CommandGameMode.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/NetWorkShooter/GameModes/CommandGameMode.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/NetWorkShooter/GameStates/BaseGameState.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/NetWorkShooter/GameStates/BaseGameState.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/NetWorkShooter/NetWorkShooterCharacter.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/NetWorkShooter/NetWorkShooterCharacter.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/NetWorkShooter/NetWorkShooterCharacter.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/NetWorkShooter/NetWorkShooterCharacter.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/NetWorkShooter/NetWorkShooterGameMode.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/NetWorkShooter/NetWorkShooterGameMode.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/NetWorkShooter/Objects/MainRangeWeapon/RangeWeaponObject.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/NetWorkShooter/Objects/MainRangeWeapon/RangeWeaponObject.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/NetWorkShooter/Objects/MainRangeWeapon/RangeWeaponObject.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/NetWorkShooter/Objects/MainRangeWeapon/RangeWeaponObject.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/NetWorkShooter/Objects/ThrowingWeapon/MainGrenadeObject.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/NetWorkShooter/Objects/ThrowingWeapon/MainGrenadeObject.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/NetWorkShooter/Objects/ThrowingWeapon/MainGrenadeObject.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/NetWorkShooter/Objects/ThrowingWeapon/MainGrenadeObject.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/NetWorkShooter/Objects/ThrowingWeapon/MainThrowingWeapon.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/NetWorkShooter/Objects/ThrowingWeapon/MainThrowingWeapon.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/NetWorkShooter/Objects/ThrowingWeapon/MainThrowingWeapon.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/NetWorkShooter/Objects/ThrowingWeapon/MainThrowingWeapon.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/NetWorkShooter/Objects/WeaponObject/MainWeaponObject.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/NetWorkShooter/Objects/WeaponObject/MainWeaponObject.cpp" afterDir="false" />
@@ -136,15 +232,10 @@
       <option value="$PROJECT_DIR$/Source/NetWorkShooter/PlayerStart/PlayerStartBase.cpp" />
       <option value="$PROJECT_DIR$/Source/NetWorkShooter/Controllers/PlayerControllers/MainPlayerController.cpp" />
       <option value="$PROJECT_DIR$/Source/NetWorkShooter/Actors/PickUpWeapon.cpp" />
-      <option value="$PROJECT_DIR$/Source/NetWorkShooter/Objects/WeaponObject/MainWeaponObject.cpp" />
       <option value="$PROJECT_DIR$/Source/NetWorkShooter/Actors/Projectiles/MainProjectile/MainProjectile.cpp" />
       <option value="$PROJECT_DIR$/Source/NetWorkShooter/Actors/Projectiles/MainProjectile/MainProjectile.h" />
-      <option value="$PROJECT_DIR$/Source/NetWorkShooter/Objects/WeaponObject/MainWeaponObject.h" />
       <option value="$PROJECT_DIR$/Source/NetWorkShooter/DataAssets/WeaponDataAssetBase.cpp" />
       <option value="$PROJECT_DIR$/Source/NetWorkShooter/Components/WeaponManagerComponent.h" />
-      <option value="$PROJECT_DIR$/Source/NetWorkShooter/Components/WeaponManagerComponent.cpp" />
-      <option value="$PROJECT_DIR$/Source/NetWorkShooter/Objects/ThrowingWeapon/MainThrowingWeapon.h" />
-      <option value="$PROJECT_DIR$/Source/NetWorkShooter/Objects/ThrowingWeapon/MainThrowingWeapon.cpp" />
       <option value="$PROJECT_DIR$/Source/NetWorkShooter/GameStates/BaseGameState.cpp" />
       <option value="$PROJECT_DIR$/Source/NetWorkShooter/Components/ChatComponent.cpp" />
       <option value="$PROJECT_DIR$/Source/NetWorkShooter/Actors/SpecialWeapon/BaseSpecialWeapon.h" />
@@ -154,16 +245,21 @@
       <option value="$PROJECT_DIR$/Source/NetWorkShooter/GameModes/CommandGameMode.cpp" />
       <option value="$PROJECT_DIR$/Source/NetWorkShooter/Components/HealthComponent.h" />
       <option value="$PROJECT_DIR$/Source/NetWorkShooter/Components/HealthComponent.cpp" />
-      <option value="$PROJECT_DIR$/Source/NetWorkShooter/NetWorkShooterCharacter.cpp" />
-      <option value="$PROJECT_DIR$/Source/NetWorkShooter/NetWorkShooterCharacter.h" />
       <option value="$PROJECT_DIR$/Source/NetWorkShooter/Objects/ThrowingWeapon/MainGrenadeObject.h" />
       <option value="$PROJECT_DIR$/Source/NetWorkShooter/Actors/SpecialWeapon/BaseGrenadeWeapon.h" />
       <option value="$PROJECT_DIR$/Source/NetWorkShooter/Actors/SpecialWeapon/BaseGrenadeWeapon.cpp" />
       <option value="$PROJECT_DIR$/Source/NetWorkShooter/Objects/ThrowingWeapon/MainGrenadeObject.cpp" />
       <option value="$PROJECT_DIR$/Source/NetWorkShooter/NetWorkShooterGameMode.cpp" />
       <option value="$PROJECT_DIR$/Source/NetWorkShooter/DataAssets/WeaponDataAssetBase.h" />
-      <option value="$PROJECT_DIR$/Source/NetWorkShooter/Objects/MainRangeWeapon/RangeWeaponObject.h" />
+      <option value="$PROJECT_DIR$/Source/NetWorkShooter/Components/WeaponManagerComponent.cpp" />
+      <option value="$PROJECT_DIR$/Source/NetWorkShooter/NetWorkShooterCharacter.h" />
+      <option value="$PROJECT_DIR$/Source/NetWorkShooter/NetWorkShooterCharacter.cpp" />
       <option value="$PROJECT_DIR$/Source/NetWorkShooter/Objects/MainRangeWeapon/RangeWeaponObject.cpp" />
+      <option value="$PROJECT_DIR$/Source/NetWorkShooter/Objects/WeaponObject/MainWeaponObject.h" />
+      <option value="$PROJECT_DIR$/Source/NetWorkShooter/Objects/WeaponObject/MainWeaponObject.cpp" />
+      <option value="$PROJECT_DIR$/Source/NetWorkShooter/Objects/ThrowingWeapon/MainThrowingWeapon.h" />
+      <option value="$PROJECT_DIR$/Source/NetWorkShooter/Objects/ThrowingWeapon/MainThrowingWeapon.cpp" />
+      <option value="$PROJECT_DIR$/Source/NetWorkShooter/Objects/MainRangeWeapon/RangeWeaponObject.h" />
     </changedPaths>
   </component>
   <component name="ProjectId" id="1mU45q9rLP6Qu9cx4YAzOsfUBVp" />
@@ -569,6 +665,13 @@
       <workItem from="1614282409599" duration="15641000" />
       <workItem from="1614339337761" duration="1655000" />
       <workItem from="1614345811796" duration="3825000" />
+      <workItem from="1614381607414" duration="2000" />
+      <workItem from="1614382571732" duration="6000" />
+      <workItem from="1614386351212" duration="586000" />
+      <workItem from="1614465298108" duration="22000" />
+      <workItem from="1614466911297" duration="2635000" />
+      <workItem from="1614475658776" duration="1701000" />
+      <workItem from="1614534008895" duration="1573000" />
     </task>
     <task id="LOCAL-00001" summary="init override function SpawnPlayer">
       <created>1610844415255</created>

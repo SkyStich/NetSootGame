@@ -8,6 +8,7 @@
 void UMainThrowingWeapon::Init(UDataTable* WeaponData, TCHAR* ContextString)
 {
 	ThrowData = WeaponData->FindRow<FThrowWeaponData>(GetWeaponName(), ContextString);
+	SlotCategory = ThrowData->EquipmentSlot;
 	CurrentAmount = ThrowData->MaxAmount;
 }
 

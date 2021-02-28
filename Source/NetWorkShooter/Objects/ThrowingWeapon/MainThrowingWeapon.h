@@ -25,7 +25,7 @@ public:
 	virtual float GetBaseDamage() const override { return ThrowData->BaseDamage; }
 	virtual float GetRangeOfUse() const override { return ThrowData->RangeOfUse; }
 	virtual float GetDelayBeforeUse() const override { return ThrowData->DelayBeforeUse; }
-	virtual TEnumAsByte<EEquipmentSlot> GetEquipmentSlot() const override { return ThrowData->EquipmentSlot; }
+	virtual TEnumAsByte<EEquipmentSlot> GetEquipmentSlot() const override { return SlotCategory; }
 
 	virtual bool UseWeapon() override;
 	virtual bool IsAbleToUseWeapon() override;

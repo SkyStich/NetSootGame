@@ -117,6 +117,7 @@ void UWeaponManagerComponent::SetCurrentWeapon(UMainWeaponObject* const NewCurre
 	{
 		CurrentWeapon = NewCurrentWeapon;
 		CharacterOwner->SetCurrentMesh(WeaponDataAssetBase->GetWeaponMesh(CurrentWeapon->GetWeaponMesh()));
+		CharacterOwner->OnRep_CurrentWeaponMesh();
 	}
 }
 

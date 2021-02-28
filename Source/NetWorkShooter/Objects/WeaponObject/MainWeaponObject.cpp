@@ -38,6 +38,7 @@ void UMainWeaponObject::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& Ou
 
     DOREPLIFETIME(UMainWeaponObject, CharacterOwner);
     DOREPLIFETIME_CONDITION(UMainWeaponObject, WeaponName, COND_OwnerOnly);
+    DOREPLIFETIME(UMainWeaponObject, SlotCategory);
 }
 
 void UMainWeaponObject::PostInitProperties()

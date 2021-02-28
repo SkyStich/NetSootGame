@@ -10,7 +10,7 @@
 class ANetWorkShooterCharacter;
 struct FRangeWeaponData;
 
-UCLASS(Abstract)
+UCLASS(Abstract, Blueprintable)
 class NETWORKSHOOTER_API UMainWeaponObject : public UObject
 {
 	GENERATED_BODY()
@@ -47,7 +47,7 @@ public:
     virtual float GetDelayBeforeUse() const { return 0.f; }
 
     UFUNCTION(BlueprintPure, Category = "Weapon|Getting")
-    virtual TEnumAsByte<EEquipmentSlot> GetEquipmentSlot() const { return EEquipmentSlot::None; }
+    virtual TEnumAsByte<EEquipmentSlot> GetEquipmentSlot() const { return SlotCategory; }
     /** stop getting var from base weapon struct */
 
     /** Get current weapon name */
@@ -88,6 +88,9 @@ protected:
     
     UPROPERTY(Replicated)
     ANetWorkShooterCharacter* CharacterOwner;
+    
+    UPROPERTY(Replicated)
+    TEnumAsByte<EEquipmentSlot> SlotCategory;
 
 private:
 

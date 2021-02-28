@@ -37,7 +37,6 @@ public:
     virtual float GetBaseDamage() const override { return RangeWeaponData->BaseDamage; }
     virtual float GetRangeOfUse() const override { return RangeWeaponData->RangeOfUse; }
     virtual float GetDelayBeforeUse() const override { return RangeWeaponData->DelayBeforeUse; }
-    virtual TEnumAsByte<EEquipmentSlot> GetEquipmentSlot() const override { return RangeWeaponData->EquipmentSlot; }
 	
 	virtual void Init(UDataTable* WeaponData, TCHAR* ContextString) override;
 

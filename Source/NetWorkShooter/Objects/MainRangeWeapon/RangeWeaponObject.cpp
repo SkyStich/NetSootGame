@@ -18,6 +18,7 @@ void URangeWeaponObject::Init(UDataTable* WeaponData, TCHAR* ContextString)
     if(GetAuthority())
     {
         RangeWeaponData = WeaponData->FindRow<FRangeWeaponData>(GetWeaponName(), ContextString);
+        SlotCategory = RangeWeaponData->EquipmentSlot;
         CurrentAmmoInClip = RangeWeaponData->MaxAmmoInWeapon;
         CurrentAmmoInStorage = RangeWeaponData->MaxAmmoInStorage;
     }
@@ -29,7 +30,7 @@ void URangeWeaponObject::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& O
 
     /** Condition ammo replicated */
     DOREPLIFETIME_CONDITION(URangeWeaponObject, CurrentAmmoInClip, COND_OwnerOnly);
-    DOREPLIFETIME_CONDITION(URangeWeaponObject, CurrentAmmoInStorage, COND_OwnerOnly)
+    DOREPLIFETIME_CONDITION(URangeWeaponObject, CurrentAmmoInStorage, COND_OwnerOnly);
 
     /** Reload replication */
     DOREPLIFETIME(URangeWeaponObject, bReloading);
