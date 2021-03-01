@@ -7,7 +7,6 @@
 #include "Objects/WeaponObject/MainWeaponObject.h"
 #include "Net/UnrealNetwork.h"
 #include "EngineUtils.h"
-#include "Kismet/KismetMathLibrary.h"
 #include "Objects/MainRangeWeapon/RangeWeaponObject.h"
 
 ANetWorkShooterCharacter::ANetWorkShooterCharacter()
@@ -63,7 +62,6 @@ void ANetWorkShooterCharacter::BeginPlay()
 void ANetWorkShooterCharacter::OnConstruction(const FTransform& Transform)
 {
 	Super::OnConstruction(Transform);
-	
 }
 
 USkeletalMeshComponent* ANetWorkShooterCharacter::GetLocalMesh()
@@ -177,7 +175,15 @@ void ANetWorkShooterCharacter::CharacterDead(AController* OldController)
 {
 	GetCharacterMovement()->DisableMovement();
 	GetCapsuleComponent()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
-	GetMesh()->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
+	
+	if(IsLocallyControlled())
+	{
+		FirstPersonMesh->DestroyComponent();
+	}
+	else
+	{
+		GetMesh()->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
+	}
 
 	if(GetLocalRole() == ROLE_Authority)
 	{
@@ -201,7 +207,8 @@ void ANetWorkShooterCharacter::CharacterDead(AController* OldController)
 	}
 	else
 	{
-		GetMesh()->SetSimulatePhysics(true);
+		if(IsLocallyControlled())
+			GetMesh()->SetSimulatePhysics(true);
 	}
 }
 
