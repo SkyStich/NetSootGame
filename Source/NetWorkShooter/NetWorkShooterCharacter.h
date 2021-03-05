@@ -97,5 +97,8 @@ private:
 
 	UPROPERTY(ReplicatedUsing = OnRep_CurrentWeaponMesh)
 	USkeletalMesh* CurrentWeaponMesh;
+
+	UPROPERTY(EditAnywhere, Category = "Character|ThirdPersonMesh")
+	USkeletalMesh* ThirdPersonMesh;
 };
 

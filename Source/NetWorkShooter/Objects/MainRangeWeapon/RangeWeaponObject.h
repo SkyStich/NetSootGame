@@ -6,6 +6,8 @@
 #include "NetWorkShooter/Objects/WeaponObject/MainWeaponObject.h"
 #include "RangeWeaponObject.generated.h"
 
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FReloading);
+
 UCLASS(Blueprintable, Abstract)
 class NETWORKSHOOTER_API URangeWeaponObject : public UMainWeaponObject
 {
@@ -14,6 +16,10 @@ class NETWORKSHOOTER_API URangeWeaponObject : public UMainWeaponObject
 	UFUNCTION(NetMulticast, Unreliable)
 	void GetTraceInfoDebugger(FVector Start, FVector End, FVector Center);
 	void GetTraceInfoDebugger_Implementation(FVector Start, FVector End, FVector Center);
+
+	/** Call in ReloadWeapon */
+	UFUNCTION(Server, Unreliable)
+	void ServerReloading();
 
 	int32 CalculateDamageWithDistance(const FVector& Start, const FVector& End, float Damage);
 
@@ -30,6 +36,13 @@ public:
 	UFUNCTION(BlueprintPure, Category = "Weapon|Getting")
 	FORCEINLINE int32 GetCurrentAmmoInWeapon() const { return CurrentAmmoInClip; }
 
+	/** Call in client if him want reload */
+	UFUNCTION(BlueprintCallable)
+	void ReloadWeapon();
+
+	/** Stop reload. Reload be not finish succeeded */
+	void StopReload() { GetWorld()->GetTimerManager().ClearTimer(ReloadHandle); }
+
 	virtual bool UseWeapon() override;
 	virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
 
@@ -40,16 +53,31 @@ public:
 	
 	virtual void Init(UDataTable* WeaponData, TCHAR* ContextString) override;
 
+		
+	/** Start process reloading */
 	void ReloadStart();
-	void ReloadFinish();
+
+public:
+
+	FReloading OnReloadingEvent;
 
 protected:
 
 	virtual bool IsAbleToUseWeapon() override;
 	virtual void StopRateDelay() override;
+
+	UFUNCTION()
+	virtual void OnRep_Reloading();
+	virtual bool IsAbleReload();
+
+
+	/** Finish process reload */
+	void ReloadFinish();
 	
 	UFUNCTION()
 	FHitResult GetTraceInfo();
+
+
 
 private:
 
@@ -59,7 +87,7 @@ private:
 	UPROPERTY(Replicated)
 	int32 CurrentAmmoInStorage;
 
-	UPROPERTY(Replicated)
+	UPROPERTY(ReplicatedUsing = OnRep_Reloading)
 	bool bReloading;
 
 	UPROPERTY()

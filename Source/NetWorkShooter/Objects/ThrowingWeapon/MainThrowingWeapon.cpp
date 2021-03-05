@@ -22,9 +22,16 @@ void UMainThrowingWeapon::GetLifetimeReplicatedProps(TArray< FLifetimeProperty >
 bool UMainThrowingWeapon::UseWeapon()
 {
 	if(this->IsAbleToUseWeapon() && GetAuthority())
-	{
+	{		
 		bUseWeapon = true;
 		CurrentAmount--;
+		
+		CharacterOwner->GetHealthComponent()->HealthEndedEvent.AddDynamic(this, &UMainThrowingWeapon::OuterDead);
+		
+		FTimerDelegate TimerDel;
+		TimerDel.BindUObject(this, &UMainThrowingWeapon::PreparationForUse);
+		GetWorld()->GetTimerManager().SetTimer(PreparationForUseHandle, TimerDel, 1.f, false);
+		
 		return true;
 	}
 	return false;
@@ -32,19 +39,27 @@ bool UMainThrowingWeapon::UseWeapon()
 
 void UMainThrowingWeapon::StopUseWeapon()
 {
-	Super::StopUseWeapon();
+	if(!GetWorld()->GetTimerManager().IsTimerActive(UseWeaponHandle) && !GetWorld()->GetTimerManager().IsTimerActive(PreparationForUseHandle))
+	{
+		Super::StopUseWeapon();
+		
+		if(CurrentAmount > 0)
+		{
+			GetWorld()->GetTimerManager().SetTimer(UseWeaponHandle, this, &UMainThrowingWeapon::StopRateDelay, ThrowData->DelayBeforeUse, false);
+		}
+	}	
+}
 
-	if(!GetWorld()->GetTimerManager().IsTimerActive(UseWeaponHandle))
-		GetWorld()->GetTimerManager().SetTimer(UseWeaponHandle, this, &UMainThrowingWeapon::StopRateDelay, ThrowData->DelayBeforeUse, false);
-
+void UMainThrowingWeapon::ChangeCurrentWeapon()
+{
 	if(CurrentAmount <= 0)
 	{
-		CharacterOwner->GetWeaponManager()->SetCurrentWeapon(CharacterOwner->GetWeaponManager()->GetWeaponByCategory(MainWeapon));
+		CharacterOwner->GetWeaponManager()->SelectWeapon(MainWeapon);
 	}
 }
 
 bool UMainThrowingWeapon::IsAbleToUseWeapon()
 {
-	return Super::IsAbleToUseWeapon() && CurrentAmount > 0;
+	return Super::IsAbleToUseWeapon() && CurrentAmount > 0 && !GetWorld()->GetTimerManager().IsTimerActive(PreparationForUseHandle);
 }
 

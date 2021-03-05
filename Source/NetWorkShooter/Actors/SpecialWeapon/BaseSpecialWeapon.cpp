@@ -11,9 +11,12 @@ ABaseSpecialWeapon::ABaseSpecialWeapon()
 	PrimaryActorTick.bCanEverTick = false;
 
 	bReplicates = true;
-
+	
 	SkeletalMesh = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("SkeletalMesh"));
-	RootComponent = SkeletalMesh;
+	SkeletalMesh->SetCollisionResponseToAllChannels(ECR_Ignore);
+	SkeletalMesh->SetCollisionResponseToChannel(ECC_WorldStatic, ECR_Overlap);
+	SkeletalMesh->SetCollisionResponseToChannel(ECC_WorldDynamic, ECR_Block);
+	SkeletalMesh->SetCollisionResponseToChannel(ECC_Visibility, ECR_Block);
 }
 
 // Called when the game starts or when spawned

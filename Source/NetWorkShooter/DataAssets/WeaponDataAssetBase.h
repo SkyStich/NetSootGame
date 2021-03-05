@@ -24,7 +24,9 @@ enum EEquipmentSlot
 	MainWeapon,
 	SecondWeapon,
 	Melee,
-	SpecialSlot,
+	SpecialSlot1,
+	SpecialSlot2,
+	SpecialSlot3,
 	Disposable
 };
 

@@ -35,7 +35,17 @@ public:
 
 protected:
 
+	virtual void OuterDead(AController* Controller) {}
+	virtual void PreparationForUse() {}
+
+	/** Change special weapon if CurrentAmmo <= 0 on MainWeapon */
+	void ChangeCurrentWeapon();
+
+protected:
+
 	FThrowWeaponData* ThrowData;
+
+	FTimerHandle PreparationForUseHandle;
 	
 	UPROPERTY(Replicated)
 	int32 CurrentAmount;

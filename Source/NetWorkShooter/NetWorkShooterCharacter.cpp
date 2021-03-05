@@ -7,6 +7,7 @@
 #include "Objects/WeaponObject/MainWeaponObject.h"
 #include "Net/UnrealNetwork.h"
 #include "EngineUtils.h"
+#include "Animation/SkeletalMeshActor.h"
 #include "Objects/MainRangeWeapon/RangeWeaponObject.h"
 
 ANetWorkShooterCharacter::ANetWorkShooterCharacter()
@@ -175,31 +176,21 @@ void ANetWorkShooterCharacter::CharacterDead(AController* OldController)
 {
 	GetCharacterMovement()->DisableMovement();
 	GetCapsuleComponent()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+	GetLocalMesh()->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
 	
-	if(IsLocallyControlled())
-	{
-		FirstPersonMesh->DestroyComponent();
-	}
-	else
-	{
-		GetMesh()->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
-	}
-
 	if(GetLocalRole() == ROLE_Authority)
 	{
-		GetCapsuleComponent()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
-		
 		/** Create Timer delegate and bind on lambda. Lambda create work for destroy player */
 		FTimerDelegate TimerCallBack;
 
 		/** Lambda -> void, instigate to drop dead of player and destroy of him */
 		TimerCallBack.BindLambda([&]() -> void
-			{
-				UMainWeaponObject* MainDeadPlayer;
-				WeaponManagerComponent->GetWeaponByCategory(EEquipmentSlot::MainWeapon, MainDeadPlayer);	
-				WeaponManagerComponent->DropWeaponToWorld(MainDeadPlayer);
-				Destroy();
-			});
+		{
+			UMainWeaponObject* MainDeadPlayer;
+			WeaponManagerComponent->GetWeaponByCategory(EEquipmentSlot::MainWeapon, MainDeadPlayer);	
+			WeaponManagerComponent->DropWeaponToWorld(MainDeadPlayer);
+			Destroy();
+		});
 
 		/** Start Timer */
 		FTimerHandle DeadHandle;
@@ -207,8 +198,7 @@ void ANetWorkShooterCharacter::CharacterDead(AController* OldController)
 	}
 	else
 	{
-		if(IsLocallyControlled())
-			GetMesh()->SetSimulatePhysics(true);
+		GetLocalMesh()->SetSimulatePhysics(true);
 	}
 }
 

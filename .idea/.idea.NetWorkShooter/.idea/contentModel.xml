@@ -48849,6 +48849,8 @@
             <e p="SpecialWeapon" t="Include">
               <e p="BaseGrenadeWeapon.cpp" t="Include" />
               <e p="BaseGrenadeWeapon.h" t="Include" />
+              <e p="BaseMineSpecialWeapon.cpp" t="Include" />
+              <e p="BaseMineSpecialWeapon.h" t="Include" />
               <e p="BaseSpecialWeapon.cpp" t="Include" />
               <e p="BaseSpecialWeapon.h" t="Include" />
             </e>
@@ -48922,6 +48924,8 @@
             <e p="ThrowingWeapon" t="Include">
               <e p="MainGrenadeObject.cpp" t="Include" />
               <e p="MainGrenadeObject.h" t="Include" />
+              <e p="MainMineWeapon.cpp" t="Include" />
+              <e p="MainMineWeapon.h" t="Include" />
               <e p="MainThrowingWeapon.cpp" t="Include" />
               <e p="MainThrowingWeapon.h" t="Include" />
             </e>

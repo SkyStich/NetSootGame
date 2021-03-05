@@ -110,20 +110,41 @@ void URangeWeaponObject::GetTraceInfoDebugger_Implementation(FVector Start, FVec
     DrawDebugSphere(GetWorld(), Center, 35, 8, FColor::Purple, false, 1.f);
 }
 
-void URangeWeaponObject::ReloadStart()
+bool URangeWeaponObject::IsAbleReload()
 {
     /** if current ammo in clip < max ammo in clip and we have ammo in storage */
-    if(CurrentAmmoInClip < RangeWeaponData->MaxAmmoInWeapon && CurrentAmmoInStorage > 0)
+    return CurrentAmmoInClip < RangeWeaponData->MaxAmmoInWeapon && CurrentAmmoInStorage > 0 && !bReloading;
+}
+
+
+void URangeWeaponObject::ServerReloading_Implementation()
+{
+    if(IsAbleReload())
     {
-        if(!bReloading)
-        {
-            if(GetAuthority())
-            {
-                GetWorld()->GetTimerManager().SetTimer(ReloadHandle, this, &URangeWeaponObject::ReloadFinish,  RangeWeaponData->ReloadTime, false);
-                bReloading = true;
-            }
-        }
+        ReloadStart();
     }
+}
+
+void URangeWeaponObject::ReloadWeapon()
+{
+    if(IsAbleReload())
+    {
+        ServerReloading();
+    }
+}
+
+void URangeWeaponObject::OnRep_Reloading()
+{
+    if(bReloading)
+    {
+        OnReloadingEvent.Broadcast();
+    }
+}
+
+void URangeWeaponObject::ReloadStart()
+{
+    GetWorld()->GetTimerManager().SetTimer(ReloadHandle, this, &URangeWeaponObject::ReloadFinish,  RangeWeaponData->ReloadTime, false);
+    bReloading = true;
 }
 
 void URangeWeaponObject::ReloadFinish()

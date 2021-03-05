@@ -17,11 +17,13 @@ void UMainGrenadeObject::GrenadeThrow(float const TotalTimeBeforeExplosion, bool
 	GetWorld()->GetTimerManager().ClearTimer(ExplosionHandle);
 	
 	StopUseWeapon();
+	ChangeCurrentWeapon();
+	
 	FVector Start = FVector::ZeroVector;
 	FRotator Rotation = FRotator::ZeroRotator;
 
 	Start = CharacterOwner->GetWeaponSkeletalMeshComponent()->GetSocketLocation("Muzzle");
-	Rotation = UKismetMathLibrary::ComposeRotators(Controller->GetControlRotation(), FRotator(0.f, 25.f, 0.f));
+	Rotation = UKismetMathLibrary::ComposeRotators(Controller->GetControlRotation(), FRotator(0.f, 0.f, 25.f));
 
 	FActorSpawnParameters SpawnParam;
 	SpawnParam.Instigator = CharacterOwner;
@@ -33,23 +35,17 @@ void UMainGrenadeObject::GrenadeThrow(float const TotalTimeBeforeExplosion, bool
 	{
 		Grenade->Init(ThrowData, TotalTimeBeforeExplosion, bThrowSucceeded);
 	}
+	else
+	{
+		UE_LOG(LogTemp, Error, TEXT("Grenade can not spawn."), *GetName());
+	}
 }
 
 bool UMainGrenadeObject::UseWeapon()
 {
 	bWantPreparation = true;
 	
-	if(Super::UseWeapon())
-	{	
-		if(GetWorld()->GetTimerManager().IsTimerActive(PreparationForUseHandle)) return false;
-		
-		CharacterOwner->GetHealthComponent()->HealthEndedEvent.AddDynamic(this, &UMainGrenadeObject::OuterDead);
-		
-		FTimerDelegate TimerDel;
-		TimerDel.BindUObject(this, &UMainGrenadeObject::PreparationForThrow);
-		GetWorld()->GetTimerManager().SetTimer(PreparationForUseHandle, TimerDel, 1.f, false);
-	}
-	return false;
+	return Super::UseWeapon();
 }
 
 void UMainGrenadeObject::OuterDead(AController* Controller)
@@ -67,7 +63,7 @@ void UMainGrenadeObject::OuterDead(AController* Controller)
 	}
 }
 
-void UMainGrenadeObject::PreparationForThrow()
+void UMainGrenadeObject::PreparationForUse()
 {
 	GetWorld()->GetTimerManager().ClearTimer(PreparationForUseHandle);
 

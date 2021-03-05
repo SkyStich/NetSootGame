@@ -26,7 +26,7 @@ protected:
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "SpecialWeapon")
     void Detonation(float BaseDamage, float const MaxDamageRadius, AController* InstigatorController);
 
-protected:
+public:
 
 	UPROPERTY(VisibleAnywhere)
 	USkeletalMeshComponent* SkeletalMesh;

@@ -18,7 +18,7 @@ class NETWORKSHOOTER_API UHealthComponent : public UActorComponent
 	/** return damage that will be dealt directly to health */
 	float ArmorResist(float BaseDamage, float const Resist);
 
-	UFUNCTION(NetMulticast, Unreliable)
+	UFUNCTION(NetMulticast, Reliable)
 	void NetMulticastCharacterDead(AController* OldController);
 	
 public:	
