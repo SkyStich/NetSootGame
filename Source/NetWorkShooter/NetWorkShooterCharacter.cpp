@@ -86,8 +86,8 @@ void ANetWorkShooterCharacter::SetupPlayerInputComponent(class UInputComponent* 
 	PlayerInputComponent->BindAction("Jump", IE_Released, this, &ACharacter::StopJumping);
 
 	/** bind on use weapon event */
-	PlayerInputComponent->BindAction("UseWeapon", IE_Pressed , this, &ANetWorkShooterCharacter::UseWeaponPressed);
-	PlayerInputComponent->BindAction("UseWeapon", IE_Released , this, &ANetWorkShooterCharacter::UseWeaponReleased);
+	//PlayerInputComponent->BindAction("UseWeapon", IE_Pressed , this, &ANetWorkShooterCharacter::UseWeaponPressed);
+	//PlayerInputComponent->BindAction("UseWeapon", IE_Released , this, &ANetWorkShooterCharacter::UseWeaponReleased);
 
 	/** Bind on reload range weapon */
 	PlayerInputComponent->BindAction("Reload", IE_Pressed , this, &ANetWorkShooterCharacter::ReloadPressed);
@@ -147,16 +147,6 @@ void ANetWorkShooterCharacter::MoveRight(float Value)
 void ANetWorkShooterCharacter::OnRep_CurrentWeaponMesh()
 {
 	WeaponSkeletalMeshComponent->SetSkeletalMesh(CurrentWeaponMesh);
-}
-
-void ANetWorkShooterCharacter::UseWeaponPressed()
-{
-	WeaponManagerComponent->ServerStartUseWeapon();
-}
-
-void ANetWorkShooterCharacter::UseWeaponReleased()
-{
-	WeaponManagerComponent->ServerStopUseWeapon();
 }
 
 void ANetWorkShooterCharacter::ReloadPressed()

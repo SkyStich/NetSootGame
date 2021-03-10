@@ -21,16 +21,15 @@ public:
 
 	virtual void Init(UDataTable* WeaponData, TCHAR* ContextString) override;
 
-	virtual TAssetPtr< USkeletalMesh > GetWeaponMesh() const override { return ThrowData->WeaponMesh; }
-	virtual float GetBaseDamage() const override { return ThrowData->BaseDamage; }
-	virtual float GetRangeOfUse() const override { return ThrowData->RangeOfUse; }
-	virtual float GetDelayBeforeUse() const override { return ThrowData->DelayBeforeUse; }
-	virtual TEnumAsByte<EEquipmentSlot> GetEquipmentSlot() const override { return SlotCategory; }
+	virtual TAssetPtr< USkeletalMesh > GetWeaponMesh() const override { return ThrowData.WeaponMesh; }
+	virtual float GetBaseDamage() const override { return ThrowData.BaseDamage; }
+	virtual float GetRangeOfUse() const override { return ThrowData.RangeOfUse; }
+	virtual float GetDelayBeforeUse() const override { return ThrowData.DelayBeforeUse; }
+	virtual TEnumAsByte<EEquipmentSlot> GetEquipmentSlot() const override { return ThrowData.EquipmentSlot; }
 
 	virtual bool UseWeapon() override;
 	virtual bool IsAbleToUseWeapon() override;
 	virtual void StopUseWeapon() override;
-
 	virtual void GetLifetimeReplicatedProps(TArray< FLifetimeProperty > & OutLifetimeProps) const override;
 
 protected:
@@ -43,7 +42,8 @@ protected:
 
 protected:
 
-	FThrowWeaponData* ThrowData;
+	UPROPERTY(Replicated)
+	FThrowWeaponData ThrowData;
 
 	FTimerHandle PreparationForUseHandle;
 	

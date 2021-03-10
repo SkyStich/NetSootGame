@@ -60,6 +60,8 @@ public:
 
     UFUNCTION(BlueprintPure, Category = "GameState|Chat")
     UChatComponent* GetChatComponent() const { return ChatComponent; }
+
+    void NewPlayerConnected(ABasePlayerState* NewPlayer);
     
 protected:
 

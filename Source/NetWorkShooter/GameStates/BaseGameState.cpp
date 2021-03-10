@@ -103,3 +103,7 @@ void ABaseGameState::IncrementPlayTime()
     CurrentPlayTime -= DecrementTime;
 }
 
+void ABaseGameState::NewPlayerConnected(ABasePlayerState* NewPlayer)
+{
+    
+}

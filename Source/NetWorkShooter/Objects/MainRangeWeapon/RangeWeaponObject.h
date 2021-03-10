@@ -13,7 +13,7 @@ class NETWORKSHOOTER_API URangeWeaponObject : public UMainWeaponObject
 {
 	GENERATED_BODY()
 
-	UFUNCTION(NetMulticast, Unreliable)
+	UFUNCTION(NetMulticast, Reliable)
 	void GetTraceInfoDebugger(FVector Start, FVector End, FVector Center);
 	void GetTraceInfoDebugger_Implementation(FVector Start, FVector End, FVector Center);
 
@@ -44,15 +44,16 @@ public:
 	void StopReload() { GetWorld()->GetTimerManager().ClearTimer(ReloadHandle); }
 
 	virtual bool UseWeapon() override;
+	virtual void StopUseWeapon() override;
 	virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
 
-	virtual TAssetPtr< USkeletalMesh > GetWeaponMesh() const override { return RangeWeaponData->WeaponMesh; }
-    virtual float GetBaseDamage() const override { return RangeWeaponData->BaseDamage; }
-    virtual float GetRangeOfUse() const override { return RangeWeaponData->RangeOfUse; }
-    virtual float GetDelayBeforeUse() const override { return RangeWeaponData->DelayBeforeUse; }
+	virtual TAssetPtr< USkeletalMesh > GetWeaponMesh() const override { return RangeWeaponData.WeaponMesh; }
+    virtual float GetBaseDamage() const override { return RangeWeaponData.BaseDamage; }
+    virtual float GetRangeOfUse() const override { return RangeWeaponData.RangeOfUse; }
+    virtual float GetDelayBeforeUse() const override { return RangeWeaponData.DelayBeforeUse; }
+	virtual TEnumAsByte<EEquipmentSlot> GetEquipmentSlot() const override { return RangeWeaponData.EquipmentSlot; }
 	
 	virtual void Init(UDataTable* WeaponData, TCHAR* ContextString) override;
-
 		
 	/** Start process reloading */
 	void ReloadStart();
@@ -65,20 +66,22 @@ protected:
 
 	virtual bool IsAbleToUseWeapon() override;
 	virtual void StopRateDelay() override;
+	virtual bool IsAbleReload();
 
 	UFUNCTION()
 	virtual void OnRep_Reloading();
-	virtual bool IsAbleReload();
+	
+	UFUNCTION()
+    virtual void DropLineTrace();
 
+	/** spawn emitter and sound on client */
+	void PlayerWeaponEffectors();
 
 	/** Finish process reload */
 	void ReloadFinish();
 	
-	UFUNCTION()
-	FHitResult GetTraceInfo();
-
-
-
+	FVector GetShootDirection();
+	
 private:
 
 	UPROPERTY(Replicated)
@@ -90,8 +93,11 @@ private:
 	UPROPERTY(ReplicatedUsing = OnRep_Reloading)
 	bool bReloading;
 
+	float CurrentSpread;
+
 	UPROPERTY()
 	FTimerHandle ReloadHandle;
 
-	FRangeWeaponData* RangeWeaponData;
+	UPROPERTY(Replicated)
+	FRangeWeaponData RangeWeaponData;
 };

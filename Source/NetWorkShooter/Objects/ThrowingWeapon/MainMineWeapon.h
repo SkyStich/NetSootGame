@@ -27,6 +27,5 @@ protected:
 	
 	virtual bool IsAbleToUseWeapon() override;
 	virtual void OuterDead(AController* Controller) override;
-	virtual void PreparationForUse() override;
-	
+	virtual void PreparationForUse() override;	
 };

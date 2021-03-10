@@ -75,9 +75,15 @@ struct FRangeWeaponData : public FBaseWeaponData
 	/** Drop in damage for every 100 units passed from (DistanceVector(Start, End) - MaxDamageDistance). Max drop = BaseDamage / 2. 1 unit == 1 damage */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = DataAsset)
 	float DamageDrop;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = DataAsset)
+	float MaxSpread;
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = DataAsset)
 	bool CanAutoFire;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = DataAsset)
+	UParticleSystem* FireParticle;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = DataAsset)
 	TSubclassOf<AMainProjectile>Projectile;

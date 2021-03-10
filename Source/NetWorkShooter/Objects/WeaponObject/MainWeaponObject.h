@@ -7,6 +7,9 @@
 #include "NetWorkShooter/DataAssets/WeaponDataAssetBase.h"
 #include "MainWeaponObject.generated.h"
 
+
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FWeaponUsed, UMainWeaponObject*, Weapon);
+
 class ANetWorkShooterCharacter;
 struct FRangeWeaponData;
 
@@ -14,6 +17,12 @@ UCLASS(Abstract, Blueprintable)
 class NETWORKSHOOTER_API UMainWeaponObject : public UObject
 {
 	GENERATED_BODY()
+
+    UFUNCTION(Server, Unreliable)
+    void Server_UseWeapon();
+
+    UFUNCTION(Server, Unreliable)
+    void Server_StopUseWeapon();
 
 public:
     
@@ -33,6 +42,12 @@ public:
     void SetWeaponName(FName const NewName) { WeaponName = NewName; }
     void SetCharacterOwner(ANetWorkShooterCharacter* NewOwner) { CharacterOwner = NewOwner; }
 
+    UFUNCTION(BlueprintCallable)
+    void Client_UseWeapon();
+
+    UFUNCTION(BlueprintCallable)
+    void Client_StopUseWeapon();
+
     /** start getting var from base weapon struct */
     UFUNCTION(BlueprintPure, Category = "Weapon|Getting")
     virtual TAssetPtr< USkeletalMesh > GetWeaponMesh() const { return nullptr; }
@@ -47,15 +62,12 @@ public:
     virtual float GetDelayBeforeUse() const { return 0.f; }
 
     UFUNCTION(BlueprintPure, Category = "Weapon|Getting")
-    virtual TEnumAsByte<EEquipmentSlot> GetEquipmentSlot() const { return SlotCategory; }
+    virtual TEnumAsByte<EEquipmentSlot> GetEquipmentSlot() const { return EEquipmentSlot::None; }
     /** stop getting var from base weapon struct */
 
     /** Get current weapon name */
     UFUNCTION(BlueprintPure, Category = "Weapon|Getter")
     FName GetWeaponName() const { return WeaponName; }
-
-    UFUNCTION(BlueprintCallable, Category = "Weapon|UseWeapon")
-    virtual bool UseWeapon();
 
     UFUNCTION()
     virtual void StopRateDelay();
@@ -78,9 +90,23 @@ protected:
     UFUNCTION()
     bool GetAuthority() const;
     
+    UFUNCTION()
+    virtual void OnRep_UseWeapon();
+    
+    UFUNCTION(BlueprintCallable, Category = "Weapon|UseWeapon")
+    virtual bool UseWeapon();
+
+    FORCEINLINE bool IsOtherPlayer() const;
+
+public:
+
+    UPROPERTY(BlueprintAssignable)
+    FWeaponUsed OnWeaponUsedEvent;
+    
 protected:
 
     /** true - if we use weapon naw */
+    UPROPERTY(ReplicatedUsing = OnRep_UseWeapon)
     bool bUseWeapon;
 
     /** Timer use for delay before use weapon */
@@ -88,9 +114,6 @@ protected:
     
     UPROPERTY(Replicated)
     ANetWorkShooterCharacter* CharacterOwner;
-    
-    UPROPERTY(Replicated)
-    TEnumAsByte<EEquipmentSlot> SlotCategory;
 
 private:
 

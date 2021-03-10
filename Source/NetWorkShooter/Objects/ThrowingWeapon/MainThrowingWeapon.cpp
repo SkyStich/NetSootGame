@@ -7,9 +7,8 @@
 
 void UMainThrowingWeapon::Init(UDataTable* WeaponData, TCHAR* ContextString)
 {
-	ThrowData = WeaponData->FindRow<FThrowWeaponData>(GetWeaponName(), ContextString);
-	SlotCategory = ThrowData->EquipmentSlot;
-	CurrentAmount = ThrowData->MaxAmount;
+	ThrowData = *WeaponData->FindRow<FThrowWeaponData>(GetWeaponName(), ContextString);
+	CurrentAmount = ThrowData.MaxAmount;
 }
 
 void UMainThrowingWeapon::GetLifetimeReplicatedProps(TArray< FLifetimeProperty > & OutLifetimeProps) const
@@ -17,6 +16,7 @@ void UMainThrowingWeapon::GetLifetimeReplicatedProps(TArray< FLifetimeProperty >
 	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
 
 	DOREPLIFETIME_CONDITION(UMainThrowingWeapon, CurrentAmount, COND_OwnerOnly);
+	DOREPLIFETIME(UMainThrowingWeapon, ThrowData);
 }
 
 bool UMainThrowingWeapon::UseWeapon()
@@ -24,8 +24,7 @@ bool UMainThrowingWeapon::UseWeapon()
 	if(this->IsAbleToUseWeapon() && GetAuthority())
 	{		
 		bUseWeapon = true;
-		CurrentAmount--;
-		
+		CurrentAmount--;		
 		CharacterOwner->GetHealthComponent()->HealthEndedEvent.AddDynamic(this, &UMainThrowingWeapon::OuterDead);
 		
 		FTimerDelegate TimerDel;
@@ -45,7 +44,7 @@ void UMainThrowingWeapon::StopUseWeapon()
 		
 		if(CurrentAmount > 0)
 		{
-			GetWorld()->GetTimerManager().SetTimer(UseWeaponHandle, this, &UMainThrowingWeapon::StopRateDelay, ThrowData->DelayBeforeUse, false);
+			GetWorld()->GetTimerManager().SetTimer(UseWeaponHandle, this, &UMainThrowingWeapon::StopRateDelay, ThrowData.DelayBeforeUse, false);
 		}
 	}	
 }

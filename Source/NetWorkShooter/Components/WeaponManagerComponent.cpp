@@ -40,16 +40,6 @@ void UWeaponManagerComponent::BeginPlay()
 	}
 }
 
-void UWeaponManagerComponent::ServerStartUseWeapon_Implementation()
-{
-	CurrentWeapon->UseWeapon();
-}
-
-void UWeaponManagerComponent::ServerStopUseWeapon_Implementation()
-{
-	CurrentWeapon->StopUseWeapon();
-}
-
 void UWeaponManagerComponent::GetLifetimeReplicatedProps(TArray< FLifetimeProperty > & OutLifetimeProps) const
 {
 	Super::GetLifetimeReplicatedProps(OutLifetimeProps);

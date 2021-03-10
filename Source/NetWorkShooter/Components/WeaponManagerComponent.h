@@ -22,15 +22,6 @@ class NETWORKSHOOTER_API UWeaponManagerComponent : public UActorComponent
 	void OnRep_CurrentWeapon();
 
 public:
-
-	/** Server func */
-	UFUNCTION(Server, Unreliable)
-	void ServerStartUseWeapon();
-	void ServerStartUseWeapon_Implementation();
-
-	UFUNCTION(Server, Unreliable)
-	void ServerStopUseWeapon();
-	void ServerStopUseWeapon_Implementation();
 	
 	// Sets default values for this component's properties
 	UWeaponManagerComponent();

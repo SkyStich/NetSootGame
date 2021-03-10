@@ -72,10 +72,10 @@ ABaseMineSpecialWeapon* UMainMineWeapon::SettingsMine(AController* OwnerControll
 
 	FRotator const Rotation = CharacterOwner->GetCapsuleComponent()->GetComponentRotation();
 
-	auto const SpawnMime = GetWorld()->SpawnActor<ABaseMineSpecialWeapon>(ThrowData->SpecialActor, SpawnLocation, Rotation, SpawnParams);
+	auto const SpawnMime = GetWorld()->SpawnActor<ABaseMineSpecialWeapon>(ThrowData.SpecialActor, SpawnLocation, Rotation, SpawnParams);
 	if(SpawnMime)
 	{
-		SpawnMime->Init(ThrowData);
+		SpawnMime->Init(&ThrowData);
 		return SpawnMime;
 	}
 	else
@@ -105,10 +105,13 @@ bool UMainMineWeapon::UseWeapon()
 
 void UMainMineWeapon::StopUseWeapon()
 {
-	if(!GetWorld()->GetTimerManager().IsTimerActive(PreparationForUseHandle))
+	if(GetAuthority())
 	{
-		CharacterOwner->GetHealthComponent()->HealthEndedEvent.RemoveDynamic(this, &UMainMineWeapon::OuterDead);
-		Super::StopUseWeapon();
+		if(!GetWorld()->GetTimerManager().IsTimerActive(PreparationForUseHandle))
+		{
+			CharacterOwner->GetHealthComponent()->HealthEndedEvent.RemoveDynamic(this, &UMainMineWeapon::OuterDead);
+			Super::StopUseWeapon();
+		}
 	}
 }
 

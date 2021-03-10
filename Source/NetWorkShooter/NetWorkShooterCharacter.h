@@ -17,8 +17,8 @@ class ANetWorkShooterCharacter : public ACharacter
 
 private:
 
-	void UseWeaponPressed();
-	void UseWeaponReleased();
+//	void UseWeaponPressed();
+//	void UseWeaponReleased();
 
 	UFUNCTION(Server, Unreliable)
 	void ServerReloading();

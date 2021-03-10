@@ -11,6 +11,11 @@ UMainWeaponObject::UMainWeaponObject()
     
 }
 
+bool UMainWeaponObject::IsOtherPlayer() const
+{
+    return !CharacterOwner->Controller;
+}
+
 bool UMainWeaponObject::GetAuthority() const
 {
     return (GetWorld() == nullptr) || (GetWorld()->GetNetMode() != NM_Client) || GetWorld()->IsPlayingReplay();
@@ -37,8 +42,9 @@ void UMainWeaponObject::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& Ou
     Super::GetLifetimeReplicatedProps(OutLifetimeProps);
 
     DOREPLIFETIME(UMainWeaponObject, CharacterOwner);
+    
     DOREPLIFETIME_CONDITION(UMainWeaponObject, WeaponName, COND_OwnerOnly);
-    DOREPLIFETIME(UMainWeaponObject, SlotCategory);
+    DOREPLIFETIME_CONDITION(UMainWeaponObject, bUseWeapon, COND_SkipOwner);
 }
 
 void UMainWeaponObject::PostInitProperties()
@@ -56,10 +62,10 @@ void UMainWeaponObject::BeginPlay()
 
 bool UMainWeaponObject::UseWeapon()
 {
-    if(this->IsAbleToUseWeapon() && GetAuthority())
+    if(this->IsAbleToUseWeapon())
     {
-        bUseWeapon = true;
         GetWorld()->GetTimerManager().SetTimer(UseWeaponHandle, this, &UMainWeaponObject::StopRateDelay, GetDelayBeforeUse());
+        OnWeaponUsedEvent.Broadcast(this);
         return true;
     }
    return false;
@@ -78,5 +84,49 @@ void UMainWeaponObject::StopRateDelay()
 void UMainWeaponObject::StopUseWeapon()
 {
     bUseWeapon = false;
+}
+
+void UMainWeaponObject::Server_UseWeapon_Implementation()
+{
+    UseWeapon();
+}
+
+void UMainWeaponObject::Client_UseWeapon()
+{
+    if(IsAbleToUseWeapon())
+    {
+        Server_UseWeapon();
+
+        /** and call in client for create effects. */
+        UseWeapon();
+    }
+}
+
+void UMainWeaponObject::Server_StopUseWeapon_Implementation()
+{
+    StopUseWeapon();
+}
+
+void UMainWeaponObject::Client_StopUseWeapon()
+{
+    Server_StopUseWeapon();
+
+    /** and call on client for stop play effects */
+    StopUseWeapon();
+}
+
+void UMainWeaponObject::OnRep_UseWeapon()
+{
+    if(IsOtherPlayer())
+    {
+        if(bUseWeapon)
+        {
+            UseWeapon();
+        }
+        else
+        {
+            StopUseWeapon();
+        }
+    }
 }
 

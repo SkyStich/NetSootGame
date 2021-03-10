@@ -2,7 +2,10 @@
 
 
 #include "BasePlayerState.h"
+
+#include "Kismet/GameplayStatics.h"
 #include "Net/UnrealNetwork.h"
+#include "NetWorkShooter/GameStates/BaseGameState.h"
 
 ABasePlayerState::ABasePlayerState()
 {    
@@ -28,7 +31,7 @@ void ABasePlayerState::BeginPlay()
 
     if(GetLocalRole() == ROLE_Authority)
     {
-        SetPlayerName("Jon");
+        Cast<ABaseGameState>(UGameplayStatics::GetGameState(GetWorld()))->NewPlayerConnected(this);
     }
 }
 

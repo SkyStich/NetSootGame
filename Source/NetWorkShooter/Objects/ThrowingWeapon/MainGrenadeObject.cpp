@@ -30,10 +30,10 @@ void UMainGrenadeObject::GrenadeThrow(float const TotalTimeBeforeExplosion, bool
 	SpawnParam.Owner = Controller;
 	SpawnParam.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
 
-	auto const Grenade = GetWorld()->SpawnActor<ABaseGrenadeWeapon>(ThrowData->SpecialActor, Start, Rotation, SpawnParam);
+	auto const Grenade = GetWorld()->SpawnActor<ABaseGrenadeWeapon>(ThrowData.SpecialActor, Start, Rotation, SpawnParam);
 	if(Grenade)
 	{
-		Grenade->Init(ThrowData, TotalTimeBeforeExplosion, bThrowSucceeded);
+		Grenade->Init(&ThrowData, TotalTimeBeforeExplosion, bThrowSucceeded);
 	}
 	else
 	{
@@ -43,6 +43,8 @@ void UMainGrenadeObject::GrenadeThrow(float const TotalTimeBeforeExplosion, bool
 
 bool UMainGrenadeObject::UseWeapon()
 {
+	if(!GetAuthority()) return false;
+	
 	bWantPreparation = true;
 	
 	return Super::UseWeapon();
@@ -74,36 +76,39 @@ void UMainGrenadeObject::PreparationForUse()
 			/** if we held the grenade for too long and it exploded in the owner's hand */
 			FTimerDelegate TimerDel;
 			TimerDel.BindUObject(this, &UMainGrenadeObject::GrenadeThrow, 0.f, true, CharacterOwner->Controller);
-			GetWorld()->GetTimerManager().SetTimer(ExplosionHandle, TimerDel, ThrowData->TimeBeforeExplosion, false);
+			GetWorld()->GetTimerManager().SetTimer(ExplosionHandle, TimerDel, ThrowData.TimeBeforeExplosion, false);
 		}
 		else
 		{
 			/** throw the grenade and give it the remaining time before detonating */
-			GrenadeThrow(ThrowData->TimeBeforeExplosion, true, CharacterOwner->Controller);
+			GrenadeThrow(ThrowData.TimeBeforeExplosion, true, CharacterOwner->Controller);
 		}
 	}
 }
 
 void UMainGrenadeObject::StopUseWeapon()
 {
-	/** We don't want to hold a grenade */
-	bWantPreparation = false;
-
-	/** if the timer that is responsible for preparing the grenade for throwing is not active. and the timer before the explosion is still active */
-	if(!GetWorld()->GetTimerManager().IsTimerActive(PreparationForUseHandle))
+	if(GetAuthority())
 	{
-		CharacterOwner->GetHealthComponent()->HealthEndedEvent.RemoveDynamic(this, &UMainGrenadeObject::OuterDead);
-		
-		if(GetWorld()->GetTimerManager().IsTimerActive(ExplosionHandle))
+		/** We don't want to hold a grenade */
+		bWantPreparation = false;
+
+		/** if the timer that is responsible for preparing the grenade for throwing is not active. and the timer before the explosion is still active */
+		if(!GetWorld()->GetTimerManager().IsTimerActive(PreparationForUseHandle))
 		{
-			/** Throw the grenade and give it the remaining time to throw. To clarify that the owner threw a grenade. */
-			GrenadeThrow(GetWorld()->GetTimerManager().GetTimerRemaining(ExplosionHandle), true, CharacterOwner->GetController());
+			CharacterOwner->GetHealthComponent()->HealthEndedEvent.RemoveDynamic(this, &UMainGrenadeObject::OuterDead);
+		
+			if(GetWorld()->GetTimerManager().IsTimerActive(ExplosionHandle))
+			{
+				/** Throw the grenade and give it the remaining time to throw. To clarify that the owner threw a grenade. */
+				GrenadeThrow(GetWorld()->GetTimerManager().GetTimerRemaining(ExplosionHandle), true, CharacterOwner->GetController());
 
-			/** Prevent the object from controlling the timer before detonation */
-			GetWorld()->GetTimerManager().ClearTimer(ExplosionHandle);
+				/** Prevent the object from controlling the timer before detonation */
+				GetWorld()->GetTimerManager().ClearTimer(ExplosionHandle);
+			}
+
+			/** Call parent logic */
+			Super::StopUseWeapon();
 		}
-
-		/** Call parent logic */
-		Super::StopUseWeapon();
 	}
 }
