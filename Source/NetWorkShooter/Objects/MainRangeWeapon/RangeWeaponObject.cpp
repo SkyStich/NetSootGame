@@ -10,7 +10,7 @@
 
 URangeWeaponObject::URangeWeaponObject()
 {
-
+    CurrentSpread = 0.f;
 }
 
 void URangeWeaponObject::Init(UDataTable* WeaponData, TCHAR* ContextString)
@@ -48,6 +48,8 @@ int32 URangeWeaponObject::CalculateDamageWithDistance(const FVector& Start, cons
 
 void URangeWeaponObject::PlayerWeaponEffectors()
 {
+    Super::PlayerWeaponEffectors();
+    
     FVector const SpawnLocation = CharacterOwner->GetWeaponSkeletalMeshComponent()->GetSocketLocation("Muzzle");
     UGameplayStatics::SpawnEmitterAttached(RangeWeaponData.FireParticle, CharacterOwner->GetWeaponSkeletalMeshComponent(), "Muzzle");
 }
@@ -99,6 +101,8 @@ void URangeWeaponObject::StopRateDelay()
 
 FVector URangeWeaponObject::GetShootDirection()
 {
+    CurrentSpread += RangeWeaponData.MaxSpread / RangeWeaponData.MaxAmmoInWeapon;
+    
     FVector ForwardVector = CharacterOwner->Controller->GetControlRotation().Vector();
 
     /** Rotate trace with horizontal */
@@ -106,8 +110,6 @@ FVector URangeWeaponObject::GetShootDirection()
 
     /** reottae trace with use up vector */
     FVector const VerticalRotate = HorizontalRotate.RotateAngleAxis(UKismetMathLibrary::RandomFloatInRange(CurrentSpread * -1, CurrentSpread), ForwardVector.UpVector);
-
-    CurrentSpread += RangeWeaponData.MaxSpread / RangeWeaponData.MaxAmmoInWeapon;
     
     return VerticalRotate;
 }
@@ -140,16 +142,16 @@ void URangeWeaponObject::DropLineTrace()
     FVector const UnitVector = UKismetMathLibrary::GetDirectionUnitVector(OutHit.TraceEnd, OutHit.TraceStart);
     UGameplayStatics::ApplyPointDamage(OutHit.GetActor(), NewDamage, UnitVector, OutHit, CharacterOwner->GetController(),CharacterOwner, UDamageType::StaticClass());
 
-    if(OutHit.GetComponent()->IsSimulatingPhysics())
-    {
-        OutHit.GetComponent()->AddImpulseAtLocation(CharacterOwner->GetVelocity() * NewDamage, OutHit.ImpactPoint);
-    }
+    //if(OutHit.GetComponent()->IsSimulatingPhysics())
+    //{
+      //  OutHit.GetComponent()->AddImpulseAtLocation(CharacterOwner->GetVelocity() * NewDamage, OutHit.ImpactPoint);
+    //}
 }
 
 void URangeWeaponObject::GetTraceInfoDebugger_Implementation(FVector Start, FVector End, FVector Center)
 {
     DrawDebugLine(GetWorld(), Start, End, FColor::Purple, false, 1.f);
-    DrawDebugSphere(GetWorld(), Center, 20.f, 8, FColor::Purple, false, 1.f);
+    DrawDebugSphere(GetWorld(), Center, 6.f, 8, FColor::Purple, false, 1.f);
 }
 
 bool URangeWeaponObject::IsAbleReload()
@@ -172,21 +174,22 @@ void URangeWeaponObject::ReloadWeapon()
     if(IsAbleReload())
     {
         ServerReloading();
+        
+        /** Call on owning clinet for instant recharge responce */
+        ReloadStart();
     }
 }
 
 void URangeWeaponObject::OnRep_Reloading()
 {
-    if(bReloading)
-    {
-        OnReloadingEvent.Broadcast();
-    }
+    OnReloadingEvent.Broadcast(bReloading);
 }
 
 void URangeWeaponObject::ReloadStart()
 {
-    GetWorld()->GetTimerManager().SetTimer(ReloadHandle, this, &URangeWeaponObject::ReloadFinish,  RangeWeaponData.ReloadTime, false);
     bReloading = true;
+    
+    GetWorld()->GetTimerManager().SetTimer(ReloadHandle, this, &URangeWeaponObject::ReloadFinish,  RangeWeaponData.ReloadTime, false);
 }
 
 void URangeWeaponObject::ReloadFinish()

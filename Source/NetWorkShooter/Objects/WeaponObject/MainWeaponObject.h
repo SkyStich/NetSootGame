@@ -60,6 +60,9 @@ public:
 
     UFUNCTION(BlueprintPure, Category = "Weapon|Getting")
     virtual float GetDelayBeforeUse() const { return 0.f; }
+    
+    UFUNCTION(BlueprintPure, Category = "Weapon|Getting")
+    virtual USoundCue* GetUseWeaponSound() const { return nullptr; }
 
     UFUNCTION(BlueprintPure, Category = "Weapon|Getting")
     virtual TEnumAsByte<EEquipmentSlot> GetEquipmentSlot() const { return EEquipmentSlot::None; }
@@ -85,6 +88,9 @@ protected:
 
     /** return true, if we can use weapon naw */
     virtual bool IsAbleToUseWeapon();
+
+    /** spawn emitter and sound on client */
+    virtual void PlayerWeaponEffectors();
     
     /** return true if this authority */
     UFUNCTION()

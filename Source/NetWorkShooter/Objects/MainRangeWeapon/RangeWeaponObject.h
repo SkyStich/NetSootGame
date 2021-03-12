@@ -6,7 +6,7 @@
 #include "NetWorkShooter/Objects/WeaponObject/MainWeaponObject.h"
 #include "RangeWeaponObject.generated.h"
 
-DECLARE_DYNAMIC_MULTICAST_DELEGATE(FReloading);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FReloading, bool, NewState);
 
 UCLASS(Blueprintable, Abstract)
 class NETWORKSHOOTER_API URangeWeaponObject : public UMainWeaponObject
@@ -17,11 +17,11 @@ class NETWORKSHOOTER_API URangeWeaponObject : public UMainWeaponObject
 	void GetTraceInfoDebugger(FVector Start, FVector End, FVector Center);
 	void GetTraceInfoDebugger_Implementation(FVector Start, FVector End, FVector Center);
 
+	int32 CalculateDamageWithDistance(const FVector& Start, const FVector& End, float Damage);
+	
 	/** Call in ReloadWeapon */
 	UFUNCTION(Server, Unreliable)
-	void ServerReloading();
-
-	int32 CalculateDamageWithDistance(const FVector& Start, const FVector& End, float Damage);
+    void ServerReloading();
 
 public:
 
@@ -52,15 +52,9 @@ public:
     virtual float GetRangeOfUse() const override { return RangeWeaponData.RangeOfUse; }
     virtual float GetDelayBeforeUse() const override { return RangeWeaponData.DelayBeforeUse; }
 	virtual TEnumAsByte<EEquipmentSlot> GetEquipmentSlot() const override { return RangeWeaponData.EquipmentSlot; }
+	virtual USoundCue* GetUseWeaponSound() const override { return RangeWeaponData.UseWeaponCue; }
 	
 	virtual void Init(UDataTable* WeaponData, TCHAR* ContextString) override;
-		
-	/** Start process reloading */
-	void ReloadStart();
-
-public:
-
-	FReloading OnReloadingEvent;
 
 protected:
 
@@ -73,14 +67,21 @@ protected:
 	
 	UFUNCTION()
     virtual void DropLineTrace();
+	
+	virtual void PlayerWeaponEffectors() override;
 
-	/** spawn emitter and sound on client */
-	void PlayerWeaponEffectors();
-
+	/** Start process reloading */
+	virtual void ReloadStart();
+	
 	/** Finish process reload */
-	void ReloadFinish();
+	virtual void ReloadFinish();
 	
 	FVector GetShootDirection();
+
+public:
+
+	UPROPERTY(BlueprintAssignable, Category = "Weapon|Reloading")
+	FReloading OnReloadingEvent;
 	
 private:
 

@@ -7,6 +7,8 @@
 #include "Engine/DataTable.h"
 #include "NetWorkShooter/Actors/Projectiles/MainProjectile/MainProjectile.h"
 #include "NetWorkShooter/Actors/SpecialWeapon/BaseSpecialWeapon.h"
+#include "Sound/SoundCue.h"
+
 #include "WeaponDataAssetBase.generated.h"
 
 UENUM(BlueprintType)
@@ -49,6 +51,9 @@ struct FBaseWeaponData : public FTableRowBase
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = DataAsset)
 	TSoftClassPtr< class UMainWeaponObject > WeaponClass;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = DataAsset)
+    USoundCue* UseWeaponCue;
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = DataAsset)
 	TEnumAsByte<EEquipmentSlot> EquipmentSlot;

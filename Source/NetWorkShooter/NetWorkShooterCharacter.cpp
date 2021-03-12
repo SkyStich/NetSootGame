@@ -151,15 +151,11 @@ void ANetWorkShooterCharacter::OnRep_CurrentWeaponMesh()
 
 void ANetWorkShooterCharacter::ReloadPressed()
 {
-	if(Cast<URangeWeaponObject>(WeaponManagerComponent->GetCurrentWeapon()))
+	auto const TempCurrentWeapon = Cast<URangeWeaponObject>(WeaponManagerComponent->GetCurrentWeapon());
+	if(TempCurrentWeapon)
 	{
-		ServerReloading();
+		TempCurrentWeapon->ReloadWeapon();
 	}
-}
-
-void ANetWorkShooterCharacter::ServerReloading_Implementation()
-{
-	Cast<URangeWeaponObject>(WeaponManagerComponent->GetCurrentWeapon())->ReloadStart();
 }
 
 void ANetWorkShooterCharacter::CharacterDead(AController* OldController)

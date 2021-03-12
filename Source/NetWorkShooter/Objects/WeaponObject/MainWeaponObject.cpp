@@ -3,6 +3,7 @@
 
 #include "MainWeaponObject.h"
 #include "Engine/NetDriver.h"
+#include "Kismet/GameplayStatics.h"
 #include "Net/UnrealNetwork.h"
 #include "NetWorkShooter/NetWorkShooterCharacter.h"
 
@@ -60,6 +61,11 @@ void UMainWeaponObject::BeginPlay()
 
 }
 
+void UMainWeaponObject::PlayerWeaponEffectors()
+{
+    UGameplayStatics::PlaySoundAtLocation(GetWorld(), GetUseWeaponSound(), CharacterOwner->GetActorLocation());
+}
+
 bool UMainWeaponObject::UseWeapon()
 {
     if(this->IsAbleToUseWeapon())
@@ -68,6 +74,7 @@ bool UMainWeaponObject::UseWeapon()
         OnWeaponUsedEvent.Broadcast(this);
         return true;
     }
+    StopUseWeapon();
    return false;
 }
 

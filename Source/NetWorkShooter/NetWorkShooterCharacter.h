@@ -20,10 +20,6 @@ private:
 //	void UseWeaponPressed();
 //	void UseWeaponReleased();
 
-	UFUNCTION(Server, Unreliable)
-	void ServerReloading();
-	void ServerReloading_Implementation();
-
 	/** This function checked class weapon from optimisation net */
 	void ReloadPressed();
 
