@@ -30,7 +30,6 @@ void UHealthComponent::BeginPlay()
 
 	if(GetOwnerRole() == ROLE_Authority)
 	{
-		//GetOwner()->OnTakeAnyDamage.AddDynamic(this, &UHealthComponent::OnPlayerTakeAnyDamage);
 		GetOwner()->OnTakeRadialDamage.AddDynamic(this, &UHealthComponent::OnPlayerTakeRadialDamage);
 		GetOwner()->OnTakePointDamage.AddDynamic(this, &UHealthComponent::OnPlayerTakePointDamage);
 		CurrentHealth = MaxHealth;
@@ -94,24 +93,28 @@ float UHealthComponent::ArmorResist(float BaseDamage, float const Resist)
 	CurrentArmor = UKismetMathLibrary::Max(TempArmor, 0);
 	return NewDamage + (TempArmor < 0 ? abs(TempArmor) : 0);
 }
-void UHealthComponent::OnPlayerTakeAnyDamage(AActor* DamageActor, float BaseDamage, const UDamageType* DamageType, AController* InstigatorController, AActor* DamageCauser)
-{
-	//CurrentHealth -= BaseDamage;	
-	CheckHealth(InstigatorController, DamageCauser);
-}
 
 void UHealthComponent::OnPlayerTakePointDamage(AActor* DamagedActor, float Damage, AController* InstigatedBy, FVector HitLocation, UPrimitiveComponent* FHitComponent, FName BoneName, FVector ShotFromDirection, const UDamageType* DamageType, AActor* DamageCauser)
 {
-	CurrentHealth -= ArmorResist(Damage, PointDamageResist);
+	float const TempDamage = ArmorResist(Damage, PointDamageResist);
+	CurrentHealth -= TempDamage;
+
+	Client_NotifyDamage(ShotFromDirection, TempDamage);
+	
 	CheckHealth(InstigatedBy, DamageCauser);
 }
 
 void UHealthComponent::OnPlayerTakeRadialDamage(AActor* DamagedActor, float Damage, const UDamageType* DamageType, FVector Origin, FHitResult HitInfo, AController* InstigatedBy, AActor* DamageCauser)
 {
-	CurrentHealth -= ArmorResist(Damage, RadialDamageResist);
-	
-	if(CheckHealth(InstigatedBy, DamageCauser))
-	{
-		
-	}
+	auto const TempDamage = ArmorResist(Damage, RadialDamageResist);
+	CurrentHealth -= TempDamage;
+
+	Client_NotifyDamage(Origin, TempDamage);
+	CheckHealth(InstigatedBy, DamageCauser);
 }
+
+void UHealthComponent::Client_NotifyDamage_Implementation(const FVector& DamageVector, float Damage)
+{
+	OnClientOwnerReceiveDamageEvent.Broadcast(DamageVector, Damage);
+}
+

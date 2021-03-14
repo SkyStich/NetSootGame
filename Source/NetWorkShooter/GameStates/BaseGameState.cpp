@@ -88,7 +88,6 @@ void ABaseGameState::MatchEnd(FString Reason)
 
 void ABaseGameState::MulticastMatchEnd_Implementation(const FString& Reason)
 {
-    GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Purple, Reason);
     OnMatchEndedEvent.Broadcast(Reason);
 }
 
@@ -105,5 +104,5 @@ void ABaseGameState::IncrementPlayTime()
 
 void ABaseGameState::NewPlayerConnected(ABasePlayerState* NewPlayer)
 {
-    
+    OnNewPlayerConnectedEvent.Broadcast(NewPlayer);
 }

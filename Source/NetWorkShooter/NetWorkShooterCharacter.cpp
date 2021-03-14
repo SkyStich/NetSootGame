@@ -7,7 +7,6 @@
 #include "Objects/WeaponObject/MainWeaponObject.h"
 #include "Net/UnrealNetwork.h"
 #include "EngineUtils.h"
-#include "Animation/SkeletalMeshActor.h"
 #include "Objects/MainRangeWeapon/RangeWeaponObject.h"
 
 ANetWorkShooterCharacter::ANetWorkShooterCharacter()
@@ -29,6 +28,9 @@ ANetWorkShooterCharacter::ANetWorkShooterCharacter()
 	GetCharacterMovement()->RotationRate = FRotator(0.0f, 540.0f, 0.0f); // ...at this rotation rate
 	GetCharacterMovement()->JumpZVelocity = 600.f;
 	GetCharacterMovement()->AirControl = 0.2f;
+
+	CameraComponent = CreateDefaultSubobject<UCameraComponent>(TEXT("Camera"));
+	CameraComponent->SetupAttachment(GetCapsuleComponent());
 
 	/** Create and attach weapon skeletal mesh to socket */
 	WeaponSkeletalMeshComponent = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("WeaponSkeletalMesh"));
@@ -54,7 +56,7 @@ void ANetWorkShooterCharacter::BeginPlay()
 	{
 		GetMesh()->DestroyComponent();
 	}
-	else
+	else 
 	{
 		FirstPersonMesh->DestroyComponent();
 	}

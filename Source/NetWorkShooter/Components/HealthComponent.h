@@ -7,6 +7,7 @@
 #include "HealthComponent.generated.h"
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FHealthEndedEvent, AController*, OldController);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOwnerReceiveDamage, FVector, DamageVector, float, Damage);
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class NETWORKSHOOTER_API UHealthComponent : public UActorComponent
@@ -28,6 +29,9 @@ public:
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
+	UFUNCTION(Client, Unreliable)
+	void Client_NotifyDamage(const FVector& DamageVector, float Damage);
+
 	UFUNCTION(BlueprintPure, Category = "HealthComponent")
 	bool GetIsDead() const { return bIsDead; }
 
@@ -45,8 +49,8 @@ public:
 protected:
 
 	/** Not exposed to sewn armor. deal damage directly to health */
-	UFUNCTION()
-    void OnPlayerTakeAnyDamage(AActor* DamageActor, float BaseDamage, const UDamageType* DamageType, AController* InstigatorController, AActor* DamageCauser);
+	//UFUNCTION()
+    //void OnPlayerTakeAnyDamage(AActor* DamageActor, float BaseDamage, const UDamageType* DamageType, AController* InstigatorController, AActor* DamageCauser);
 	
 	UFUNCTION()
 	void OnPlayerTakePointDamage(AActor* DamagedActor, float Damage, AController* InstigatedBy, FVector HitLocation, UPrimitiveComponent* FHitComponent, FName BoneName, FVector ShotFromDirection, const UDamageType* DamageType, AActor* DamageCauser);
@@ -86,4 +90,7 @@ public:
 
 	UPROPERTY(BlueprintAssignable, Category = "HealthManager")
 	FHealthEndedEvent HealthEndedEvent;
+
+	UPROPERTY(BlueprintAssignable, Category = "MeathManager")
+	FOwnerReceiveDamage OnClientOwnerReceiveDamageEvent;
 };

@@ -3,6 +3,8 @@
 #pragma once
 
 #include "CoreMinimal.h"
+
+#include "Camera/CameraComponent.h"
 #include "GameFramework/Character.h"
 #include "Components/WeaponManagerComponent.h"
 #include "Components/HealthComponent.h"
@@ -77,6 +79,9 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	USkeletalMeshComponent* FirstPersonMesh;
+	
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	UCameraComponent* CameraComponent;
 
 private:
 

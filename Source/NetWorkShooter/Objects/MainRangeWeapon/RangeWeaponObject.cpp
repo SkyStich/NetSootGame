@@ -36,7 +36,7 @@ void URangeWeaponObject::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& O
     DOREPLIFETIME(URangeWeaponObject, RangeWeaponData);
 
     /** Reload replication */
-    DOREPLIFETIME(URangeWeaponObject, bReloading);
+    DOREPLIFETIME_CONDITION(URangeWeaponObject, bReloading, COND_SkipOwner);
 }
 
 int32 URangeWeaponObject::CalculateDamageWithDistance(const FVector& Start, const FVector& End, float Damage)
@@ -116,10 +116,11 @@ FVector URangeWeaponObject::GetShootDirection()
 
 void URangeWeaponObject::DropLineTrace()
 {
-    FHitResult OutHit;
-
-    FVector const TraceStart = CharacterOwner->GetWeaponSkeletalMeshComponent()->GetSocketLocation("Muzzle");
+    //FVector const TraceStart = CharacterOwner->GetWeaponSkeletalMeshComponent()->GetSocketLocation("Muzzle");
+    FVector const TraceStart = CharacterOwner->CameraComponent->GetComponentLocation();
     FVector const TraceEnd = GetShootDirection() * RangeWeaponData.RangeOfUse + TraceStart;
+
+    FHitResult OutHit;
 
     /** Init Collision Quary param */
     FCollisionQueryParams Params;
@@ -183,11 +184,14 @@ void URangeWeaponObject::ReloadWeapon()
 void URangeWeaponObject::OnRep_Reloading()
 {
     OnReloadingEvent.Broadcast(bReloading);
+    if(CharacterOwner->IsLocallyControlled()) GEngine->AddOnScreenDebugMessage(-1, 3.f, FColor::Green, TEXT("OnRep_ReloadingPOwner")); 
 }
 
 void URangeWeaponObject::ReloadStart()
 {
     bReloading = true;
+    
+    OnRep_Reloading();
     
     GetWorld()->GetTimerManager().SetTimer(ReloadHandle, this, &URangeWeaponObject::ReloadFinish,  RangeWeaponData.ReloadTime, false);
 }

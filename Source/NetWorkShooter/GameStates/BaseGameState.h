@@ -22,6 +22,8 @@ DECLARE_DYNAMIC_MULTICAST_DELEGATE(FMatchStart);
 /** Using for sync load user widget after character initialization */
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FMatchStateChanged, TEnumAsByte<EMatchState>, NewMatchState);
 
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FNewPlayerConnected, ABasePlayerState*, NewPlayer);
+
 class ANetWorkShooterGameMode;
 
 UCLASS(Abstract)
@@ -95,6 +97,9 @@ public:
 
     UPROPERTY(BlueprintAssignable)
     FMatchStart OnMatchStartedEvent;
+    
+    UPROPERTY(BlueprintAssignable)
+    FNewPlayerConnected OnNewPlayerConnectedEvent;
 
     FMatchStateChanged OnMatchStateChangedEvent;
 
