@@ -10,7 +10,8 @@
 class ANetWorkShooterCharacter;
 class UMainWeaponObject;
 
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FCurrentWeaponChanged, UMainWeaponObject*, NewCurrentWeapon);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FCurrentWeaponChanged, UMainWeaponObject*, NewCurrentWeapon, UMainWeaponObject*, OldWeapon);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FSelectWeapon, bool, bNewState);
 
 /** The manager who is responsible for the player's weapon */
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
@@ -21,10 +22,26 @@ class NETWORKSHOOTER_API UWeaponManagerComponent : public UActorComponent
 	UFUNCTION()
 	void OnRep_CurrentWeapon();
 
+	UFUNCTION()
+	void OnRep_SelectWeapon();
+
+	UFUNCTION()
+	void HalfSelectCompleted(UMainWeaponObject* NewWeapon);
+	
+	UFUNCTION()
+	void SelectCompleted();
+	
+	UFUNCTION(Server, Reliable)
+    void Server_SelectWeapon(EEquipmentSlot NewActiveSlot);
+
 public:
 	
 	// Sets default values for this component's properties
 	UWeaponManagerComponent();
+
+
+	UFUNCTION(BlueprintCallable)
+	void Client_WeaponSelect(TEnumAsByte<EEquipmentSlot> const NewSlot);
 
 	/** Set the weapon that the player is currently using */
 	UFUNCTION(BlueprintCallable, Category = "WeaponManager|Setter")
@@ -64,6 +81,7 @@ public:
 	UFUNCTION(BlueprintPure, Category = "WeaponManager|Getting")
     void GetWeapons(TMap<TEnumAsByte<EEquipmentSlot>, UMainWeaponObject*> & NewWeapons) const {  NewWeapons = Weapons; }
     auto GetWeapons() const { return Weapons; }
+	bool GetWeaponSelecting() const { return bWeaponSelecting; }
 	
 protected:
 	// Called when the game starts
@@ -79,6 +97,12 @@ private:
 	UPROPERTY(ReplicatedUsing = OnRep_CurrentWeapon)
 	UMainWeaponObject* CurrentWeapon;
 
+	UPROPERTY(Replicated)
+	UMainWeaponObject* OldWeapon;
+
+	UPROPERTY(ReplicatedUsing = OnRep_SelectWeapon)
+	bool bWeaponSelecting;
+
 	UPROPERTY()
 	ANetWorkShooterCharacter* CharacterOwner;
 
@@ -90,4 +114,7 @@ public:
 
 	UPROPERTY(BlueprintAssignable)
 	FCurrentWeaponChanged OnCurrentWeaponChangedEvent;
+
+	UPROPERTY(BlueprintAssignable)
+	FSelectWeapon OnSelectWeaponEvent;
 };

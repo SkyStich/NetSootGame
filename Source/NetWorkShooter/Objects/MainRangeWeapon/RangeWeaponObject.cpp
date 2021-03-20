@@ -50,8 +50,20 @@ void URangeWeaponObject::PlayerWeaponEffectors()
 {
     Super::PlayerWeaponEffectors();
     
-    FVector const SpawnLocation = CharacterOwner->GetWeaponSkeletalMeshComponent()->GetSocketLocation("Muzzle");
     UGameplayStatics::SpawnEmitterAttached(RangeWeaponData.FireParticle, CharacterOwner->GetWeaponSkeletalMeshComponent(), "Muzzle");
+}
+
+void URangeWeaponObject::SetCharacterOwner(ANetWorkShooterCharacter* NewOwner)
+{
+    Super::SetCharacterOwner(NewOwner);
+}
+
+void URangeWeaponObject::WeaponSelecting(bool bNewState)
+{
+    Super::WeaponSelecting(bNewState);
+    
+    if(bNewState)
+        ClearReload();
 }
 
 bool URangeWeaponObject::UseWeapon()
@@ -155,12 +167,19 @@ void URangeWeaponObject::GetTraceInfoDebugger_Implementation(FVector Start, FVec
     DrawDebugSphere(GetWorld(), Center, 6.f, 8, FColor::Purple, false, 1.f);
 }
 
+void URangeWeaponObject::OwnerDead(AController* OldController)
+{
+    Super::OwnerDead(OldController);
+
+    if(GetAuthority())
+        ClearReload();
+}
+
 bool URangeWeaponObject::IsAbleReload()
 {
     /** if current ammo in clip < max ammo in clip and we have ammo in storage */
     return CurrentAmmoInClip < RangeWeaponData.MaxAmmoInWeapon && CurrentAmmoInStorage > 0 && !bReloading;
 }
-
 
 void URangeWeaponObject::ServerReloading_Implementation()
 {
@@ -181,10 +200,15 @@ void URangeWeaponObject::ReloadWeapon()
     }
 }
 
+void URangeWeaponObject::ClearReload()
+{
+    GetWorld()->GetTimerManager().ClearTimer(ReloadHandle);
+    bReloading = false;
+}
+
 void URangeWeaponObject::OnRep_Reloading()
 {
     OnReloadingEvent.Broadcast(bReloading);
-    if(CharacterOwner->IsLocallyControlled()) GEngine->AddOnScreenDebugMessage(-1, 3.f, FColor::Green, TEXT("OnRep_ReloadingPOwner")); 
 }
 
 void URangeWeaponObject::ReloadStart()

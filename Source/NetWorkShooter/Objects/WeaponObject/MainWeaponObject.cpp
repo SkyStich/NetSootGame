@@ -61,6 +61,22 @@ void UMainWeaponObject::BeginPlay()
 
 }
 
+void UMainWeaponObject::SetCharacterOwner(ANetWorkShooterCharacter* NewOwner)
+{
+    CharacterOwner = NewOwner;
+    OnRep_Owner();
+}
+
+void UMainWeaponObject::OnRep_Owner()
+{
+    CharacterOwner->GetHealthComponent()->HealthEndedEvent.AddDynamic(this, &UMainWeaponObject::OwnerDead);
+}
+
+void UMainWeaponObject::OwnerDead(AController* OldController)
+{
+    StopUseWeapon();
+}
+
 void UMainWeaponObject::PlayerWeaponEffectors()
 {
     UGameplayStatics::PlaySoundAtLocation(GetWorld(), GetUseWeaponSound(), CharacterOwner->GetActorLocation());
@@ -74,13 +90,13 @@ bool UMainWeaponObject::UseWeapon()
         OnWeaponUsedEvent.Broadcast(this);
         return true;
     }
-    StopUseWeapon();
+   StopUseWeapon();
    return false;
 }
 
 bool UMainWeaponObject::IsAbleToUseWeapon()
 {
-    return !GetWorld()->GetTimerManager().IsTimerActive(UseWeaponHandle);
+    return !GetWorld()->GetTimerManager().IsTimerActive(UseWeaponHandle) && !CharacterOwner->GetWeaponManager()->GetWeaponSelecting();
 }
 
 void UMainWeaponObject::StopRateDelay()
@@ -124,16 +140,13 @@ void UMainWeaponObject::Client_StopUseWeapon()
 
 void UMainWeaponObject::OnRep_UseWeapon()
 {
-    if(IsOtherPlayer())
+    if(bUseWeapon)
     {
-        if(bUseWeapon)
-        {
-            UseWeapon();
-        }
-        else
-        {
-            StopUseWeapon();
-        }
+        UseWeapon();
+    }
+    else
+    {
+        StopUseWeapon();
     }
 }
 

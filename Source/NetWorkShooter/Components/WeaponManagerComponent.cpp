@@ -16,6 +16,7 @@ UWeaponManagerComponent::UWeaponManagerComponent()
 	PrimaryComponentTick.bCanEverTick = false;
 
 	SetIsReplicated(true);
+	bWeaponSelecting = false;
 
 	ConstructorHelpers::FObjectFinder<UWeaponDataAssetBase> WeaponDataHelpers(TEXT("/Game/ThirdPersonCPP/Blueprints/DataAssets/WeaponDataAsset.WeaponDataAsset"));
 	if(WeaponDataHelpers.Succeeded())
@@ -26,7 +27,7 @@ UWeaponManagerComponent::UWeaponManagerComponent()
 
 void UWeaponManagerComponent::OnRep_CurrentWeapon()
 {
-	OnCurrentWeaponChangedEvent.Broadcast(CurrentWeapon);
+	OnCurrentWeaponChangedEvent.Broadcast(CurrentWeapon, OldWeapon);
 }
 
 // Called when the game starts
@@ -46,6 +47,8 @@ void UWeaponManagerComponent::GetLifetimeReplicatedProps(TArray< FLifetimeProper
 
 	/** Replicated with using condition */
 	DOREPLIFETIME_CONDITION(UWeaponManagerComponent, Weapons, COND_OwnerOnly);
+	DOREPLIFETIME_CONDITION(UWeaponManagerComponent, OldWeapon, COND_OwnerOnly);
+	DOREPLIFETIME(UWeaponManagerComponent, bWeaponSelecting);
 	
 	/** Replicated without using condition */
 	DOREPLIFETIME(UWeaponManagerComponent, CurrentWeapon);
@@ -105,10 +108,30 @@ void UWeaponManagerComponent::SetCurrentWeapon(UMainWeaponObject* const NewCurre
 {
 	if(GetOwnerRole() == ROLE_Authority)
 	{
+		OldWeapon = CurrentWeapon;
 		CurrentWeapon = NewCurrentWeapon;
 		CharacterOwner->SetCurrentMesh(WeaponDataAssetBase->GetWeaponMesh(CurrentWeapon->GetWeaponMesh()));
 		CharacterOwner->OnRep_CurrentWeaponMesh();
 	}
+}
+
+void UWeaponManagerComponent::Client_WeaponSelect(TEnumAsByte<EEquipmentSlot> const NewSlot)
+{
+	GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Purple, TEXT("WeaponSelect"));
+	if(CurrentWeapon->GetEquipmentSlot() != NewSlot && !CurrentWeapon->GetUseWeapon())
+	{
+		Server_SelectWeapon(NewSlot);	
+	}
+}
+
+void UWeaponManagerComponent::Server_SelectWeapon_Implementation(EEquipmentSlot NewActiveSlot)
+{
+	SelectWeapon(NewActiveSlot);
+}
+		
+void UWeaponManagerComponent::OnRep_SelectWeapon()
+{
+	OnSelectWeaponEvent.Broadcast(bWeaponSelecting);
 }
 
 void UWeaponManagerComponent::SelectWeapon(TEnumAsByte<EEquipmentSlot> const NewActiveSlot)
@@ -116,12 +139,30 @@ void UWeaponManagerComponent::SelectWeapon(TEnumAsByte<EEquipmentSlot> const New
 	if(CurrentWeapon->GetEquipmentSlot() != NewActiveSlot)
 	{
 		auto const TempNewWeapon = Weapons.Find(NewActiveSlot);
-		if(TempNewWeapon)
+		if(TempNewWeapon && !CurrentWeapon->GetUseWeapon())
 		{
-			CurrentWeapon->StopUseWeapon();
-			SetCurrentWeapon(*TempNewWeapon);
+			bWeaponSelecting = true;
+			OnRep_SelectWeapon();
+
+			FTimerDelegate TimerDel;
+			FTimerHandle SelectWeaponHandle;
+			TimerDel.BindUObject(this, &UWeaponManagerComponent::HalfSelectCompleted, *TempNewWeapon);
+			GetWorld()->GetTimerManager().SetTimer(SelectWeaponHandle, TimerDel, 0.8f, false);
 		}
 	}
+}
+
+void UWeaponManagerComponent::HalfSelectCompleted(UMainWeaponObject* NewWeapon)
+{
+	FTimerHandle SelectWeaponHandle;
+	GetWorld()->GetTimerManager().SetTimer(SelectWeaponHandle, this, &UWeaponManagerComponent::SelectCompleted, 0.8f, false);
+	SetCurrentWeapon(NewWeapon);
+}
+
+void UWeaponManagerComponent::SelectCompleted()
+{
+	bWeaponSelecting = false;
+	OnRep_SelectWeapon();
 }
 
 void UWeaponManagerComponent::AddWeapon(UMainWeaponObject* WeaponToAdd)

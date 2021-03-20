@@ -23,6 +23,9 @@ class NETWORKSHOOTER_API URangeWeaponObject : public UMainWeaponObject
 	UFUNCTION(Server, Unreliable)
     void ServerReloading();
 
+	/** Stop reload without calculate ammo */
+	void ClearReload();
+
 public:
 
 	URangeWeaponObject();
@@ -67,7 +70,10 @@ protected:
 	
 	UFUNCTION()
     virtual void DropLineTrace();
-	
+
+	virtual void OwnerDead(AController* OldController) override;
+	virtual void SetCharacterOwner(ANetWorkShooterCharacter* NewOwner) override;
+	virtual void WeaponSelecting(bool bNewState) override;
 	virtual void PlayerWeaponEffectors() override;
 
 	/** Start process reloading */

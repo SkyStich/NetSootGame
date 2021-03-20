@@ -40,13 +40,16 @@ public:
     
     /** Set current weapon name */
     void SetWeaponName(FName const NewName) { WeaponName = NewName; }
-    void SetCharacterOwner(ANetWorkShooterCharacter* NewOwner) { CharacterOwner = NewOwner; }
+    virtual void SetCharacterOwner(ANetWorkShooterCharacter* NewOwner);
 
     UFUNCTION(BlueprintCallable)
     void Client_UseWeapon();
 
     UFUNCTION(BlueprintCallable)
     void Client_StopUseWeapon();
+
+    UFUNCTION(BlueprintPure)
+    bool GetUseWeapon() const { return bUseWeapon; }
 
     /** start getting var from base weapon struct */
     UFUNCTION(BlueprintPure, Category = "Weapon|Getting")
@@ -91,6 +94,9 @@ protected:
 
     /** spawn emitter and sound on client */
     virtual void PlayerWeaponEffectors();
+
+    virtual void OwnerDead(AController* OldController);
+    virtual void WeaponSelecting(bool bNewState) {}
     
     /** return true if this authority */
     UFUNCTION()
@@ -98,6 +104,9 @@ protected:
     
     UFUNCTION()
     virtual void OnRep_UseWeapon();
+
+    UFUNCTION()
+    virtual void OnRep_Owner();
     
     UFUNCTION(BlueprintCallable, Category = "Weapon|UseWeapon")
     virtual bool UseWeapon();
@@ -118,7 +127,7 @@ protected:
     /** Timer use for delay before use weapon */
     FTimerHandle UseWeaponHandle;
     
-    UPROPERTY(Replicated)
+    UPROPERTY(ReplicatedUsing = OnRep_Owner)
     ANetWorkShooterCharacter* CharacterOwner;
 
 private:
