@@ -62,3 +62,8 @@ bool UMainThrowingWeapon::IsAbleToUseWeapon()
 	return Super::IsAbleToUseWeapon() && CurrentAmount > 0 && !GetWorld()->GetTimerManager().IsTimerActive(PreparationForUseHandle);
 }
 
+FString UMainThrowingWeapon::GetAmmoStats()
+{
+	return CurrentAmount > 0 ? "1 / " + FString::FromInt(CurrentAmount - 1) : "0 / 0";
+}
+

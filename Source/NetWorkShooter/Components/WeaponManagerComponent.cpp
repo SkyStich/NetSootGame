@@ -115,13 +115,14 @@ void UWeaponManagerComponent::SetCurrentWeapon(UMainWeaponObject* const NewCurre
 	}
 }
 
-void UWeaponManagerComponent::Client_WeaponSelect(TEnumAsByte<EEquipmentSlot> const NewSlot)
+bool UWeaponManagerComponent::Client_WeaponSelect(TEnumAsByte<EEquipmentSlot> const NewSlot)
 {
-	GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Purple, TEXT("WeaponSelect"));
 	if(CurrentWeapon->GetEquipmentSlot() != NewSlot && !CurrentWeapon->GetUseWeapon())
 	{
-		Server_SelectWeapon(NewSlot);	
+		Server_SelectWeapon(NewSlot);
+		return true;
 	}
+	return false;
 }
 
 void UWeaponManagerComponent::Server_SelectWeapon_Implementation(EEquipmentSlot NewActiveSlot)
@@ -141,13 +142,13 @@ void UWeaponManagerComponent::SelectWeapon(TEnumAsByte<EEquipmentSlot> const New
 		auto const TempNewWeapon = Weapons.Find(NewActiveSlot);
 		if(TempNewWeapon && !CurrentWeapon->GetUseWeapon())
 		{
-			bWeaponSelecting = true;
-			OnRep_SelectWeapon();
-
 			FTimerDelegate TimerDel;
 			FTimerHandle SelectWeaponHandle;
 			TimerDel.BindUObject(this, &UWeaponManagerComponent::HalfSelectCompleted, *TempNewWeapon);
-			GetWorld()->GetTimerManager().SetTimer(SelectWeaponHandle, TimerDel, 0.8f, false);
+			GetWorld()->GetTimerManager().SetTimer(SelectWeaponHandle, TimerDel, 0.4f, false);
+			
+			bWeaponSelecting = true;
+            OnRep_SelectWeapon();
 		}
 	}
 }
@@ -155,7 +156,7 @@ void UWeaponManagerComponent::SelectWeapon(TEnumAsByte<EEquipmentSlot> const New
 void UWeaponManagerComponent::HalfSelectCompleted(UMainWeaponObject* NewWeapon)
 {
 	FTimerHandle SelectWeaponHandle;
-	GetWorld()->GetTimerManager().SetTimer(SelectWeaponHandle, this, &UWeaponManagerComponent::SelectCompleted, 0.8f, false);
+	GetWorld()->GetTimerManager().SetTimer(SelectWeaponHandle, this, &UWeaponManagerComponent::SelectCompleted, 0.6f, false);
 	SetCurrentWeapon(NewWeapon);
 }
 
@@ -180,7 +181,13 @@ void UWeaponManagerComponent::RemoveWeapon(TEnumAsByte<EEquipmentSlot> const Slo
 	if(SlotForRemove != EEquipmentSlot::Melee && SlotForRemove != EEquipmentSlot::SecondWeapon)
 	{
 		Weapons.Remove(SlotForRemove);	
+		Client_WeaponRemove(SlotForRemove);
 	}
+}
+
+void UWeaponManagerComponent::Client_WeaponRemove_Implementation(EEquipmentSlot RemoveSlot)
+{
+	OnWeaponRemovedEvent.Broadcast(RemoveSlot);
 }
 
 void UWeaponManagerComponent::DropWeaponToWorld(UMainWeaponObject* WeaponToDrop)
@@ -201,6 +208,7 @@ void UWeaponManagerComponent::DropWeaponToWorld(UMainWeaponObject* WeaponToDrop)
 			{
 				SpawnWeapon->SetOwnerObject(WeaponToDrop);
 				SpawnWeapon->WeaponMesh = WeaponDataAssetBase->GetWeaponMesh(WeaponToDrop->GetWeaponMesh());
+				RemoveWeapon(WeaponToDrop->GetEquipmentSlot());
 			}
 		}	
 	}

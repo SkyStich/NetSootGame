@@ -59,6 +59,8 @@ public:
 	
 	virtual void Init(UDataTable* WeaponData, TCHAR* ContextString) override;
 
+	virtual FString GetAmmoStats() override;
+
 protected:
 
 	virtual bool IsAbleToUseWeapon() override;
@@ -72,7 +74,7 @@ protected:
     virtual void DropLineTrace();
 
 	virtual void OwnerDead(AController* OldController) override;
-	virtual void SetCharacterOwner(ANetWorkShooterCharacter* NewOwner) override;
+	virtual void OnRep_Owner() override;
 	virtual void WeaponSelecting(bool bNewState) override;
 	virtual void PlayerWeaponEffectors() override;
 

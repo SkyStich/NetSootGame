@@ -39,6 +39,7 @@ ANetWorkShooterCharacter::ANetWorkShooterCharacter()
 	
 	WeaponManagerComponent = CreateDefaultSubobject<UWeaponManagerComponent>(TEXT("WeaponManager"));
 	HealthComponent = CreateDefaultSubobject<UHealthComponent>(TEXT("HealthComponent"));
+	StaminaComponent = CreateDefaultSubobject<UStaminaComponent>(TEXT("StaminaComponent"));
 
 	FirstPersonMesh = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("FistPersonMesh"));
 	FirstPersonMesh->SetupAttachment(RootComponent);
@@ -49,6 +50,7 @@ void ANetWorkShooterCharacter::BeginPlay()
 	Super::BeginPlay();
 
 	HealthComponent->HealthEndedEvent.AddDynamic(this, &ANetWorkShooterCharacter::CharacterDead);
+	StaminaComponent->OnStaminaEndedEvent.AddDynamic(this, &ANetWorkShooterCharacter::StopUseStamina);
 	
 	WeaponSkeletalMeshComponent->AttachToComponent(GetLocalMesh(), FAttachmentTransformRules::SnapToTargetIncludingScale, "STK_RightArmWeaponSocket");
 
@@ -189,4 +191,26 @@ void ANetWorkShooterCharacter::CharacterDead(AController* OldController)
 		GetLocalMesh()->SetSimulatePhysics(true);
 	}
 }
+
+void ANetWorkShooterCharacter::StartUseStamina()
+{
+	if(!WeaponManagerComponent->GetCurrentWeapon()->GetUseWeapon())
+	{
+		StaminaComponent->ClientStartUseStamina();
+		Server_ChangeMovementSpeed(680.f);
+	}
+}
+
+void ANetWorkShooterCharacter::StopUseStamina()
+{
+	StaminaComponent->ClientStopUseStamina();
+	Server_ChangeMovementSpeed(440.f);
+}
+
+void ANetWorkShooterCharacter::Server_ChangeMovementSpeed_Implementation(float NewSpeed)
+{
+	GetCharacterMovement()->MaxWalkSpeed = NewSpeed;
+}
+
+
 

@@ -41,6 +41,9 @@ struct FBaseWeaponData : public FTableRowBase
 	TAssetPtr< USkeletalMesh > WeaponMesh;
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = DataAsset)
+	UTexture2D* Icon;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = DataAsset)
 	float BaseDamage;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = DataAsset)

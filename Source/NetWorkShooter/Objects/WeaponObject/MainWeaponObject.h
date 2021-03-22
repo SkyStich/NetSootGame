@@ -84,6 +84,9 @@ public:
     /** Create custom begin play */
     UFUNCTION()
     virtual void BeginPlay();
+    
+    UFUNCTION(BlueprintPure)
+    virtual FString GetAmmoStats() { return ""; }
 
 protected:
 

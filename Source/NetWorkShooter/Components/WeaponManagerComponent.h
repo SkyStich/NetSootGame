@@ -12,6 +12,7 @@ class UMainWeaponObject;
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FCurrentWeaponChanged, UMainWeaponObject*, NewCurrentWeapon, UMainWeaponObject*, OldWeapon);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FSelectWeapon, bool, bNewState);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FWeaponRemoved, TEnumAsByte<EEquipmentSlot>, RemoveSlot);
 
 /** The manager who is responsible for the player's weapon */
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
@@ -34,14 +35,16 @@ class NETWORKSHOOTER_API UWeaponManagerComponent : public UActorComponent
 	UFUNCTION(Server, Reliable)
     void Server_SelectWeapon(EEquipmentSlot NewActiveSlot);
 
+	UFUNCTION(Client, Unreliable)
+	void Client_WeaponRemove(EEquipmentSlot RemoveSlot);
+
 public:
 	
 	// Sets default values for this component's properties
 	UWeaponManagerComponent();
 
-
 	UFUNCTION(BlueprintCallable)
-	void Client_WeaponSelect(TEnumAsByte<EEquipmentSlot> const NewSlot);
+	bool Client_WeaponSelect(TEnumAsByte<EEquipmentSlot> const NewSlot);
 
 	/** Set the weapon that the player is currently using */
 	UFUNCTION(BlueprintCallable, Category = "WeaponManager|Setter")
@@ -117,4 +120,7 @@ public:
 
 	UPROPERTY(BlueprintAssignable)
 	FSelectWeapon OnSelectWeaponEvent;
+
+	UPROPERTY(BlueprintAssignable)
+	FWeaponRemoved OnWeaponRemovedEvent;
 };

@@ -48860,6 +48860,8 @@
             <e p="ChatComponent.h" t="Include" />
             <e p="HealthComponent.cpp" t="Include" />
             <e p="HealthComponent.h" t="Include" />
+            <e p="StaminaComponent.cpp" t="Include" />
+            <e p="StaminaComponent.h" t="Include" />
             <e p="WeaponManagerComponent.cpp" t="Include" />
             <e p="WeaponManagerComponent.h" t="Include" />
           </e>

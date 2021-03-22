@@ -3,7 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
-
+#include "Components/StaminaComponent.h"
 #include "Camera/CameraComponent.h"
 #include "GameFramework/Character.h"
 #include "Components/WeaponManagerComponent.h"
@@ -27,10 +27,19 @@ private:
 
 	UFUNCTION()
 	void CharacterDead(AController* OldController);
+
+	UFUNCTION(Server, Unreliable)
+	void Server_ChangeMovementSpeed(float const NewSpeed);
 	
 public:
 	
 	ANetWorkShooterCharacter();
+
+	UFUNCTION(BlueprintCallable)
+	void StartUseStamina();
+	
+	UFUNCTION(BlueprintCallable)
+	void StopUseStamina();
 
 	UFUNCTION(BlueprintPure, Category = "Character|Gettting")
 	USkeletalMeshComponent* GetWeaponSkeletalMeshComponent() const { return  WeaponSkeletalMeshComponent; }
@@ -43,6 +52,9 @@ public:
 
 	UFUNCTION(BlueprintPure, Category = "Character|LocalMesh")
 	USkeletalMeshComponent* GetLocalMesh();
+
+	UFUNCTION(BlueprintPure, Category = "Charcater|States")
+	UStaminaComponent* GetStaminaComponent() const { return StaminaComponent; }
 	
 	UFUNCTION()
 	void SetCurrentMesh(USkeletalMesh* NewMesh) { CurrentWeaponMesh = NewMesh; } 
@@ -92,6 +104,9 @@ private:
 	/** The manager who is responsible for the player's weapon */
 	UPROPERTY(VisibleAnywhere)
 	UWeaponManagerComponent* WeaponManagerComponent;
+	
+	UPROPERTY(VisibleAnywhere)
+	UStaminaComponent* StaminaComponent;
 
 	UPROPERTY(VisibleAnywhere)
 	UHealthComponent* HealthComponent;

@@ -53,9 +53,10 @@ void URangeWeaponObject::PlayerWeaponEffectors()
     UGameplayStatics::SpawnEmitterAttached(RangeWeaponData.FireParticle, CharacterOwner->GetWeaponSkeletalMeshComponent(), "Muzzle");
 }
 
-void URangeWeaponObject::SetCharacterOwner(ANetWorkShooterCharacter* NewOwner)
+void URangeWeaponObject::OnRep_Owner()
 {
-    Super::SetCharacterOwner(NewOwner);
+    Super::OnRep_Owner();
+    CharacterOwner->GetWeaponManager()->OnSelectWeaponEvent.AddDynamic(this, &URangeWeaponObject::WeaponSelecting);
 }
 
 void URangeWeaponObject::WeaponSelecting(bool bNewState)
@@ -236,4 +237,9 @@ void URangeWeaponObject::ReloadFinish()
         CurrentAmmoInClip += CurrentAmmoInStorage;
         CurrentAmmoInStorage = 0;
     }
+}
+
+FString URangeWeaponObject::GetAmmoStats()
+{
+    return FString::FromInt(CurrentAmmoInClip) + " / " + FString::FromInt(CurrentAmmoInStorage);
 }

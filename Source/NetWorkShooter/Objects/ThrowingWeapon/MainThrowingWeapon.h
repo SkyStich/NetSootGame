@@ -33,6 +33,8 @@ public:
 	virtual void StopUseWeapon() override;
 	virtual void GetLifetimeReplicatedProps(TArray< FLifetimeProperty > & OutLifetimeProps) const override;
 
+	virtual FString GetAmmoStats() override;
+
 protected:
 
 	virtual void OuterDead(AController* Controller) {}
