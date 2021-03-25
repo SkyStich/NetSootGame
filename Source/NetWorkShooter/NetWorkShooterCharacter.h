@@ -17,8 +17,6 @@ class ANetWorkShooterCharacter : public ACharacter
 {
 	GENERATED_BODY()
 
-private:
-
 //	void UseWeaponPressed();
 //	void UseWeaponReleased();
 
@@ -30,7 +28,12 @@ private:
 
 	UFUNCTION(Server, Unreliable)
 	void Server_ChangeMovementSpeed(float const NewSpeed);
+
+	UFUNCTION()
+	void NewCurrentWeapon(UMainWeaponObject* NewWeapon, UMainWeaponObject* OldWeapon);
 	
+	UFUNCTION()
+	void WeaponSelected(bool NewState);
 public:
 	
 	ANetWorkShooterCharacter();
@@ -55,15 +58,8 @@ public:
 
 	UFUNCTION(BlueprintPure, Category = "Charcater|States")
 	UStaminaComponent* GetStaminaComponent() const { return StaminaComponent; }
-	
-	UFUNCTION()
-	void SetCurrentMesh(USkeletalMesh* NewMesh) { CurrentWeaponMesh = NewMesh; } 
 
 	virtual void GetLifetimeReplicatedProps(TArray< FLifetimeProperty > & OutLifetimeProps) const override;
-	
-	/** Fix Me: ReWrite All server function in him components */
-	UFUNCTION()
-    	void OnRep_CurrentWeaponMesh();
 
 protected:
 
@@ -110,9 +106,6 @@ private:
 
 	UPROPERTY(VisibleAnywhere)
 	UHealthComponent* HealthComponent;
-
-	UPROPERTY(ReplicatedUsing = OnRep_CurrentWeaponMesh)
-	USkeletalMesh* CurrentWeaponMesh;
 
 	UPROPERTY(EditAnywhere, Category = "Character|ThirdPersonMesh")
 	USkeletalMesh* ThirdPersonMesh;

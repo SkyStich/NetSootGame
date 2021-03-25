@@ -8,6 +8,7 @@
 #include "Net/UnrealNetwork.h"
 #include "EngineUtils.h"
 #include "Objects/MainRangeWeapon/RangeWeaponObject.h"
+#include "SingletonClass/GameSingletonClass.h"
 
 ANetWorkShooterCharacter::ANetWorkShooterCharacter()
 {
@@ -34,9 +35,7 @@ ANetWorkShooterCharacter::ANetWorkShooterCharacter()
 
 	/** Create and attach weapon skeletal mesh to socket */
 	WeaponSkeletalMeshComponent = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("WeaponSkeletalMesh"));
-	WeaponSkeletalMeshComponent->SetSkeletalMesh(CurrentWeaponMesh);
-	//WeaponSkeletalMeshComponent->SetIsReplicated(true);
-	
+
 	WeaponManagerComponent = CreateDefaultSubobject<UWeaponManagerComponent>(TEXT("WeaponManager"));
 	HealthComponent = CreateDefaultSubobject<UHealthComponent>(TEXT("HealthComponent"));
 	StaminaComponent = CreateDefaultSubobject<UStaminaComponent>(TEXT("StaminaComponent"));
@@ -52,6 +51,8 @@ void ANetWorkShooterCharacter::BeginPlay()
 	HealthComponent->HealthEndedEvent.AddDynamic(this, &ANetWorkShooterCharacter::CharacterDead);
 	StaminaComponent->OnStaminaEndedEvent.AddDynamic(this, &ANetWorkShooterCharacter::StopUseStamina);
 	
+	WeaponManagerComponent->OnSelectWeaponEvent.AddDynamic(this, &ANetWorkShooterCharacter::WeaponSelected);
+		
 	WeaponSkeletalMeshComponent->AttachToComponent(GetLocalMesh(), FAttachmentTransformRules::SnapToTargetIncludingScale, "STK_RightArmWeaponSocket");
 
 	if(IsLocallyControlled())
@@ -64,9 +65,35 @@ void ANetWorkShooterCharacter::BeginPlay()
 	}
 }
 
+void ANetWorkShooterCharacter::NewCurrentWeapon(UMainWeaponObject* NewWeapon, UMainWeaponObject* OldWeapon)
+{
+	auto TempMesh = NewWeapon->GetWeaponMesh();
+	if(TempMesh.IsPending())
+	{
+		auto const AssetSoftObject = TempMesh.ToSoftObjectPath();
+
+		/** Sync loand mesh in memory */
+		TempMesh = Cast<USkeletalMesh>(UGameSingletonClass::Get().AssetLoader.LoadSynchronous(AssetSoftObject));
+	}
+	WeaponSkeletalMeshComponent->SetSkeletalMesh(TempMesh.Get());
+}
+
+void ANetWorkShooterCharacter::WeaponSelected(bool NewState)
+{
+	if(GetLocalRole() != ROLE_Authority)
+	{
+		if(NewState)
+		{
+			StopUseStamina();
+		}
+	}
+}
+
 void ANetWorkShooterCharacter::OnConstruction(const FTransform& Transform)
 {
 	Super::OnConstruction(Transform);
+
+	WeaponManagerComponent->OnCurrentWeaponChangedEvent.AddDynamic(this, &ANetWorkShooterCharacter::NewCurrentWeapon);
 }
 
 USkeletalMeshComponent* ANetWorkShooterCharacter::GetLocalMesh()
@@ -77,8 +104,6 @@ USkeletalMeshComponent* ANetWorkShooterCharacter::GetLocalMesh()
 void ANetWorkShooterCharacter::GetLifetimeReplicatedProps(TArray< FLifetimeProperty > & OutLifetimeProps) const
 {
 	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
-
-	DOREPLIFETIME(ANetWorkShooterCharacter, CurrentWeaponMesh);
 }
 
 void ANetWorkShooterCharacter::SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent)
@@ -148,11 +173,6 @@ void ANetWorkShooterCharacter::MoveRight(float Value)
 	}
 }
 
-void ANetWorkShooterCharacter::OnRep_CurrentWeaponMesh()
-{
-	WeaponSkeletalMeshComponent->SetSkeletalMesh(CurrentWeaponMesh);
-}
-
 void ANetWorkShooterCharacter::ReloadPressed()
 {
 	auto const TempCurrentWeapon = Cast<URangeWeaponObject>(WeaponManagerComponent->GetCurrentWeapon());
@@ -167,6 +187,11 @@ void ANetWorkShooterCharacter::CharacterDead(AController* OldController)
 	GetCharacterMovement()->DisableMovement();
 	GetCapsuleComponent()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 	GetLocalMesh()->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
+
+	if(IsLocallyControlled())
+	{
+		FirstPersonMesh->SetSkeletalMesh(ThirdPersonMesh);
+	}
 	
 	if(GetLocalRole() == ROLE_Authority)
 	{
