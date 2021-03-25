@@ -22,6 +22,13 @@ void UStaminaComponent::BeginPlay()
 	Super::BeginPlay();
 }
 
+void UStaminaComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
+{
+	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
+
+}
+
+
 void UStaminaComponent::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
 {
 	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
@@ -32,7 +39,7 @@ void UStaminaComponent::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& Ou
 
 void UStaminaComponent::OnRep_StaminaUsed()
 {
-	OnStaminaUsedEvent.Broadcast();	
+	OnStaminaUsedEvent.Broadcast(bStaminaUsed);	
 }
 
 void UStaminaComponent::StartUseStamina()

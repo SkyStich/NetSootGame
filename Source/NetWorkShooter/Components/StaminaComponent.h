@@ -6,7 +6,7 @@
 #include "Components/ActorComponent.h"
 #include "StaminaComponent.generated.h"
 
-DECLARE_DYNAMIC_MULTICAST_DELEGATE(FStaminaUsed);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FStaminaUsed, bool, Used);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FStaminaEnded);
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
@@ -51,8 +51,9 @@ public:
 protected:
 	// Called when the game starts
 	virtual void BeginPlay() override;
-
+	
 	virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
+	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
 public:
 
