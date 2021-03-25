@@ -24,7 +24,8 @@ class NETWORKSHOOTER_API URangeWeaponObject : public UMainWeaponObject
     void ServerReloading();
 
 	/** Stop reload without calculate ammo */
-	void ClearReload();
+	UFUNCTION()
+	void ClearReload(bool const Clear);
 
 public:
 
@@ -75,7 +76,6 @@ protected:
 
 	virtual void OwnerDead(AController* OldController) override;
 	virtual void OnRep_Owner() override;
-	virtual void WeaponSelecting(bool bNewState) override;
 	virtual void PlayerWeaponEffectors() override;
 
 	/** Start process reloading */

@@ -56,15 +56,9 @@ void URangeWeaponObject::PlayerWeaponEffectors()
 void URangeWeaponObject::OnRep_Owner()
 {
     Super::OnRep_Owner();
-    CharacterOwner->GetWeaponManager()->OnSelectWeaponEvent.AddDynamic(this, &URangeWeaponObject::WeaponSelecting);
-}
 
-void URangeWeaponObject::WeaponSelecting(bool bNewState)
-{
-    Super::WeaponSelecting(bNewState);
-    
-    if(bNewState)
-        ClearReload();
+    CharacterOwner->GetWeaponManager()->OnSelectWeaponEvent.AddDynamic(this, &URangeWeaponObject::ClearReload);
+    CharacterOwner->GetStaminaComponent()->OnStaminaUsedEvent.AddDynamic(this, &URangeWeaponObject::ClearReload);
 }
 
 bool URangeWeaponObject::UseWeapon()
@@ -95,7 +89,6 @@ void URangeWeaponObject::StopUseWeapon()
 
     CurrentSpread = 0.f;
 }
-
 
 bool URangeWeaponObject::IsAbleToUseWeapon()
 {
@@ -172,8 +165,7 @@ void URangeWeaponObject::OwnerDead(AController* OldController)
 {
     Super::OwnerDead(OldController);
 
-    if(GetAuthority())
-        ClearReload();
+    ClearReload(true);
 }
 
 bool URangeWeaponObject::IsAbleReload()
@@ -201,10 +193,13 @@ void URangeWeaponObject::ReloadWeapon()
     }
 }
 
-void URangeWeaponObject::ClearReload()
+void URangeWeaponObject::ClearReload(bool const Clear)
 {
-    GetWorld()->GetTimerManager().ClearTimer(ReloadHandle);
-    bReloading = false;
+    if(Clear)
+    {
+        GetWorld()->GetTimerManager().ClearTimer(ReloadHandle);
+        bReloading = false;
+    }
 }
 
 void URangeWeaponObject::OnRep_Reloading()
@@ -225,7 +220,7 @@ void URangeWeaponObject::ReloadFinish()
 {
     GetWorld()->GetTimerManager().ClearTimer(ReloadHandle);
     bReloading = false;
-    
+
     int32 const NeedAmmoFromMaxClip = RangeWeaponData.MaxAmmoInWeapon - CurrentAmmoInClip;
     if(CurrentAmmoInStorage >= NeedAmmoFromMaxClip)
     {

@@ -69,11 +69,12 @@ void UMainWeaponObject::SetCharacterOwner(ANetWorkShooterCharacter* NewOwner)
 
 void UMainWeaponObject::OnRep_Owner()
 {
-    CharacterOwner->GetHealthComponent()->HealthEndedEvent.AddDynamic(this, &UMainWeaponObject::OwnerDead);
+    CharacterOwner->GetHealthComponent()->HealthEndedEvent.AddDynamic(this, &UMainWeaponObject::OwnerDead);  
 }
 
 void UMainWeaponObject::OwnerDead(AController* OldController)
 {
+    GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Green, TEXT("OwnerDead"));
     StopUseWeapon();
 }
 
@@ -96,7 +97,7 @@ bool UMainWeaponObject::UseWeapon()
 
 bool UMainWeaponObject::IsAbleToUseWeapon()
 {
-    return !GetWorld()->GetTimerManager().IsTimerActive(UseWeaponHandle) && !CharacterOwner->GetWeaponManager()->GetWeaponSelecting();
+    return !GetWorld()->GetTimerManager().IsTimerActive(UseWeaponHandle) && !CharacterOwner->GetWeaponManager()->GetWeaponSelecting() && !CharacterOwner->GetStaminaComponent()->GetIsStaminaUsed();
 }
 
 void UMainWeaponObject::StopRateDelay()

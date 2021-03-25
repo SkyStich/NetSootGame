@@ -98,7 +98,10 @@ protected:
     /** spawn emitter and sound on client */
     virtual void PlayerWeaponEffectors();
 
+    UFUNCTION()
     virtual void OwnerDead(AController* OldController);
+
+    UFUNCTION()
     virtual void WeaponSelecting(bool bNewState) {}
     
     /** return true if this authority */
