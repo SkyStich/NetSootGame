@@ -8,7 +8,6 @@
 #include "NetWorkShooter/Actors/Projectiles/MainProjectile/MainProjectile.h"
 #include "NetWorkShooter/Actors/SpecialWeapon/BaseSpecialWeapon.h"
 #include "Sound/SoundCue.h"
-
 #include "WeaponDataAssetBase.generated.h"
 
 UENUM(BlueprintType)
@@ -89,6 +88,9 @@ struct FRangeWeaponData : public FBaseWeaponData
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = DataAsset)
 	bool CanAutoFire;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = DataAsset)
+	FRandomStream FireRandomStream;
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = DataAsset)
 	UParticleSystem* FireParticle;
