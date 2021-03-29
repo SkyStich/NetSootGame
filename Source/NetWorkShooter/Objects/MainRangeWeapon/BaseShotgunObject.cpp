@@ -8,10 +8,10 @@ UBaseShotgunObject::UBaseShotgunObject()
 
 }
 
-void UBaseShotgunObject::DropLineTrace()
+void UBaseShotgunObject::DropLineTrace(FHitResult& OutHit)
 {
 	for(int32 i = 0; i < 7; i++)
 	{
-		Super::DropLineTrace();
+		Super::DropLineTrace(OutHit);
 	}
 }

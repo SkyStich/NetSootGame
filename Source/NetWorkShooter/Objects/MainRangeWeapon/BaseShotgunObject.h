@@ -20,5 +20,5 @@ UBaseShotgunObject();
 
 protected:
 	
-	virtual void DropLineTrace() override;
+	virtual void DropLineTrace(FHitResult& OutHit) override;
 };

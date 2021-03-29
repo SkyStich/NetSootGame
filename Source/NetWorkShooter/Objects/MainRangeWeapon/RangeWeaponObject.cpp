@@ -70,14 +70,13 @@ bool URangeWeaponObject::UseWeapon()
             bUseWeapon = true;
             CurrentAmmoInClip--;
         }
+
+        FHitResult OutHit;
+        DropLineTrace(OutHit);
         
         if(GetAuthority())
         {
-            DropLineTrace();
-        }
-        else
-        {
-            PlayerWeaponEffectors();
+            ApplyDamageByTrace(OutHit);
         }
     }
     return true;
@@ -107,26 +106,25 @@ void URangeWeaponObject::StopRateDelay()
 
 FVector URangeWeaponObject::GetShootDirection()
 {
-    CurrentSpread += RangeWeaponData.MaxSpread / RangeWeaponData.MaxAmmoInWeapon;
+    FVector RotateAroundVector = CharacterOwner->GetActorForwardVector().RotateAngleAxis(CharacterOwner->GetLookUpYaw(), CharacterOwner->GetActorRightVector());
+    RotateAroundVector.Z *= -1;
     
-    FVector ForwardVector = CharacterOwner->Controller->GetControlRotation().Vector();
+    CurrentSpread += RangeWeaponData.MaxSpread / RangeWeaponData.MaxAmmoInWeapon;
 
     /** Rotate trace with horizontal */
-    FVector const HorizontalRotate = ForwardVector.RotateAngleAxis(UKismetMathLibrary::RandomFloatInRange(CurrentSpread * -1, CurrentSpread), ForwardVector.RightVector);
+    FVector const HorizontalRotate = RotateAroundVector.RotateAngleAxis(UKismetMathLibrary::RandomFloatInRangeFromStream(CurrentSpread * -1, CurrentSpread, RangeWeaponData.FireRandomStream), FRotationMatrix(RotateAroundVector.Rotation()).GetScaledAxis(EAxis::Y));
 
     /** reottae trace with use up vector */
-    FVector const VerticalRotate = HorizontalRotate.RotateAngleAxis(UKismetMathLibrary::RandomFloatInRange(CurrentSpread * -1, CurrentSpread), ForwardVector.UpVector);
-    
+    FVector const VerticalRotate = HorizontalRotate.RotateAngleAxis(UKismetMathLibrary::RandomFloatInRangeFromStream(CurrentSpread * -1, CurrentSpread, RangeWeaponData.FireRandomStream), FRotationMatrix(RotateAroundVector.Rotation()).GetScaledAxis(EAxis::Z));
+
     return VerticalRotate;
 }
 
-void URangeWeaponObject::DropLineTrace()
+void URangeWeaponObject::DropLineTrace(FHitResult& OutHit)
 {
     //FVector const TraceStart = CharacterOwner->GetWeaponSkeletalMeshComponent()->GetSocketLocation("Muzzle");
     FVector const TraceStart = CharacterOwner->CameraComponent->GetComponentLocation();
     FVector const TraceEnd = GetShootDirection() * RangeWeaponData.RangeOfUse + TraceStart;
-
-    FHitResult OutHit;
 
     /** Init Collision Quary param */
     FCollisionQueryParams Params;
@@ -140,20 +138,22 @@ void URangeWeaponObject::DropLineTrace()
 
     /** Drop line trace end call multicast rpc function */
     GetWorld()->LineTraceSingleByObjectType(OutHit, TraceStart, TraceEnd, CollisionObjectQueryParams, Params);
-    GetTraceInfoDebugger(TraceStart, OutHit.TraceEnd, OutHit.Location);
+   // GetTraceInfoDebugger(TraceStart, OutHit.TraceEnd, OutHit.Location);
 
-    /** Damage with calculate on distance */
-    int32 const NewDamage = CalculateDamageWithDistance(OutHit.TraceStart, OutHit.ImpactPoint, GetBaseDamage());
-            
-    /** Find Direction Unit Vector */
-    FVector const UnitVector = UKismetMathLibrary::GetDirectionUnitVector(OutHit.TraceEnd, OutHit.TraceStart);
-    UGameplayStatics::ApplyPointDamage(OutHit.GetActor(), NewDamage, UnitVector, OutHit, CharacterOwner->GetController(),CharacterOwner, UDamageType::StaticClass());
-
-    //if(OutHit.GetComponent()->IsSimulatingPhysics())
-    //{
-      //  OutHit.GetComponent()->AddImpulseAtLocation(CharacterOwner->GetVelocity() * NewDamage, OutHit.ImpactPoint);
-    //}
+    DrawDebugLine(GetWorld(), TraceStart, TraceEnd, FColor::Purple, false, 1.f);
+    DrawDebugSphere(GetWorld(), OutHit.Location, 3.f, 8, FColor::Purple, false, 1.f);
 }
+
+void URangeWeaponObject::ApplyDamageByTrace(const FHitResult& HitResult)
+{
+    /** Damage with calculate on distance */
+    int32 const NewDamage = CalculateDamageWithDistance(HitResult.TraceStart, HitResult.ImpactPoint, GetBaseDamage());
+
+    /** Find Direction Unit Vector */
+    FVector const UnitVector = UKismetMathLibrary::GetDirectionUnitVector(HitResult.TraceEnd, HitResult.TraceStart);
+    UGameplayStatics::ApplyPointDamage(HitResult.GetActor(), NewDamage, UnitVector, HitResult, CharacterOwner->GetController(),CharacterOwner, UDamageType::StaticClass());
+}
+
 
 void URangeWeaponObject::GetTraceInfoDebugger_Implementation(FVector Start, FVector End, FVector Center)
 {

@@ -27,6 +27,8 @@ class NETWORKSHOOTER_API URangeWeaponObject : public UMainWeaponObject
 	UFUNCTION()
 	void ClearReload(bool const Clear);
 
+	void ApplyDamageByTrace(const FHitResult& HitResult);
+
 public:
 
 	URangeWeaponObject();
@@ -71,9 +73,7 @@ protected:
 	UFUNCTION()
 	virtual void OnRep_Reloading();
 	
-	UFUNCTION()
-    virtual void DropLineTrace();
-
+    virtual void DropLineTrace(FHitResult& OutHit);
 	virtual void OwnerDead(AController* OldController) override;
 	virtual void OnRep_Owner() override;
 	virtual void PlayerWeaponEffectors() override;

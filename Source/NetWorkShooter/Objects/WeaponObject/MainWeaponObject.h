@@ -24,6 +24,12 @@ class NETWORKSHOOTER_API UMainWeaponObject : public UObject
     UFUNCTION(Server, Unreliable)
     void Server_StopUseWeapon();
 
+    UFUNCTION(NetMulticast, Unreliable)
+    void NetMulticast_UseWeapon();
+    
+    UFUNCTION(NetMulticast, Unreliable)
+    void NetMulticast_StopUseWeapon();
+
 public:
     
     UMainWeaponObject();
@@ -103,6 +109,9 @@ protected:
 
     UFUNCTION()
     virtual void WeaponSelecting(bool bNewState) {}
+
+    UFUNCTION()
+    virtual void AdditionalUse();
     
     /** return true if this authority */
     UFUNCTION()
@@ -129,6 +138,9 @@ protected:
     /** true - if we use weapon naw */
     UPROPERTY(ReplicatedUsing = OnRep_UseWeapon)
     bool bUseWeapon;
+
+    UPROPERTY(Replicated)
+    bool bAdditionalUsed;
 
     /** Timer use for delay before use weapon */
     FTimerHandle UseWeaponHandle;

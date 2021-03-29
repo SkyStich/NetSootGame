@@ -74,7 +74,6 @@ void UMainWeaponObject::OnRep_Owner()
 
 void UMainWeaponObject::OwnerDead(AController* OldController)
 {
-    GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Green, TEXT("OwnerDead"));
     StopUseWeapon();
 }
 
@@ -89,6 +88,11 @@ bool UMainWeaponObject::UseWeapon()
     {
         GetWorld()->GetTimerManager().SetTimer(UseWeaponHandle, this, &UMainWeaponObject::StopRateDelay, GetDelayBeforeUse());
         OnWeaponUsedEvent.Broadcast(this);
+
+        if(!GetAuthority())
+        {
+            PlayerWeaponEffectors();
+        }
         return true;
     }
    StopUseWeapon();
@@ -113,6 +117,7 @@ void UMainWeaponObject::StopUseWeapon()
 void UMainWeaponObject::Server_UseWeapon_Implementation()
 {
     UseWeapon();
+    NetMulticast_UseWeapon();
 }
 
 void UMainWeaponObject::Client_UseWeapon()
@@ -129,6 +134,8 @@ void UMainWeaponObject::Client_UseWeapon()
 void UMainWeaponObject::Server_StopUseWeapon_Implementation()
 {
     StopUseWeapon();
+
+    NetMulticast_StopUseWeapon();
 }
 
 void UMainWeaponObject::Client_StopUseWeapon()
@@ -139,15 +146,37 @@ void UMainWeaponObject::Client_StopUseWeapon()
     StopUseWeapon();
 }
 
-void UMainWeaponObject::OnRep_UseWeapon()
+void UMainWeaponObject::NetMulticast_StopUseWeapon_Implementation()
 {
-    if(bUseWeapon)
-    {
-        UseWeapon();
-    }
-    else
+    if(IsOtherPlayer())
     {
         StopUseWeapon();
     }
 }
+
+void UMainWeaponObject::NetMulticast_UseWeapon_Implementation()
+{
+    if(IsOtherPlayer())
+    {
+        UseWeapon();
+    }
+}
+
+void UMainWeaponObject::OnRep_UseWeapon()
+{
+    //if(bUseWeapon)
+   // {
+       // UseWeapon();
+   // }
+   // else
+   // {
+      //  StopUseWeapon();
+   // }
+}
+
+void UMainWeaponObject::AdditionalUse()
+{
+    bAdditionalUsed = true;  
+}
+
 
