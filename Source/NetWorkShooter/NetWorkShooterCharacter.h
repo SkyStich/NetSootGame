@@ -58,6 +58,9 @@ public:
 
 	UFUNCTION(BlueprintPure, Category = "Charcater|States")
 	UStaminaComponent* GetStaminaComponent() const { return StaminaComponent; }
+	
+	UFUNCTION(BlueprintPure, Category = "Charcater|States")
+	float GetLookUpYaw() const { return LookUpYaw; }
 
 	virtual void GetLifetimeReplicatedProps(TArray< FLifetimeProperty > & OutLifetimeProps) const override;
 
@@ -71,6 +74,7 @@ protected:
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 	virtual void BeginPlay() override;
 	virtual void OnConstruction(const FTransform& Transform) override;
+	virtual void Tick(float DeltaTime) override;
 
 public:
 
@@ -109,5 +113,8 @@ private:
 
 	UPROPERTY(EditAnywhere, Category = "Character|ThirdPersonMesh")
 	USkeletalMesh* ThirdPersonMesh;
+
+	UPROPERTY(Replicated)
+	float LookUpYaw;
 };
 

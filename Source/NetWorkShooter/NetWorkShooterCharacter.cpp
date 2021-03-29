@@ -12,6 +12,8 @@
 
 ANetWorkShooterCharacter::ANetWorkShooterCharacter()
 {
+	PrimaryActorTick.bCanEverTick = true;
+	
 	// Set size for collision capsule
 	GetCapsuleComponent()->InitCapsuleSize(42.f, 96.0f);
 
@@ -42,6 +44,18 @@ ANetWorkShooterCharacter::ANetWorkShooterCharacter()
 
 	FirstPersonMesh = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("FistPersonMesh"));
 	FirstPersonMesh->SetupAttachment(RootComponent);
+}
+
+void ANetWorkShooterCharacter::Tick(float DeltaTime)
+{
+	Super::Tick(DeltaTime);
+
+	if(GetLocalRole() == ROLE_Authority)
+	{
+		if(Controller)
+			LookUpYaw = Controller->GetControlRotation().Vector().Rotation().Pitch;
+
+	}
 }
 
 void ANetWorkShooterCharacter::BeginPlay()
@@ -104,6 +118,8 @@ USkeletalMeshComponent* ANetWorkShooterCharacter::GetLocalMesh()
 void ANetWorkShooterCharacter::GetLifetimeReplicatedProps(TArray< FLifetimeProperty > & OutLifetimeProps) const
 {
 	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
+	
+	DOREPLIFETIME(ANetWorkShooterCharacter, LookUpYaw);
 }
 
 void ANetWorkShooterCharacter::SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent)
