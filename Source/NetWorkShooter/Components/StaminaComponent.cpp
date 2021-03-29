@@ -50,7 +50,7 @@ void UStaminaComponent::StartUseStamina()
 		OnRep_StaminaUsed();
 		
 		GetWorld()->GetTimerManager().ClearTimer(StaminaUseHandle);
-		GetWorld()->GetTimerManager().SetTimer(StaminaUseHandle, this, &UStaminaComponent::IncrementStamina, 0.1f, true);
+		GetWorld()->GetTimerManager().SetTimer(StaminaUseHandle, this, &UStaminaComponent::IncrementStamina, 0.05f, true);
 	}
 }
 
@@ -59,7 +59,7 @@ void UStaminaComponent::StopUseStamina()
 	if(bStaminaUsed)
 	{
 		GetWorld()->GetTimerManager().ClearTimer(StaminaUseHandle);
-		GetWorld()->GetTimerManager().SetTimer(StaminaUseHandle, this, &UStaminaComponent::DecrementStamina, 0.1f, true, 2.f);
+		GetWorld()->GetTimerManager().SetTimer(StaminaUseHandle, this, &UStaminaComponent::DecrementStamina, 0.05f, true, 2.f);
 	}
 	
 	bStaminaUsed = false;
@@ -68,7 +68,7 @@ void UStaminaComponent::StopUseStamina()
 
 void UStaminaComponent::DecrementStamina()
 {
-	CurrentStamina += ChangeStaminaPerSec / 5;
+	CurrentStamina += ChangeStaminaPerSec / 10;
 
 	if(CurrentStamina >= MaxStamina)
 	{
@@ -79,7 +79,7 @@ void UStaminaComponent::DecrementStamina()
 
 void UStaminaComponent::IncrementStamina()
 {
-	CurrentStamina -= ChangeStaminaPerSec / 10;
+	CurrentStamina -= ChangeStaminaPerSec / 15;
 
 	if(CurrentStamina <= 0)
 	{
