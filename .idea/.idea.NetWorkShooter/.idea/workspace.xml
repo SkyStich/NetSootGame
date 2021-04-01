@@ -24,24 +24,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4e895809-3b0e-414a-9fb7-267441527844" name="Default Changelist" comment="Change system command">
-      <change afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/Assets/Mannequin/Character/Mesh/AdditivePink.uasset" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/Assets/Mannequin/Character/Mesh/Sprint8.uasset" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/Blueprints/Tools/Structs/FCharAnimByEquipmentSlot.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/Assets/Image/Weapons/FireHoles/M_FireHole.uasset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.NetWorkShooter/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.NetWorkShooter/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/FPS_Assault_Pack/Animations/RU74/A_Arms_RU74_Sprint_FWD.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/FPS_Assault_Pack/Animations/RU74/A_Arms_RU74_Sprint_FWD.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/FPS_Assault_Pack/Animations/Rifle/A_Arms_Rifle_Sprint_FWD.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/FPS_Assault_Pack/Animations/Rifle/A_Arms_Rifle_Sprint_FWD.uasset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Content/ThirdPersonCPP/Assets/Mannequin/Character/Mesh/UE4_Mannequin_Skeleton.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/Assets/Mannequin/Character/Mesh/UE4_Mannequin_Skeleton.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/ThirdPersonCPP/Blueprints/DataTable/RangeData.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/Blueprints/DataTable/RangeData.uasset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Content/ThirdPersonCPP/Blueprints/ThirdPersonCharacter.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/Blueprints/ThirdPersonCharacter.uasset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Content/ThirdPersonCPP/CharacterAnimation/AnimBP/BasePlayerAnimBP.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/CharacterAnimation/AnimBP/BasePlayerAnimBP.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/ThirdPersonCPP/CharacterAnimation/AnimBP/FirstPerson_AnimBP.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/CharacterAnimation/AnimBP/FirstPerson_AnimBP.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/ThirdPersonCPP/LevelSequincer/LevelSequence_Hide.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/Blueprints/LevelSequincer/LevelSequence_Hide.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/NetWorkShooter/Components/StaminaComponent.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/NetWorkShooter/Components/StaminaComponent.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/NetWorkShooter/DataAssets/WeaponDataAssetBase.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/NetWorkShooter/DataAssets/WeaponDataAssetBase.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NetWorkShooter.uproject" beforeDir="false" afterPath="$PROJECT_DIR$/NetWorkShooter.uproject" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/NetWorkShooter/NetWorkShooterCharacter.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/NetWorkShooter/NetWorkShooterCharacter.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/NetWorkShooter/NetWorkShooterCharacter.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/NetWorkShooter/NetWorkShooterCharacter.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/NetWorkShooter/Objects/MainRangeWeapon/BaseShotgunObject.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/NetWorkShooter/Objects/MainRangeWeapon/BaseShotgunObject.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/NetWorkShooter/Objects/MainRangeWeapon/BaseShotgunObject.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/NetWorkShooter/Objects/MainRangeWeapon/BaseShotgunObject.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/NetWorkShooter/Objects/MainRangeWeapon/RangeWeaponObject.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/NetWorkShooter/Objects/MainRangeWeapon/RangeWeaponObject.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/NetWorkShooter/Objects/MainRangeWeapon/RangeWeaponObject.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/NetWorkShooter/Objects/MainRangeWeapon/RangeWeaponObject.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/NetWorkShooter/Objects/WeaponObject/MainWeaponObject.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/NetWorkShooter/Objects/WeaponObject/MainWeaponObject.cpp" afterDir="false" />
@@ -89,6 +79,7 @@
     <setting file="file://$PROJECT_DIR$/../../Epic Games/UE_4.26/Engine/Source/Runtime/UMG/Public/Components/ScrollBox.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../../Epic Games/UE_4.26/Engine/Source/Runtime/Engine/Classes/Sound/SoundWaveLoadingBehavior.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../../Epic Games/UE_4.26/Engine/Source/Runtime/Engine/Private/GameSession.cpp" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../../Epic Games/UE_4.26/Engine/Source/Runtime/Engine/Private/Character.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../../Epic Games/UE_4.26/Engine/Source/Runtime/Engine/Classes/GameFramework/GameModeBase.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../../Epic Games/UE_4.26/Engine/Source/Runtime/Core/Private/Misc/Timespan.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../../Epic Games/UE_4.26/Engine/Source/Runtime/Engine/Classes/GameFramework/Pawn.h" root0="FORCE_HIGHLIGHTING" />
@@ -100,6 +91,7 @@
     <setting file="file://$PROJECT_DIR$/../../Epic Games/UE_4.26/Engine/Source/Runtime/CoreUObject/Public/UObject/ConstructorHelpers.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../../Epic Games/UE_4.26/Engine/Source/Runtime/Engine/Private/PlayerState.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../../Epic Games/UE_4.26/Engine/Source/Runtime/Engine/Classes/GameFramework/PlayerState.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../../Epic Games/UE_4.26/Engine/Source/Runtime/Engine/Classes/GameFramework/CharacterMovementComponent.h" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="IdeDocumentHistory">
     <changedPaths>
@@ -145,15 +137,15 @@
       <option value="$PROJECT_DIR$/Source/NetWorkShooter/Components/WeaponManagerComponent.cpp" />
       <option value="$PROJECT_DIR$/Source/NetWorkShooter/Components/StaminaComponent.h" />
       <option value="$PROJECT_DIR$/Source/NetWorkShooter/Components/StaminaComponent.cpp" />
-      <option value="$PROJECT_DIR$/Source/NetWorkShooter/Objects/WeaponObject/MainWeaponObject.h" />
       <option value="$PROJECT_DIR$/Source/NetWorkShooter/DataAssets/WeaponDataAssetBase.h" />
-      <option value="$PROJECT_DIR$/Source/NetWorkShooter/Objects/MainRangeWeapon/RangeWeaponObject.h" />
       <option value="$PROJECT_DIR$/Source/NetWorkShooter/Objects/MainRangeWeapon/BaseShotgunObject.h" />
       <option value="$PROJECT_DIR$/Source/NetWorkShooter/Objects/MainRangeWeapon/BaseShotgunObject.cpp" />
+      <option value="$PROJECT_DIR$/Source/NetWorkShooter/Objects/WeaponObject/MainWeaponObject.cpp" />
+      <option value="$PROJECT_DIR$/Source/NetWorkShooter/Objects/WeaponObject/MainWeaponObject.h" />
+      <option value="$PROJECT_DIR$/Source/NetWorkShooter/Objects/MainRangeWeapon/RangeWeaponObject.h" />
+      <option value="$PROJECT_DIR$/Source/NetWorkShooter/Objects/MainRangeWeapon/RangeWeaponObject.cpp" />
       <option value="$PROJECT_DIR$/Source/NetWorkShooter/NetWorkShooterCharacter.h" />
       <option value="$PROJECT_DIR$/Source/NetWorkShooter/NetWorkShooterCharacter.cpp" />
-      <option value="$PROJECT_DIR$/Source/NetWorkShooter/Objects/MainRangeWeapon/RangeWeaponObject.cpp" />
-      <option value="$PROJECT_DIR$/Source/NetWorkShooter/Objects/WeaponObject/MainWeaponObject.cpp" />
     </changedPaths>
   </component>
   <component name="ProjectId" id="1mU45q9rLP6Qu9cx4YAzOsfUBVp" />
@@ -629,7 +621,15 @@
       <workItem from="1616872325184" duration="2481000" />
       <workItem from="1616883249637" duration="5921000" />
       <workItem from="1616922979593" duration="2703000" />
-      <workItem from="1617014578368" duration="4116000" />
+      <workItem from="1617014578368" duration="9823000" />
+      <workItem from="1617046299257" duration="997000" />
+      <workItem from="1617052237960" duration="683000" />
+      <workItem from="1617056885927" duration="393000" />
+      <workItem from="1617060583284" duration="1802000" />
+      <workItem from="1617133687409" duration="5865000" />
+      <workItem from="1617145652000" duration="3655000" />
+      <workItem from="1617214107935" duration="4036000" />
+      <workItem from="1617225460739" duration="5516000" />
     </task>
     <task id="LOCAL-00001" summary="init override function SpawnPlayer">
       <created>1610844415255</created>
