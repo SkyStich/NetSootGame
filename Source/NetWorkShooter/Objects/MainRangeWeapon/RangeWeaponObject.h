@@ -13,10 +13,6 @@ class NETWORKSHOOTER_API URangeWeaponObject : public UMainWeaponObject
 {
 	GENERATED_BODY()
 
-	UFUNCTION(NetMulticast, Reliable)
-	void GetTraceInfoDebugger(FVector Start, FVector End, FVector Center);
-	void GetTraceInfoDebugger_Implementation(FVector Start, FVector End, FVector Center);
-
 	int32 CalculateDamageWithDistance(const FVector& Start, const FVector& End, float Damage);
 	
 	/** Call in ReloadWeapon */
