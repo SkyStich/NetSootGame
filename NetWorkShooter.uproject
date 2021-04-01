@@ -14,6 +14,16 @@
 			]
 		}
 	],
+	"Plugins": [
+		{
+			"Name": "CodeView",
+			"Enabled": true
+		},
+		{
+			"Name": "XCodeSourceCodeAccess",
+			"Enabled": false
+		}
+	],
 	"TargetPlatforms": [
 		"AllDesktop",
 		"WindowsNoEditor"
