@@ -162,18 +162,6 @@ void UMainWeaponObject::NetMulticast_UseWeapon_Implementation()
     }
 }
 
-void UMainWeaponObject::OnRep_UseWeapon()
-{
-    //if(bUseWeapon)
-   // {
-       // UseWeapon();
-   // }
-   // else
-   // {
-      //  StopUseWeapon();
-   // }
-}
-
 void UMainWeaponObject::AdditionalUse()
 {
     bAdditionalUsed = true;  

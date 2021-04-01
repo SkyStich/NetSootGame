@@ -116,9 +116,6 @@ protected:
     /** return true if this authority */
     UFUNCTION()
     bool GetAuthority() const;
-    
-    UFUNCTION()
-    virtual void OnRep_UseWeapon();
 
     UFUNCTION()
     virtual void OnRep_Owner();
@@ -136,7 +133,7 @@ public:
 protected:
 
     /** true - if we use weapon naw */
-    UPROPERTY(ReplicatedUsing = OnRep_UseWeapon)
+    UPROPERTY(Replicated)
     bool bUseWeapon;
 
     UPROPERTY(Replicated)
@@ -147,6 +144,9 @@ protected:
     
     UPROPERTY(ReplicatedUsing = OnRep_Owner)
     ANetWorkShooterCharacter* CharacterOwner;
+
+    UPROPERTY()
+    UMaterialInterface* HoleMaterial;
 
 private:
 
