@@ -11,14 +11,13 @@
 #include "NetWorkShooterCharacter.generated.h"
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FControllerLeave, AController*, OldController);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FCrouchStart);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FCrouchEnd);
 
 UCLASS(config=Game)
 class ANetWorkShooterCharacter : public ACharacter
 {
 	GENERATED_BODY()
-
-//	void UseWeaponPressed();
-//	void UseWeaponReleased();
 
 	/** This function checked class weapon from optimisation net */
 	void ReloadPressed();
@@ -34,9 +33,24 @@ class ANetWorkShooterCharacter : public ACharacter
 	
 	UFUNCTION()
 	void WeaponSelected(bool NewState);
+	
+	void ChangeAngleWithMovementState(float const ProcentToBaseAngle);
+
+	UFUNCTION()
+	void CrouchPressed();
+
+	UFUNCTION()
+	void CrouchReleased();
+
+	UFUNCTION()
+	void CrouchCoolDawnRefresh();
+
 public:
 	
 	ANetWorkShooterCharacter();
+
+	UFUNCTION(BlueprintPure)
+	float GetRangeWeaponAngleMultiply() const { return MultiplyAngleToUseRangeWeapon; }
 
 	UFUNCTION(BlueprintCallable)
 	void StartUseStamina();
@@ -71,6 +85,11 @@ protected:
 	void TurnAtRate(float Rate);
 	void LookUpAtRate(float Rate);
 
+	/** Start crouch events */	
+	virtual void OnStartCrouch(float HalfHeightAdjust, float ScaledHalfHeightAdjust) override;
+	virtual void OnEndCrouch(float HalfHeightAdjust, float ScaledHalfHeightAdjust) override;
+	/** Stop crouch event */
+	
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 	virtual void BeginPlay() override;
 	virtual void OnConstruction(const FTransform& Transform) override;
@@ -94,6 +113,12 @@ public:
 	
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	UCameraComponent* CameraComponent;
+	
+	UPROPERTY(BlueprintAssignable)
+	FCrouchStart OnStartCrouchEvent;
+	
+	UPROPERTY(BlueprintAssignable)
+	FCrouchEnd OnEndCrouchEvent;
 
 private:
 
@@ -113,8 +138,16 @@ private:
 
 	UPROPERTY(EditAnywhere, Category = "Character|ThirdPersonMesh")
 	USkeletalMesh* ThirdPersonMesh;
-
+	
 	UPROPERTY(Replicated)
 	float LookUpYaw;
+
+	UPROPERTY(Replicated)
+	bool bCrouchInCoolDawn;
+
+	UPROPERTY(Replicated)
+	float MultiplyAngleToUseRangeWeapon;
+
+	FTimerHandle CrouchCoolDawnHandle;
 };
 
