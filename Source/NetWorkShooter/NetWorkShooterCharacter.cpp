@@ -31,6 +31,8 @@ ANetWorkShooterCharacter::ANetWorkShooterCharacter()
 	GetCharacterMovement()->RotationRate = FRotator(0.0f, 540.0f, 0.0f); // ...at this rotation rate
 	GetCharacterMovement()->JumpZVelocity = 600.f;
 	GetCharacterMovement()->AirControl = 0.2f;
+	
+	MultiplyAngleToUseRangeWeapon = 1.f;
 
 	CameraComponent = CreateDefaultSubobject<UCameraComponent>(TEXT("Camera"));
 	CameraComponent->SetupAttachment(GetCapsuleComponent());
@@ -54,7 +56,6 @@ void ANetWorkShooterCharacter::Tick(float DeltaTime)
 	{
 		if(Controller)
 			LookUpYaw = Controller->GetControlRotation().Vector().Rotation().Pitch;
-
 	}
 }
 
@@ -76,6 +77,76 @@ void ANetWorkShooterCharacter::BeginPlay()
 	else 
 	{
 		FirstPersonMesh->DestroyComponent();
+	}
+}
+
+void ANetWorkShooterCharacter::OnConstruction(const FTransform& Transform)
+{
+	Super::OnConstruction(Transform);
+
+	WeaponManagerComponent->OnCurrentWeaponChangedEvent.AddDynamic(this, &ANetWorkShooterCharacter::NewCurrentWeapon);
+}
+
+void ANetWorkShooterCharacter::GetLifetimeReplicatedProps(TArray< FLifetimeProperty > & OutLifetimeProps) const
+{
+	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
+	
+	DOREPLIFETIME(ANetWorkShooterCharacter, LookUpYaw);
+	DOREPLIFETIME(ANetWorkShooterCharacter, MultiplyAngleToUseRangeWeapon);
+	DOREPLIFETIME(ANetWorkShooterCharacter, bCrouchInCoolDawn);
+}
+
+void ANetWorkShooterCharacter::SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent)
+{
+	// Set up gameplay key bindings
+	check(PlayerInputComponent);
+	/** Bind on jump event */
+	PlayerInputComponent->BindAction("Jump", IE_Pressed, this, &ACharacter::Jump);
+	PlayerInputComponent->BindAction("Jump", IE_Released, this, &ACharacter::StopJumping);
+
+	/** Begin bind crouch */
+	PlayerInputComponent->BindAction("Crouch", IE_Pressed, this, &ANetWorkShooterCharacter::CrouchPressed);
+	PlayerInputComponent->BindAction("Crouch", IE_Released, this, &ANetWorkShooterCharacter::CrouchReleased);
+	/** Eng bind Crouch */
+
+	/** Bind on reload range weapon */
+	PlayerInputComponent->BindAction("Reload", IE_Pressed , this, &ANetWorkShooterCharacter::ReloadPressed);
+	
+	/** Bint on move event */
+	PlayerInputComponent->BindAxis("MoveForward", this, &ANetWorkShooterCharacter::MoveForward);
+	PlayerInputComponent->BindAxis("MoveRight", this, &ANetWorkShooterCharacter::MoveRight);
+
+	/** Bind on turn and move event */
+	PlayerInputComponent->BindAxis("Turn", this, &APawn::AddControllerYawInput);
+	PlayerInputComponent->BindAxis("TurnRate", this, &ANetWorkShooterCharacter::TurnAtRate);
+	PlayerInputComponent->BindAxis("LookUp", this, &APawn::AddControllerPitchInput);
+	PlayerInputComponent->BindAxis("LookUpRate", this, &ANetWorkShooterCharacter::LookUpAtRate);
+}
+
+void ANetWorkShooterCharacter::CrouchPressed()
+{
+	if(bCrouchInCoolDawn) return;
+	
+	if(GetCharacterMovement()->IsCrouching())
+	{
+		UnCrouch(false);
+	}
+	else
+	{
+		if(!GetCharacterMovement()->IsFalling())
+		{
+			Crouch(true);
+		}
+	}
+}
+
+void ANetWorkShooterCharacter::CrouchReleased()
+{
+	if(bCrouchInCoolDawn) return;
+	
+	if(GetCharacterMovement()->IsCrouching())
+	{
+		UnCrouch();
 	}
 }
 
@@ -103,49 +174,9 @@ void ANetWorkShooterCharacter::WeaponSelected(bool NewState)
 	}
 }
 
-void ANetWorkShooterCharacter::OnConstruction(const FTransform& Transform)
-{
-	Super::OnConstruction(Transform);
-
-	WeaponManagerComponent->OnCurrentWeaponChangedEvent.AddDynamic(this, &ANetWorkShooterCharacter::NewCurrentWeapon);
-}
-
 USkeletalMeshComponent* ANetWorkShooterCharacter::GetLocalMesh()
 {
 	return IsLocallyControlled() ? FirstPersonMesh : GetMesh();
-}
-
-void ANetWorkShooterCharacter::GetLifetimeReplicatedProps(TArray< FLifetimeProperty > & OutLifetimeProps) const
-{
-	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
-	
-	DOREPLIFETIME(ANetWorkShooterCharacter, LookUpYaw);
-}
-
-void ANetWorkShooterCharacter::SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent)
-{
-	// Set up gameplay key bindings
-	check(PlayerInputComponent);
-	/** Bind on jump event */
-	PlayerInputComponent->BindAction("Jump", IE_Pressed, this, &ACharacter::Jump);
-	PlayerInputComponent->BindAction("Jump", IE_Released, this, &ACharacter::StopJumping);
-
-	/** bind on use weapon event */
-	//PlayerInputComponent->BindAction("UseWeapon", IE_Pressed , this, &ANetWorkShooterCharacter::UseWeaponPressed);
-	//PlayerInputComponent->BindAction("UseWeapon", IE_Released , this, &ANetWorkShooterCharacter::UseWeaponReleased);
-
-	/** Bind on reload range weapon */
-	PlayerInputComponent->BindAction("Reload", IE_Pressed , this, &ANetWorkShooterCharacter::ReloadPressed);
-	
-	/** Bint on move event */
-	PlayerInputComponent->BindAxis("MoveForward", this, &ANetWorkShooterCharacter::MoveForward);
-	PlayerInputComponent->BindAxis("MoveRight", this, &ANetWorkShooterCharacter::MoveRight);
-
-	/** Bind on turn and move event */
-	PlayerInputComponent->BindAxis("Turn", this, &APawn::AddControllerYawInput);
-	PlayerInputComponent->BindAxis("TurnRate", this, &ANetWorkShooterCharacter::TurnAtRate);
-	PlayerInputComponent->BindAxis("LookUp", this, &APawn::AddControllerPitchInput);
-	PlayerInputComponent->BindAxis("LookUpRate", this, &ANetWorkShooterCharacter::LookUpAtRate);
 }
 
 void ANetWorkShooterCharacter::TurnAtRate(float Rate)
@@ -252,6 +283,54 @@ void ANetWorkShooterCharacter::Server_ChangeMovementSpeed_Implementation(float N
 {
 	GetCharacterMovement()->MaxWalkSpeed = NewSpeed;
 }
+
+void ANetWorkShooterCharacter::ChangeAngleWithMovementState(float const ProcentToBaseAngle)
+{
+	MultiplyAngleToUseRangeWeapon += ProcentToBaseAngle;
+}
+
+void ANetWorkShooterCharacter::OnStartCrouch(float HalfHeightAdjust, float ScaledHalfHeightAdjust)
+{
+	//if(!bCrouchInCoolDawn)
+	//{
+		if(!GetCharacterMovement()->IsFalling())
+		{
+			Super::OnStartCrouch(HalfHeightAdjust, ScaledHalfHeightAdjust);
+
+			if(GetLocalRole() == ROLE_Authority)
+			{
+				ChangeAngleWithMovementState(-0.25f);
+				bCrouchInCoolDawn = true;
+				GetWorld()->GetTimerManager().SetTimer(CrouchCoolDawnHandle, this, &ANetWorkShooterCharacter::CrouchCoolDawnRefresh, 1.f, false);
+			}
+			OnStartCrouchEvent.Broadcast();
+		}
+	//}
+}
+
+void ANetWorkShooterCharacter::OnEndCrouch(float HalfHeightAdjust, float ScaledHalfHeightAdjust)
+{
+	//if(!bCrouchInCoolDawn)
+	//{
+		Super::OnEndCrouch(HalfHeightAdjust, ScaledHalfHeightAdjust);
+        
+		if(GetLocalRole() == ROLE_Authority)
+		{
+			ChangeAngleWithMovementState(0.25f);
+			bCrouchInCoolDawn = true;
+			GetWorld()->GetTimerManager().SetTimer(CrouchCoolDawnHandle, this, &ANetWorkShooterCharacter::CrouchCoolDawnRefresh, 1.f, false);
+		}
+		OnEndCrouchEvent.Broadcast();
+	//}
+}
+
+void ANetWorkShooterCharacter::CrouchCoolDawnRefresh()
+{
+	bCrouchInCoolDawn = false;
+	GetWorld()->GetTimerManager().ClearTimer(CrouchCoolDawnHandle);
+}
+
+
 
 
 
