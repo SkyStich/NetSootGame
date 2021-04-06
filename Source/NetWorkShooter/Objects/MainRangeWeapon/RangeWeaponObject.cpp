@@ -5,12 +5,17 @@
 #include "Net/UnrealNetwork.h"
 #include "NetWorkShooter/NetWorkShooterCharacter.h"
 #include "Kismet/GameplayStatics.h"
+#include "UObject/ConstructorHelpers.h"
 #include "DrawDebugHelpers.h"
+#include "Engine/DecalActor.h"
 #include "Kismet/KismetMathLibrary.h"
 
 URangeWeaponObject::URangeWeaponObject()
 {
-    CurrentSpread = 0.f;
+    CurrentSpread = RangeWeaponData.MaxSpread * 0.2f;
+    ConstructorHelpers::FObjectFinder<UMaterialInterface>HoleMaterialHelpers(TEXT("/Game/ThirdPersonCPP/Assets/Image/Weapons/FireHoles/M_FireHole"));
+    if(HoleMaterialHelpers.Succeeded()) HoleMaterial = HoleMaterialHelpers.Object;
+        
 }
 
 void URangeWeaponObject::Init(UDataTable* WeaponData, TCHAR* ContextString)
@@ -63,21 +68,20 @@ void URangeWeaponObject::OnRep_Owner()
 
 bool URangeWeaponObject::UseWeapon()
 {
-    if(Super::UseWeapon())
+    if(!Super::UseWeapon()) return false;
+    
+    if(!IsOtherPlayer())
     {
-        if(!IsOtherPlayer())
-        {
-            bUseWeapon = true;
-            CurrentAmmoInClip--;
-        }
+        bUseWeapon = true;
+        CurrentAmmoInClip--;
+    }
 
-        FHitResult OutHit;
-        DropLineTrace(OutHit);
+    FHitResult OutHit;
+    DropLineTrace(OutHit);
         
-        if(GetAuthority())
-        {
-            ApplyDamageByTrace(OutHit);
-        }
+    if(GetAuthority())
+    {
+        ApplyDamageByTrace(OutHit);
     }
     return true;
 }
@@ -110,12 +114,13 @@ FVector URangeWeaponObject::GetShootDirection()
     RotateAroundVector.Z *= -1;
     
     CurrentSpread += RangeWeaponData.MaxSpread / RangeWeaponData.MaxAmmoInWeapon;
+    float const TempSpread = CurrentSpread * CharacterOwner->GetRangeWeaponAngleMultiply();
 
     /** Rotate trace with horizontal */
-    FVector const HorizontalRotate = RotateAroundVector.RotateAngleAxis(UKismetMathLibrary::RandomFloatInRangeFromStream(CurrentSpread * -1, CurrentSpread, RangeWeaponData.FireRandomStream), FRotationMatrix(RotateAroundVector.Rotation()).GetScaledAxis(EAxis::Y));
+    FVector const HorizontalRotate = RotateAroundVector.RotateAngleAxis(UKismetMathLibrary::RandomFloatInRangeFromStream(TempSpread * -1, TempSpread, RangeWeaponData.FireRandomStream), FRotationMatrix(RotateAroundVector.Rotation()).GetScaledAxis(EAxis::Y));
 
     /** reottae trace with use up vector */
-    FVector const VerticalRotate = HorizontalRotate.RotateAngleAxis(UKismetMathLibrary::RandomFloatInRangeFromStream(CurrentSpread * -1, CurrentSpread, RangeWeaponData.FireRandomStream), FRotationMatrix(RotateAroundVector.Rotation()).GetScaledAxis(EAxis::Z));
+    FVector const VerticalRotate = HorizontalRotate.RotateAngleAxis(UKismetMathLibrary::RandomFloatInRangeFromStream(TempSpread * -1, TempSpread, RangeWeaponData.FireRandomStream), FRotationMatrix(RotateAroundVector.Rotation()).GetScaledAxis(EAxis::Z));
 
     return VerticalRotate;
 }
@@ -137,11 +142,38 @@ void URangeWeaponObject::DropLineTrace(FHitResult& OutHit)
     CollisionObjectQueryParams.AddObjectTypesToQuery(ECC_WorldStatic);
 
     /** Drop line trace end call multicast rpc function */
-    GetWorld()->LineTraceSingleByObjectType(OutHit, TraceStart, TraceEnd, CollisionObjectQueryParams, Params);
-   // GetTraceInfoDebugger(TraceStart, OutHit.TraceEnd, OutHit.Location);
+    bool const IsSucceeded = GetWorld()->LineTraceSingleByObjectType(OutHit, TraceStart, TraceEnd, CollisionObjectQueryParams, Params);
 
-    DrawDebugLine(GetWorld(), TraceStart, TraceEnd, FColor::Purple, false, 1.f);
-    DrawDebugSphere(GetWorld(), OutHit.Location, 3.f, 8, FColor::Purple, false, 1.f);
+    /** Only test */
+    FColor TempColor = GetAuthority() ? FColor::Blue : FColor::Orange;
+    DrawDebugLine(GetWorld(), TraceStart, TraceEnd, TempColor, false, 1.f);
+    DrawDebugSphere(GetWorld(), OutHit.Location, 3.f, 8, TempColor, false, 1.f);
+
+    /** Spawn a bullet mark for client */
+    if(GetAuthority() && !IsSucceeded) return;
+    
+    if(HoleMaterial)
+    {
+        FActorSpawnParameters SpawnParam;
+        SpawnParam.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
+
+        FRotator const Rotate = (OutHit.Normal * -1.f).Rotation();
+        FTransform Transform(FQuat(Rotate), OutHit.Location, FVector(0.032f));
+        
+        auto const SpawnMark = GetWorld()->SpawnActor<ADecalActor>(ADecalActor::StaticClass(), Transform, SpawnParam);
+        if(SpawnMark)
+        {
+            DrawDebugDirectionalArrow(GetWorld(), OutHit.Location, Rotate.Vector() * 30.f + OutHit.Location, 6.f, FColor::Red, false, 5.f);
+            SpawnMark->SetReplicates(false);
+            SpawnMark->SetLifeSpan(8.f);
+            SpawnMark->SetActorRotation(Rotate);
+            SpawnMark->SetDecalMaterial(HoleMaterial);
+        }
+    }
+    else
+    {
+        UE_LOG(LogTemp, Warning, TEXT("Hole material instance is not valid!"), *GetName());
+    }
 }
 
 void URangeWeaponObject::ApplyDamageByTrace(const FHitResult& HitResult)
@@ -152,13 +184,6 @@ void URangeWeaponObject::ApplyDamageByTrace(const FHitResult& HitResult)
     /** Find Direction Unit Vector */
     FVector const UnitVector = UKismetMathLibrary::GetDirectionUnitVector(HitResult.TraceEnd, HitResult.TraceStart);
     UGameplayStatics::ApplyPointDamage(HitResult.GetActor(), NewDamage, UnitVector, HitResult, CharacterOwner->GetController(),CharacterOwner, UDamageType::StaticClass());
-}
-
-
-void URangeWeaponObject::GetTraceInfoDebugger_Implementation(FVector Start, FVector End, FVector Center)
-{
-    DrawDebugLine(GetWorld(), Start, End, FColor::Purple, false, 1.f);
-    DrawDebugSphere(GetWorld(), Center, 6.f, 8, FColor::Purple, false, 1.f);
 }
 
 void URangeWeaponObject::OwnerDead(AController* OldController)
