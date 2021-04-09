@@ -134,6 +134,9 @@ protected:
     
     UFUNCTION(BlueprintCallable, Category = "Weapon|UseWeapon")
     virtual bool UseWeapon();
+    
+    UFUNCTION(BlueprintPure, Category = "Weapon|Owner")
+    ANetWorkShooterCharacter* GetWeaponOwner() const { return CharacterOwner; }
 
     FORCEINLINE bool IsOtherPlayer() const;
 

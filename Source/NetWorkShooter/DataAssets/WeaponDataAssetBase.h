@@ -87,6 +87,9 @@ struct FRangeWeaponData : public FBaseWeaponData
 	float MaxSpread;
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = DataAsset)
+	float RecoilValue;	
+	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = DataAsset)
 	bool CanAutoFire;
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = DataAsset)

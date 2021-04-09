@@ -24,16 +24,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4e895809-3b0e-414a-9fb7-267441527844" name="Default Changelist" comment="Change system command">
+      <change afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/Blueprints/Objects/Weapons/AK47Object.uasset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.NetWorkShooter/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.NetWorkShooter/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Content/ThirdPersonCPP/Blueprints/DataTable/RangeData.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/Blueprints/DataTable/RangeData.uasset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Content/ThirdPersonCPP/Blueprints/ThirdPersonCharacter.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/Blueprints/ThirdPersonCharacter.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/ThirdPersonCPP/CharacterAnimation/AnimBP/FirstPerson_AnimBP.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/CharacterAnimation/AnimBP/FirstPerson_AnimBP.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/ThirdPersonCPP/UI/Match/HUD/LastWidget/W_HUD_MainCommandMode.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/UI/Match/HUD/LastWidget/W_HUD_MainCommandMode.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/NetWorkShooter/NetWorkShooterCharacter.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/NetWorkShooter/NetWorkShooterCharacter.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/NetWorkShooter/NetWorkShooterCharacter.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/NetWorkShooter/NetWorkShooterCharacter.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/NetWorkShooter/DataAssets/WeaponDataAssetBase.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/NetWorkShooter/DataAssets/WeaponDataAssetBase.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/NetWorkShooter/Objects/MainRangeWeapon/RangeWeaponObject.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/NetWorkShooter/Objects/MainRangeWeapon/RangeWeaponObject.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/NetWorkShooter/Objects/MainRangeWeapon/RangeWeaponObject.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/NetWorkShooter/Objects/MainRangeWeapon/RangeWeaponObject.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/NetWorkShooter/Objects/WeaponObject/MainWeaponObject.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/NetWorkShooter/Objects/WeaponObject/MainWeaponObject.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/NetWorkShooter/Objects/WeaponObject/MainWeaponObject.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/NetWorkShooter/Objects/WeaponObject/MainWeaponObject.h" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -139,13 +135,13 @@
       <option value="$PROJECT_DIR$/Source/NetWorkShooter/Components/StaminaComponent.cpp" />
       <option value="$PROJECT_DIR$/Source/NetWorkShooter/Objects/MainRangeWeapon/BaseShotgunObject.h" />
       <option value="$PROJECT_DIR$/Source/NetWorkShooter/Objects/MainRangeWeapon/BaseShotgunObject.cpp" />
-      <option value="$PROJECT_DIR$/Source/NetWorkShooter/DataAssets/WeaponDataAssetBase.h" />
       <option value="$PROJECT_DIR$/Source/NetWorkShooter/Components/WeaponManagerComponent.h" />
       <option value="$PROJECT_DIR$/Source/NetWorkShooter/NetWorkShooterCharacter.h" />
       <option value="$PROJECT_DIR$/Source/NetWorkShooter/Objects/WeaponObject/MainWeaponObject.cpp" />
-      <option value="$PROJECT_DIR$/Source/NetWorkShooter/Objects/WeaponObject/MainWeaponObject.h" />
       <option value="$PROJECT_DIR$/Source/NetWorkShooter/NetWorkShooterCharacter.cpp" />
       <option value="$PROJECT_DIR$/Source/NetWorkShooter/Objects/MainRangeWeapon/RangeWeaponObject.h" />
+      <option value="$PROJECT_DIR$/Source/NetWorkShooter/Objects/WeaponObject/MainWeaponObject.h" />
+      <option value="$PROJECT_DIR$/Source/NetWorkShooter/DataAssets/WeaponDataAssetBase.h" />
       <option value="$PROJECT_DIR$/Source/NetWorkShooter/Objects/MainRangeWeapon/RangeWeaponObject.cpp" />
     </changedPaths>
   </component>
@@ -639,6 +635,8 @@
       <workItem from="1617888642596" duration="4764000" />
       <workItem from="1617898298501" duration="352000" />
       <workItem from="1617898860319" duration="4772000" />
+      <workItem from="1617967425466" duration="3510000" />
+      <workItem from="1617976711790" duration="5194000" />
     </task>
     <task id="LOCAL-00001" summary="init override function SpawnPlayer">
       <created>1610844415255</created>

@@ -69,6 +69,13 @@ void URangeWeaponObject::OnRep_Owner()
 bool URangeWeaponObject::UseWeapon()
 {
     if(!Super::UseWeapon()) return false;
+
+    static int32 TempUseCount = NULL;
+    
+    if(!bUseWeapon)
+    {
+        TempUseCount = NULL;
+    }
     
     if(!IsOtherPlayer())
     {
@@ -88,8 +95,16 @@ bool URangeWeaponObject::UseWeapon()
 
     if(bAdditionalUsed)
     {
-        AddRecoil();
+        TempUseCount++;
+        if(TempUseCount >= RangeWeaponData.MaxAmmoInWeapon / 1.8)
+        {
+            CharacterOwner->AddControllerPitchInput(RangeWeaponData.RecoilValue * -1 * 0.15);
+            CharacterOwner->AddControllerYawInput(RangeWeaponData.RecoilValue * UKismetMathLibrary::RandomIntegerInRangeFromStream(-1, 1, RangeWeaponData.FireRandomStream) * 0.75);
+            return true;
+        }
+        CharacterOwner->AddControllerPitchInput(RangeWeaponData.RecoilValue * -1);
     }
+    
     return true;
 }
 
@@ -99,10 +114,10 @@ void URangeWeaponObject::StopUseWeapon()
 
     if(CurrentSpread <= 0) return;
     
-    float const Value = CurrentSpread * 0.05f;
+    float const Value = CurrentSpread * 0.1f;
     FTimerDelegate TimerDel;
     TimerDel.BindUObject(this, &URangeWeaponObject::ReduceSpread, Value);
-    GetWorld()->GetTimerManager().SetTimer(ClearSpreadHandle, TimerDel, 0.1f, true, 1.5f);
+    GetWorld()->GetTimerManager().SetTimer(ClearSpreadHandle, TimerDel, 0.1f, true, 1.25f);
 }
 
 void URangeWeaponObject::ReduceSpread(float Value)
