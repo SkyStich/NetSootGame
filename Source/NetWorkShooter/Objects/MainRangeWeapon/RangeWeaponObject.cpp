@@ -78,10 +78,17 @@ bool URangeWeaponObject::UseWeapon()
 
     FHitResult OutHit;
     DropLineTrace(OutHit);
+
+    GetWorld()->GetTimerManager().ClearTimer(ClearSpreadHandle);
         
     if(GetAuthority())
     {
         ApplyDamageByTrace(OutHit);
+    }
+
+    if(bAdditionalUsed)
+    {
+        AddRecoil();
     }
     return true;
 }
@@ -90,7 +97,22 @@ void URangeWeaponObject::StopUseWeapon()
 {
     Super::StopUseWeapon();
 
-    CurrentSpread = 0.f;
+    if(CurrentSpread <= 0) return;
+    
+    float const Value = CurrentSpread * 0.05f;
+    FTimerDelegate TimerDel;
+    TimerDel.BindUObject(this, &URangeWeaponObject::ReduceSpread, Value);
+    GetWorld()->GetTimerManager().SetTimer(ClearSpreadHandle, TimerDel, 0.1f, true, 1.5f);
+}
+
+void URangeWeaponObject::ReduceSpread(float Value)
+{
+    CurrentSpread -= Value;
+    if(CurrentSpread <= 0)
+    {
+        GetWorld()->GetTimerManager().ClearTimer(ClearSpreadHandle);
+        CurrentSpread = 0;
+    }
 }
 
 bool URangeWeaponObject::IsAbleToUseWeapon()
@@ -114,7 +136,7 @@ FVector URangeWeaponObject::GetShootDirection()
     RotateAroundVector.Z *= -1;
     
     CurrentSpread += RangeWeaponData.MaxSpread / RangeWeaponData.MaxAmmoInWeapon;
-    float const TempSpread = CurrentSpread * CharacterOwner->GetRangeWeaponAngleMultiply();
+    float const TempSpread = bAdditionalUsed ? 0 : CurrentSpread * CharacterOwner->GetRangeWeaponAngleMultiply();
 
     /** Rotate trace with horizontal */
     FVector const HorizontalRotate = RotateAroundVector.RotateAngleAxis(UKismetMathLibrary::RandomFloatInRangeFromStream(TempSpread * -1, TempSpread, RangeWeaponData.FireRandomStream), FRotationMatrix(RotateAroundVector.Rotation()).GetScaledAxis(EAxis::Y));
@@ -262,4 +284,9 @@ void URangeWeaponObject::ReloadFinish()
 FString URangeWeaponObject::GetAmmoStats()
 {
     return FString::FromInt(CurrentAmmoInClip) + " / " + FString::FromInt(CurrentAmmoInStorage);
+}
+
+bool URangeWeaponObject::IsAbleToAdditionalUse()
+{
+    return Super::IsAbleToAdditionalUse() && !bReloading;
 }

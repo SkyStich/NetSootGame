@@ -45,6 +45,15 @@ class ANetWorkShooterCharacter : public ACharacter
 	UFUNCTION()
 	void CrouchCoolDawnRefresh();
 
+	UFUNCTION()
+	void OnStaminaUse(bool NewState);
+
+	UFUNCTION(Server, Unreliable)
+	void StartWeaponAdditional();
+
+	UFUNCTION(Server, Unreliable)
+	void FinishWeaponAdditional();
+
 public:
 	
 	ANetWorkShooterCharacter();
@@ -75,6 +84,12 @@ public:
 	
 	UFUNCTION(BlueprintPure, Category = "Charcater|States")
 	float GetLookUpYaw() const { return LookUpYaw; }
+
+	UFUNCTION(BlueprintCallable)
+	void PressedWeaponAdditional();
+
+	UFUNCTION(BlueprintCallable)
+	void ReleasedUseWeaponAdditional();
 
 	virtual void GetLifetimeReplicatedProps(TArray< FLifetimeProperty > & OutLifetimeProps) const override;
 

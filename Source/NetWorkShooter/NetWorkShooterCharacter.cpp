@@ -65,6 +65,7 @@ void ANetWorkShooterCharacter::BeginPlay()
 
 	HealthComponent->HealthEndedEvent.AddDynamic(this, &ANetWorkShooterCharacter::CharacterDead);
 	StaminaComponent->OnStaminaEndedEvent.AddDynamic(this, &ANetWorkShooterCharacter::StopUseStamina);
+	StaminaComponent->OnStaminaUsedEvent.AddDynamic(this, &ANetWorkShooterCharacter::ANetWorkShooterCharacter::OnStaminaUse);
 	
 	WeaponManagerComponent->OnSelectWeaponEvent.AddDynamic(this, &ANetWorkShooterCharacter::WeaponSelected);
 		
@@ -172,6 +173,11 @@ void ANetWorkShooterCharacter::WeaponSelected(bool NewState)
 			StopUseStamina();
 		}
 	}
+}
+
+void ANetWorkShooterCharacter::OnStaminaUse(bool NewState)
+{
+	ReleasedUseWeaponAdditional();
 }
 
 USkeletalMeshComponent* ANetWorkShooterCharacter::GetLocalMesh()
@@ -287,6 +293,7 @@ void ANetWorkShooterCharacter::Server_ChangeMovementSpeed_Implementation(float N
 void ANetWorkShooterCharacter::ChangeAngleWithMovementState(float const ProcentToBaseAngle)
 {
 	MultiplyAngleToUseRangeWeapon += ProcentToBaseAngle;
+	if(MultiplyAngleToUseRangeWeapon <= 0) MultiplyAngleToUseRangeWeapon = 0;
 }
 
 void ANetWorkShooterCharacter::OnStartCrouch(float HalfHeightAdjust, float ScaledHalfHeightAdjust)
@@ -299,7 +306,7 @@ void ANetWorkShooterCharacter::OnStartCrouch(float HalfHeightAdjust, float Scale
 
 			if(GetLocalRole() == ROLE_Authority)
 			{
-				ChangeAngleWithMovementState(-0.25f);
+				ChangeAngleWithMovementState(-0.15f);
 				bCrouchInCoolDawn = true;
 				GetWorld()->GetTimerManager().SetTimer(CrouchCoolDawnHandle, this, &ANetWorkShooterCharacter::CrouchCoolDawnRefresh, 1.f, false);
 			}
@@ -316,7 +323,7 @@ void ANetWorkShooterCharacter::OnEndCrouch(float HalfHeightAdjust, float ScaledH
         
 		if(GetLocalRole() == ROLE_Authority)
 		{
-			ChangeAngleWithMovementState(0.25f);
+			ChangeAngleWithMovementState(0.15f);
 			bCrouchInCoolDawn = true;
 			GetWorld()->GetTimerManager().SetTimer(CrouchCoolDawnHandle, this, &ANetWorkShooterCharacter::CrouchCoolDawnRefresh, 1.f, false);
 		}
@@ -330,6 +337,41 @@ void ANetWorkShooterCharacter::CrouchCoolDawnRefresh()
 	GetWorld()->GetTimerManager().ClearTimer(CrouchCoolDawnHandle);
 }
 
+void ANetWorkShooterCharacter::StartWeaponAdditional_Implementation()
+{
+	if(WeaponManagerComponent->GetCurrentWeapon()->IsAbleToAdditionalUse())
+	{
+		WeaponManagerComponent->GetCurrentWeapon()->AdditionalUse();
+	}
+}
+
+void ANetWorkShooterCharacter::FinishWeaponAdditional_Implementation()
+{
+	if(WeaponManagerComponent->GetCurrentWeapon()->GetAdditionalUsed())
+	{
+		WeaponManagerComponent->GetCurrentWeapon()->StopAdditionUse();
+	}
+}
+
+void ANetWorkShooterCharacter::PressedWeaponAdditional()
+{
+	if(WeaponManagerComponent->GetCurrentWeapon()->IsAbleToAdditionalUse() && !StaminaComponent->GetIsStaminaUsed())
+	{
+		WeaponManagerComponent->GetCurrentWeapon()->AdditionalUse();
+		StartWeaponAdditional();
+		CameraComponent->FieldOfView = 55.f;
+	}
+}
+
+void ANetWorkShooterCharacter::ReleasedUseWeaponAdditional()
+{
+	if(WeaponManagerComponent->GetCurrentWeapon()->GetAdditionalUsed())
+	{
+		WeaponManagerComponent->GetCurrentWeapon()->StopAdditionUse();
+		FinishWeaponAdditional();
+		CameraComponent->FieldOfView = 80.f;
+	}
+}
 
 
 

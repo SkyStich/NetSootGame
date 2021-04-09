@@ -9,6 +9,7 @@
 
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FWeaponUsed, UMainWeaponObject*, Weapon);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FAdditionUsed, bool, bNewAdditionalState);
 
 class ANetWorkShooterCharacter;
 struct FRangeWeaponData;
@@ -30,6 +31,9 @@ class NETWORKSHOOTER_API UMainWeaponObject : public UObject
     UFUNCTION(NetMulticast, Unreliable)
     void NetMulticast_StopUseWeapon();
 
+    UFUNCTION()
+    void OnRep_AdditionalUsed();
+
 public:
     
     UMainWeaponObject();
@@ -46,7 +50,12 @@ public:
     
     /** Set current weapon name */
     void SetWeaponName(FName const NewName) { WeaponName = NewName; }
+    
     virtual void SetCharacterOwner(ANetWorkShooterCharacter* NewOwner);
+    virtual bool IsAbleToAdditionalUse() {return true; }
+
+    UFUNCTION(BlueprintPure, Category = "Weapon|Additional")
+    bool GetAdditionalUsed() const { return bAdditionalUsed; }
 
     UFUNCTION(BlueprintCallable)
     void Client_UseWeapon();
@@ -90,6 +99,12 @@ public:
     /** Create custom begin play */
     UFUNCTION()
     virtual void BeginPlay();
+
+    UFUNCTION()
+    virtual void AdditionalUse();
+
+    UFUNCTION()
+    virtual void StopAdditionUse();
     
     UFUNCTION(BlueprintPure)
     virtual FString GetAmmoStats() { return ""; }
@@ -109,9 +124,6 @@ protected:
 
     UFUNCTION()
     virtual void WeaponSelecting(bool bNewState) {}
-
-    UFUNCTION()
-    virtual void AdditionalUse();
     
     /** return true if this authority */
     UFUNCTION()
@@ -129,6 +141,9 @@ public:
 
     UPROPERTY(BlueprintAssignable)
     FWeaponUsed OnWeaponUsedEvent;
+
+    UPROPERTY(BlueprintAssignable)
+    FAdditionUsed OnAdditionalUsedEvent;
     
 protected:
 
@@ -136,7 +151,7 @@ protected:
     UPROPERTY(Replicated)
     bool bUseWeapon;
 
-    UPROPERTY(Replicated)
+    UPROPERTY(ReplicatedUsing = OnRep_AdditionalUsed)
     bool bAdditionalUsed;
 
     /** Timer use for delay before use weapon */

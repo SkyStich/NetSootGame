@@ -46,6 +46,7 @@ void UMainWeaponObject::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& Ou
     
     DOREPLIFETIME_CONDITION(UMainWeaponObject, WeaponName, COND_OwnerOnly);
     DOREPLIFETIME_CONDITION(UMainWeaponObject, bUseWeapon, COND_SkipOwner);
+    DOREPLIFETIME(UMainWeaponObject, bAdditionalUsed);
 }
 
 void UMainWeaponObject::PostInitProperties()
@@ -162,9 +163,23 @@ void UMainWeaponObject::NetMulticast_UseWeapon_Implementation()
     }
 }
 
-void UMainWeaponObject::AdditionalUse()
+void UMainWeaponObject::OnRep_AdditionalUsed()
 {
-    bAdditionalUsed = true;  
+    OnAdditionalUsedEvent.Broadcast(bAdditionalUsed);
 }
 
+void UMainWeaponObject::AdditionalUse()
+{
+    if(IsAbleToAdditionalUse())
+    {
+        bAdditionalUsed = true;  
+        OnRep_AdditionalUsed();
+    }
+}
+
+void UMainWeaponObject::StopAdditionUse()
+{
+    bAdditionalUsed = false;
+    OnRep_AdditionalUsed();
+}
 

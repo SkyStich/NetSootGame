@@ -24,6 +24,7 @@ class NETWORKSHOOTER_API URangeWeaponObject : public UMainWeaponObject
 	void ClearReload(bool const Clear);
 
 	void ApplyDamageByTrace(const FHitResult& HitResult);
+	void ReduceSpread(float Value);
 
 public:
 
@@ -37,6 +38,9 @@ public:
 	
 	UFUNCTION(BlueprintPure, Category = "Weapon|Getting")
 	FORCEINLINE int32 GetCurrentAmmoInWeapon() const { return CurrentAmmoInClip; }
+	
+	UFUNCTION(BlueprintPure)
+	FORCEINLINE float GetCurrentSpread() const { return CurrentSpread; }
 
 	/** Call in client if him want reload */
 	UFUNCTION(BlueprintCallable)
@@ -57,18 +61,14 @@ public:
 	virtual USoundCue* GetUseWeaponSound() const override { return RangeWeaponData.UseWeaponCue; }
 	
 	virtual void Init(UDataTable* WeaponData, TCHAR* ContextString) override;
-
 	virtual FString GetAmmoStats() override;
+	virtual bool IsAbleToAdditionalUse() override;
 
 protected:
 
 	virtual bool IsAbleToUseWeapon() override;
 	virtual void StopRateDelay() override;
 	virtual bool IsAbleReload();
-
-	UFUNCTION()
-	virtual void OnRep_Reloading();
-	
     virtual void DropLineTrace(FHitResult& OutHit);
 	virtual void OwnerDead(AController* OldController) override;
 	virtual void OnRep_Owner() override;
@@ -81,6 +81,12 @@ protected:
 	virtual void ReloadFinish();
 	
 	FVector GetShootDirection();
+
+	UFUNCTION()
+    virtual void OnRep_Reloading();
+
+	UFUNCTION(BlueprintImplementableEvent, Category = "RangeWeapon|Additional")
+	void AddRecoil();
 
 public:
 
@@ -102,6 +108,9 @@ private:
 
 	UPROPERTY()
 	FTimerHandle ReloadHandle;
+
+	UPROPERTY()
+	FTimerHandle ClearSpreadHandle;
 
 	UPROPERTY(Replicated)
 	FRangeWeaponData RangeWeaponData;
