@@ -24,9 +24,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4e895809-3b0e-414a-9fb7-267441527844" name="Default Changelist" comment="Change system command">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.NetWorkShooter/.idea/contentModel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.NetWorkShooter/.idea/contentModel.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.NetWorkShooter/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.NetWorkShooter/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/ThirdPersonCPP/Blueprints/DataAssets/WIdgetAssets/EveryManForHimselfWidgetData.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/Blueprints/DataAssets/WIdgetAssets/EveryManForHimselfWidgetData.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/ThirdPersonCPP/Maps/ThirdPersonExampleMap.umap" beforeDir="false" afterPath="$PROJECT_DIR$/Content/ThirdPersonCPP/Maps/ThirdPersonExampleMap.umap" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/NetWorkShooter/NetWorkShooter.Build.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Source/NetWorkShooter/NetWorkShooter.Build.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -88,13 +88,6 @@
   </component>
   <component name="IdeDocumentHistory">
     <changedPaths>
-      <option value="$PROJECT_DIR$/Source/NetWorkShooter/GameStates/CommandGameState.h" />
-      <option value="$PROJECT_DIR$/Source/NetWorkShooter/GameStates/CommandGameState.cpp" />
-      <option value="$PROJECT_DIR$/Source/NetWorkShooter/PlayerState/CommandPlayerState.h" />
-      <option value="$PROJECT_DIR$/Source/NetWorkShooter/PlayerState/CommandPlayerState.cpp" />
-      <option value="$PROJECT_DIR$/Source/NetWorkShooter/Components/ChatComponent.h" />
-      <option value="$PROJECT_DIR$/Source/NetWorkShooter/DataAssets/WidgetsDataAsset.h" />
-      <option value="$PROJECT_DIR$/Source/NetWorkShooter/HUD/BaseHUD/BaseHUD.cpp" />
       <option value="$PROJECT_DIR$/Source/NetWorkShooter/HUD/BaseHUD/BaseHUD.h" />
       <option value="$PROJECT_DIR$/Source/NetWorkShooter/Controllers/PlayerControllers/MainPlayerController.h" />
       <option value="$PROJECT_DIR$/Source/NetWorkShooter/PlayerStart/PlayerStartBase.h" />
@@ -139,6 +132,13 @@
       <option value="$PROJECT_DIR$/Source/NetWorkShooter/Objects/WeaponObject/MainWeaponObject.h" />
       <option value="$PROJECT_DIR$/Source/NetWorkShooter/DataAssets/WeaponDataAssetBase.h" />
       <option value="$PROJECT_DIR$/Source/NetWorkShooter/Objects/MainRangeWeapon/RangeWeaponObject.cpp" />
+      <option value="$PROJECT_DIR$/Source/NetWorkShooter/Structs/AccountInfo.cpp" />
+      <option value="$PROJECT_DIR$/Source/NetWorkShooter/Structs/AccountInfo.h" />
+      <option value="$PROJECT_DIR$/Source/NetWorkShooter/Objects/Web/WebRequestBase.h" />
+      <option value="$PROJECT_DIR$/Source/NetWorkShooter/Objects/Web/WebRequestBase.cpp" />
+      <option value="$PROJECT_DIR$/Source/NetWorkShooter/NetWorkShooter.Build.cs" />
+      <option value="$PROJECT_DIR$/Source/NetWorkShooter/Objects/Web/WebRequest.cpp" />
+      <option value="$PROJECT_DIR$/Source/NetWorkShooter/Objects/Web/WebRequest.h" />
     </changedPaths>
   </component>
   <component name="ProjectId" id="1mU45q9rLP6Qu9cx4YAzOsfUBVp" />
@@ -635,7 +635,11 @@
       <workItem from="1617976711790" duration="5194000" />
       <workItem from="1618242191728" duration="333000" />
       <workItem from="1618299905610" duration="17000" />
-      <workItem from="1618301498486" duration="411000" />
+      <workItem from="1618301498486" duration="15054000" />
+      <workItem from="1618327132813" duration="152000" />
+      <workItem from="1618329738796" duration="3299000" />
+      <workItem from="1618358484341" duration="3393000" />
+      <workItem from="1618408841186" duration="1932000" />
     </task>
     <task id="LOCAL-00001" summary="init override function SpawnPlayer">
       <created>1610844415255</created>

@@ -48937,6 +48937,12 @@
               <e p="MainWeaponObject.cpp" t="Include" />
               <e p="MainWeaponObject.h" t="Include" />
             </e>
+            <e p="Web" t="Include">
+              <e p="WebRequest.cpp" t="Include" />
+              <e p="WebRequest.h" t="Include" />
+              <e p="WebRequestBase.cpp" t="Include" />
+              <e p="WebRequestBase.h" t="Include" />
+            </e>
           </e>
           <e p="PlayerStart" t="Include">
             <e p="PlayerStartBase.cpp" t="Include" />
@@ -48957,6 +48963,10 @@
             <e p="MainSpectatorPawn.h" t="Include" />
             <e p="MoveSpectatorToKiller.cpp" t="Include" />
             <e p="MoveSpectatorToKiller.h" t="Include" />
+          </e>
+          <e p="Structs" t="Include">
+            <e p="AccountInfo.cpp" t="Include" />
+            <e p="AccountInfo.h" t="Include" />
           </e>
         </e>
         <e p="NetWorkShooter.Target.cs" t="Include" />
